@@ -8,7 +8,7 @@ git init
 git add README.md
 git commit -m "first commit"
 git config --global user.email "mh70@mh70.cz"
-git config --global user.name "mh70"
+git config --global user.name "mh70cz" # mh70 atlassian mh70cz github
 git commit -m "first commit"
 git remote add origin https://github.com/mh70cz/mypy.git
 ```

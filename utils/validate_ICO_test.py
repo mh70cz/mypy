@@ -34,7 +34,7 @@ class TestICO(unittest.TestCase):
             self.assertIsNone(validate(ico), ico)
 
     def test_wrong_data_type(self):
-        list_wrong_data_type_ico = [True, False, None, (12345678, 87654321)]
+        list_wrong_data_type_ico = [True, False, None, "NaN", (12345678, 87654321)]
         for ico in list_wrong_data_type_ico:
             self.assertIsNone(validate(ico), ico)
 

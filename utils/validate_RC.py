@@ -36,7 +36,9 @@ def check_date(rc):
     year = int(rc[:2])
     if len(rc) == 9:
         year += 1900
-    else:
+    elif year > 54:
+        year += 1900
+    else:        
         year += 2000
     month = int(rc[2:4])
 

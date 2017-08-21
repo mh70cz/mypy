@@ -102,15 +102,3 @@ def generate_exceptional_rc(n=1):
             list_exc_rc.append(year + month + day + serialn + "0")
             if len(list_exc_rc) == n:
                 return list_exc_rc
-
-
-"""
-list_rc = ["7003150044", "700315/0044", 7003150044]
-
-for rc in list_rc:
-    print("{0} is valid: {1}".format(rc, validate(rc)))
-
-# lst_exc_rc = []
-lst_exc_rc = generate_exceptional_rc(10)
-print (lst_exc_rc)
-"""

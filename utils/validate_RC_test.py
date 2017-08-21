@@ -11,7 +11,7 @@ class TestRC(unittest.TestCase):
             self.assertTrue(validate(rc), rc)
 
     def test_correct_check_digit_str(self):
-        list_rc = ["7003150044", "1411281014", "7662150892",
+        list_rc = ["7003150044", "1411281014", "7662150892", "0002291234",
                    "700315/0044", "141128/1014", "766215/0892"]
         for rc in list_rc:
             self.assertTrue(validate(rc), rc)
@@ -38,6 +38,12 @@ class TestRC(unittest.TestCase):
     def test_wrong_check_digit_str(self):
         list_rc = ["7003150045", "1411281013", "7662150890",
                    "6412161021", "6307249629"]
+        for rc in list_rc:
+            self.assertFalse(validate(rc), rc)
+
+    def test_wrong_date(self):
+        list_rc = ['7113011235', '7202301238', '7363113219', '7754318528',
+                   '530230753', '131320753', '256931/852', '266611/951', '275431/456']
         for rc in list_rc:
             self.assertFalse(validate(rc), rc)
 

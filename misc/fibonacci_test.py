@@ -33,15 +33,33 @@ class TestFib(unittest.TestCase):
                          self.fib_1_based_26)
         self.assertEqual(fib.fib_sequence(1, 27), self.fib_1_based_26)
 
-    def test_wrong_input_type(self):
-        self.assertIsNone(fib.fib_runner("abc", 10))
-        self.assertIsNone(fib.fib_runner(1, "abc"))
+
+    def test_wrong_input_type_exception(self):
+        with self.assertRaises(fib.SanitizeInputError) as cm:
+            fib.fib_runner("abc", 10)
+        the_exception = cm.exception
+        self.assertEqual(the_exception.args[0], "math.floor")
+
+        with self.assertRaises(fib.SanitizeInputError):
+            fib.fib_runner(1, "abc")
+        the_exception = cm.exception
+        self.assertEqual(the_exception.args[0], "math.floor")            
 
     def test_wrong_input_values(self):
-        self.assertIsNone(fib.fib_runner(-1, 10))        
-        self.assertIsNone(fib.fib_runner(2, 1))
+        with self.assertRaises(fib.SanitizeInputError) as cm:
+            fib.fib_runner(-1, 10)
+        the_exception = cm.exception
+        self.assertRegex(the_exception.args[0], "value")
+
+        with self.assertRaises(fib.SanitizeInputError) as cm:
+            fib.fib_runner(-2, 1)
+        the_exception = cm.exception
+        self.assertRegex(the_exception.args[0], "value")            
 
     def test_wrong_method(self):
-        self.assertIsNone(fib.fib_runner(1, 10, self.test_wrong_method))
+        with self.assertRaises(fib.SanitizeInputError) as cm:
+            fib.fib_runner(1, 10, self.wrong_fake_method())
+        the_exception = cm.exception
+        self.assertRegex(the_exception.args[0], "method")
 
 unittest.main() 

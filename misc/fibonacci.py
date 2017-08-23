@@ -4,6 +4,9 @@ from functools import partial
 import math
 import timeit
 
+class SanitizeInputError(Exception):
+    pass
+
 def simple_fibonacci(n):
     """ simple form ; returns n-th element in fib's sequence """
     if n == 0:
@@ -47,26 +50,25 @@ def memo_decor_fibonacci(n):
 
 def sanitize_input(from_r, to_r, fn=simple_fibonacci):
     """ sanitize input"""
-    # ToDo: doplit exceptions + dopsat unit testy
+
     try:
         from_r = math.floor(from_r)
         to_r = math.floor(to_r)
     except:
-        return None
+        #raise SanitizeInputError("math.floor") from None
+        raise SanitizeInputError("math.floor")
 
     if (from_r < 0) or (to_r < from_r):
-        return None
+        raise SanitizeInputError("Wrong value")
 
     if not fn in [simple_fibonacci, memo_fibonacci, memo_decor_fibonacci]:
-        return None
+        raise SanitizeInputError("Wrong method")
 
     return (from_r, to_r, fn)
 
 def fib_runner(from_r, to_r, fn=simple_fibonacci):
     """ run fibonacci for a given range """
     inp = sanitize_input(from_r, to_r, fn)
-    if inp is None:
-        return None
 
     from_r, to_r, fn = inp
     fib_numbers = list()
@@ -135,6 +137,6 @@ def measure_time_seq():
         t += timeit.Timer(partial(fib_sequence, 0, n)).timeit(number=5)
     print(t)
 
-measure_time()
-measure_time2()
-measure_time_seq()
+# measure_time()
+# measure_time2()
+# measure_time_seq()

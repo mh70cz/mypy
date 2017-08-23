@@ -22,6 +22,7 @@ class TestFib(unittest.TestCase):
                          self.fib_0_based_26)
         self.assertEqual(fib.fib_runner(0, 26, fib.memo_decor_fibonacci),
                          self.fib_0_based_26)
+        self.assertEqual(fib.fib_sequence(0, 26), self.fib_0_based_26)
 
     def test_one_based(self):
         self.assertEqual(fib.fib_runner(1, 27),
@@ -30,6 +31,7 @@ class TestFib(unittest.TestCase):
                          self.fib_1_based_26)
         self.assertEqual(fib.fib_runner(1, 27, fib.memo_decor_fibonacci),
                          self.fib_1_based_26)
+        self.assertEqual(fib.fib_sequence(1, 27), self.fib_1_based_26)
 
     def test_wrong_input_type(self):
         self.assertIsNone(fib.fib_runner("abc", 10))

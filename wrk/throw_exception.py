@@ -35,11 +35,11 @@ def show_ex_simple():
     mthd_simple()
 
 def show_ex_chain():
-    print("\nthrow a custom exception from except with chaning:\n")
+    print("\nthrow a custom exception from except with chaining:\n")
     mthd_chain()
 
 def show_ex_chain_fn():
-    print("\nthrow a custom exception from except with chaning from None:\n")
+    print("\nthrow a custom exception from except with chaining from None:\n")
     mthd_chain_fn()
 
 class MyException(Exception):

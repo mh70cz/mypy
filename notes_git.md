@@ -13,8 +13,8 @@ git commit -m "first commit"
 git remote add origin https://github.com/mh70cz/mypy.git
 ```
 
-***
-mount -t "ntfs" -o ro /dev/sdb1 /media/mh70/big
-https://github.com/xybu/onedrived-dev
+### date of modification of unstaged files
 
-***
+```
+git status -s | while read mode file; do echo $mode $file $(stat -c %y $file); done
+```

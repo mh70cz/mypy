@@ -10,7 +10,7 @@ from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 #from collections import Counter
 
-parsed_info_coll = list()
+
 
 sources_to_parse = [
     ("http://lidovky.cz", "lidovky.cz", "title"),
@@ -18,7 +18,7 @@ sources_to_parse = [
     ("http://www.lidovky.cz/zpravy-svet.aspx", "lidovky.cz", "svet"),
     ("http://www.lidovky.cz/zpravy-domov.aspx", "lidovky.cz", "domov"),
     ("https://sport.lidovky.cz/", "lidovky.cz", "sport"),
-    ("https://www.lidovky.cz/kultura.aspx", "lidovky.cz", "kultura"),    
+    ("https://www.lidovky.cz/kultura.aspx", "lidovky.cz", "kultura"),
     ("https://cestovani.lidovky.cz/", "lidovky.cz", "cestovani"),
     ("https://relax.lidovky.cz/", "lidovky.cz", "relax"),
     ("https://www.lidovky.cz/design.aspx", "lidovky.cz", "design"),
@@ -36,10 +36,9 @@ sources_to_parse = [
     ("https://ona.idnes.cz/", "idnes.cz", "ona"),
     ("https://revue.idnes.cz/", "idnes.cz", "revue"),
     ("https://auto.idnes.cz/", "idnes.cz", "auto"),
-                  ]
+                   ]
 
 """
-
 my_url = "https://www.lidovky.cz/dobra-chut.aspx"
 site = "lidovky.cz"
 area = "chut"
@@ -58,27 +57,27 @@ def parse_perex_alone(page_soup, parsed_info, site, area):
         parent = p_perex.parent
         a_lst = parent.find_all("a")
         link = a_lst[0].attrs["href"]
-        link_text = a_lst[0].text.strip()    
+        link_text = a_lst[0].text.strip()
         parsed_info.append((link, link_text, p_perex.text.strip(), site, area))
-        
-    
+
+
     p_alone_lst = [x for x in page_soup.find_all("p", {"class": "alone"})]
-    for p_alone in p_alone_lst:    
+    for p_alone in p_alone_lst:
         link = p_alone.a.attrs["href"]
         link_text = p_alone.a.text.strip()
         txt = p_alone.text.strip()
         if link_text.strip() == txt:
             txt = ""
         parsed_info.append((link, link_text, txt, site, area))
-        
+
     return parsed_info
 
-
-for s in sources_to_parse:
-    my_url, site, area = s
-    parsed_info = list()
-    page_soup = source_soup(my_url)  
-    parsed_info = parse_perex_alone(page_soup, parsed_info, site, area)
-    parsed_info_coll.extend(parsed_info)
-
-    
+def parse():
+    parsed_info_coll = list()
+    for s in sources_to_parse:
+        my_url, site, area = s
+        parsed_info = list()
+        page_soup = source_soup(my_url)
+        parsed_info = parse_perex_alone(page_soup, parsed_info, site, area)
+        parsed_info_coll.extend(parsed_info)
+    return parsed_info_coll

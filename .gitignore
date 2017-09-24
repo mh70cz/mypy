@@ -1,4 +1,10 @@
 __pycache__/
 .vscode/
 wrk/
+x/
+
+#spyder
+**/untitled*
+/spyder/**/.spyproject
+
 

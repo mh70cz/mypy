@@ -1,14 +1,12 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Sep 14 11:27:20 2017
+Created on Mon Sep 25 21:36:29 2017
 
-@author: m.houska
+@author: mh70
 """
 
-
 from lxml import etree
-#import xml.dom.minidom as minidom
-
 
 data = """
 <Entity>
@@ -54,12 +52,20 @@ data = """
 </Entity>
 """
 
-
-
-
+def indent_element(e, ind):
+    if len(e) > 0:
+        e.text = "\n" + ind * " "
+        for idx, e1 in enumerate(e):
+            if idx + 1 < len(e):
+                e1.tail = "\n" + (ind ) * " "
+                indent_element(e1, ind + 2)
+            else:
+                e1.tail = "\n" + (ind - 2) * " "
+                indent_element(e1, ind + 2)
+    
+    
 
 tree = etree.fromstring(data)
-
 tree.text = "\n  "
 
 for idx, e in enumerate(tree):
@@ -67,38 +73,12 @@ for idx, e in enumerate(tree):
         e.tail = "\n  "
     else:
         e.tail = "\n"
+        
     if len(e) > 0:
-        e.text = "\n    "
-        for idx, e1 in enumerate(e):
-            if idx + 1 < len(e):
-                e1.tail = "\n    "
-                if len(e1) > 0:
-                    e1.text = "\n      "                    
-                    for idx, e2 in enumerate(e1):
-                        if idx + 1 < len(e1):
-                            e2.tail = "\n      "
-                        else:
-                            e2.tail = "\n    "
-            else:
-                e1.tail = "\n  "
-                if len(e1) > 0:
-                    e1.text = "\n      "
-                    for idx, e2 in enumerate(e1):
-                        if idx + 1 < len(e1):
-                            e2.tail = "\n      "
-                        else:
-                            e2.tail = "\n    "
+        indent_element(e, 4)
                 
 
 tree_out = etree.tostring(tree, method="html", encoding="utf-8")
 
 tree_out_dec = tree_out.decode("utf-8") #kovnertuj "bin string" do čitelného stringu
 print(tree_out_dec)
-
-#with open("out.xml", "w", encoding="utf-8") as wf:
-#    wf.write(tree_out_dec)
-
-# prettyxml z xml.dom.minidom nefunguje uspokojivě
-#tree_out_parse = minidom.parseString(tree_out)
-#tree_out_pretty =  tree_out_parse.toprettyxml(indent=' ', newl='')
-#print(tree_out_pretty)

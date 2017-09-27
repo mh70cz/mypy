@@ -14,7 +14,7 @@ PasswordText"></wsse:Password>
 
 
 import requests
-
+import xml.etree.ElementTree as ET
 
 
 
@@ -23,7 +23,7 @@ body = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envel
       <wsse:Security soapenv:mustUnderstand="0" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
          <wsse:UsernameToken>
             <wsse:Username>cis.admin</wsse:Username>
-            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"></wsse:Password>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">Heslo123456</wsse:Password>
          </wsse:UsernameToken>
       </wsse:Security>
  </soapenv:Header>
@@ -51,6 +51,20 @@ headers = {'Accept-Encoding': 'gzip,deflate',
 
 response = requests.post(url,data=body,headers=headers)
 print(response)
+
+tree = ET.fromstring(response.text)
+x = tree.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Description') #first
+
+conns = tree.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Connectors')
+conns_info = conns.findall('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}ConnectorInfo')
+
+con_lst = list()
+
+for con in conns_info:
+    description = con.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Description').text
+    id = con.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Id').text
+    print(description + " " + id)
+
 
 
 """

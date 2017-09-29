@@ -15,20 +15,20 @@ body = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envel
    <soapenv:Header/>
    <soapenv:Body>
       <cig:CISRequestDetails>
-         <cig:UserName>CIS_WS</cig:UserName>
-         <cig:Password>1AzsI119Ao</cig:Password>
+         <cig:UserName>allit</cig:UserName>
+         <cig:Password>123456</cig:Password>
       	<cig:Query></cig:Query>          
 </cig:CISRequestDetails>
 
    </soapenv:Body>
 </soapenv:Envelope>"""
 
-url="https://secure.creditinfo.com.mt/ws/ddd.asmx"
+url="http://test.creditinfo.com.mt/WebService/ddd.asmx"
 headers = {'Accept-Encoding': 'gzip,deflate',
            'Content-Type': 'text/xml;charset=UTF-8',
            'SOAPAction': '"CIG_DDD/CISRequestDetails"',
            'Content-Length': str(len(body)),
-           'Host': 'secure.creditinfo.com.mt',
+           'Host': 'test.creditinfo.com.mt',
            'Connection': 'Keep-Alive',
            'User-Agent': 'Apache-HttpClient/4.1.1 (java 1.5)',
            'Accept': None    
@@ -51,7 +51,7 @@ elem_names = [
         ("report_id", "ReportId")
         ]
 
-response_lst = list()
+response_lst_test = list()
 
 def map_elements(elem_name_src, elem_name_dst):
     x = tree.find('.//' + elem_name_src)
@@ -79,10 +79,11 @@ for idregno in idregnos:
     for elem_name in elem_names:
         map_elements(elem_name[0], elem_name[1])
         
-    response_lst.append(response_row)
+    response_lst_test.append(response_row)
 
 
-
+def returnNotMatches(a, b):
+    return [[x for x in a if x not in b], [x for x in b if x not in a]]
 
     
 

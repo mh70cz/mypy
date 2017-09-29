@@ -18,6 +18,7 @@ import xml.etree.ElementTree as ET
 
 
 
+
 body = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mul="http://creditinfo.com/schemas/2012/09/MultiConnector">
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="0" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
@@ -58,23 +59,18 @@ x = tree.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Descript
 conns = tree.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Connectors')
 conns_info = conns.findall('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}ConnectorInfo')
 
-con_lst = list()
+connector_lst = list()
 
 for con in conns_info:
     description = con.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Description').text
     id = con.find('.//{http://creditinfo.com/schemas/2012/09/MultiConnector}Id').text
     print(description + " " + id)
 
+    connector_lst.append((description, id))
 
+""" export to xlsx
+import pandas as pd
+connector_df = pd.DataFrame(connector_lst)
+connector_df.to_excel("conn.xlsx", header=False, index=False)
+"""
 
-"""
-headers = {'Accept-Encoding': 'gzip,deflate',
-           'Content-Type': 'text/xml;charset=UTF-8',
-           'SOAPAction': '"http://creditinfo.com/schemas/2012/09/MultiConnector/MultiConnectorService/Query"',
-           'Content-Length': str(len(body)),
-           'Host': 'cishd-mc-app01',
-           'Connection': 'Keep-Alive',
-           'User-Agent': 'Apache-HttpClient/4.1.1 (java 1.5)',
-           'Accept': None
-}
-"""

@@ -56,9 +56,19 @@ def parse_perex_alone(page_soup, parsed_info, site, area):
     for p_perex in p_perex_lst:
         parent = p_perex.parent
         a_lst = parent.find_all("a")
-        link = a_lst[0].attrs["href"]
-        link_text = a_lst[0].text.strip()
-        parsed_info.append((link, link_text, p_perex.text.strip(), site, area))
+        try:
+            link = a_lst[0].attrs["href"]
+        except:
+            link = None
+        try:
+            link_text = a_lst[0].text.strip()
+        except:
+            link_text = None
+        try:
+            txt = p_perex.text.strip()
+        except:
+            txt = None
+        parsed_info.append((link, link_text, txt, site, area))
 
 
     p_alone_lst = [x for x in page_soup.find_all("p", {"class": "alone"})]
@@ -76,6 +86,7 @@ def parse():
     parsed_info_coll = list()
     for s in sources_to_parse:
         my_url, site, area = s
+        print(my_url)
         parsed_info = list()
         page_soup = source_soup(my_url)
         parsed_info = parse_perex_alone(page_soup, parsed_info, site, area)

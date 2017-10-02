@@ -36,7 +36,7 @@ headers = {'Accept-Encoding': 'gzip,deflate',
 
 elem_names = [
         ("idregno", "Idregno"),
-        ("fullname", "Fullname"),
+        ("fullname", "FullName"),
         ("surname", "Surname"),
         ("othersurname", "OtherSurname"),
         ("name", "Name"),

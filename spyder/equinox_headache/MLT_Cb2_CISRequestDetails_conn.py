@@ -70,7 +70,7 @@ ns_response = "http://creditinfo.com/schemas/2012/09/MultiConnector/Connectors/M
 
 elem_names = [
         ("idregno", "Idregno"),
-        ("fullname", "Fullname"),
+        ("fullname", "FullName"),
         ("surname", "Surname"),
         ("othersurname", "OtherSurname"),
         ("name", "Name"),
@@ -85,22 +85,22 @@ elem_names = [
         ("report_id", "ReportId")
         ]
 
-response_lst = list()
+response_conn_lst = list()
 
 def map_elements(elem_name_src, elem_name_dst):
-    x = tree.find('.//' + elem_name_src)
-    # tree.find('.//{' + ns_response + ' + elem_name_src)
+    #x = tree.find('.//' + elem_name_src)
+    x = tree.find('.//{' + ns_response + '}' + elem_name_src)
     # 
     if not(type(x) == type(None)):
         response_row[elem_name_dst] = x.text
 
         
 
-#idregnos = [
-#        "514744M", "1000048M", "1000049M", "1000050M", "1000144M", "1000247M",
-#        "1000649M", "1000744M", "100169M", "10017G", "10026M", "100254M"
-#        ]
-idregnos = ["514744M"]
+idregnos = [
+        "514744M", "1000048M", "1000049M", "1000050M", "1000144M", "1000247M",
+        "1000649M", "1000744M", "100169M", "10017G", "10026M", "100254M"
+        ]
+#idregnos = ["514744M"]
 
 for idregno in idregnos:
         
@@ -119,7 +119,7 @@ for idregno in idregnos:
     for elem_name in elem_names:
         map_elements(elem_name[1], elem_name[1])
         
-    response_lst.append(response_row)
+    response_conn_lst.append(response_row)
 
 
 

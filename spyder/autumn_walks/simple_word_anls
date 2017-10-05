@@ -20,7 +20,8 @@ most_words_200 = Counter(
         [word for word in words if len(word) > 3 ]).most_common(200)
 
 dny_v_tydnu = [word for word in words if word in [
-        "pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"
+        "pondělí", "úterý", "středa", "středu", "čtvrtek", "pátek",
+        "sobota", "sobotu",  "neděle", "neděli"
         ]]
 
 dny_v_tydnu_7 = Counter(dny_v_tydnu).most_common(7)

@@ -55,7 +55,7 @@ body = """<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/env
   </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-url="http://cishd-mc-app01/Testing1/MultiConnector.svc"
+url="http://cishd-mc-app01/Testing/MultiConnector.svc"
 headers = {'Accept-Encoding': 'gzip,deflate',
            'Content-Type': 'text/xml;charset=UTF-8',
            'SOAPAction': '"http://creditinfo.com/schemas/2012/09/MultiConnector/MultiConnectorService/Query"',

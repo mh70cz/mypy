@@ -10,6 +10,21 @@ import requests
 import xml.etree.ElementTree as ET
 import uuid
 
+# suppress InsecureRequestWarning if SSL and no cert + see below verify=False 
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+# requests lib is built on top of urllib3, which has nothing to do with 
+# the standard library’s urllib.request. 
+# They are, however, both built on top of the standard library’s http.client. 
+
+# https://stackoverflow.com/questions/27981545/  ? modern version of libraries:
+# import urllib3
+# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+
+
 def replace_uuid(docum, left_string):
     """V textu docum nahrad uuid,
     ktere se nachazi bezprostredne za left_string, nahodnym uuid.
@@ -55,7 +70,7 @@ body = """<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/env
   </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-url="http://cishd-mc-app01/Testing/MultiConnector.svc"
+url="https://cishd-mc-app01/Testing/MultiConnector.svc"
 headers = {'Accept-Encoding': 'gzip,deflate',
            'Content-Type': 'text/xml;charset=UTF-8',
            'SOAPAction': '"http://creditinfo.com/schemas/2012/09/MultiConnector/MultiConnectorService/Query"',
@@ -96,11 +111,11 @@ def map_elements(elem_name_src, elem_name_dst):
 
         
 
-idregnos = [
-        "514744M", "1000048M", "1000049M", "1000050M", "1000144M", "1000247M",
-        "1000649M", "1000744M", "100169M", "10017G", "10026M", "100254M"
-        ]
-#idregnos = ["514744M"]
+#idregnos = [
+#        "514744M", "1000048M", "1000049M", "1000050M", "1000144M", "1000247M",
+#        "1000649M", "1000744M", "100169M", "10017G", "10026M", "100254M"
+#        ]
+idregnos = ["514744M"]
 
 for idregno in idregnos:
         
@@ -110,7 +125,8 @@ for idregno in idregnos:
     body_new = replace_uuid(body_new, '<MessageId>')
     body_new = replace_uuid(body_new, '<data id="')
     
-    response = requests.post(url,data=body_new, headers=headers)
+    response = requests.post(url,data=body_new, headers=headers, verify=False)
+    # verify=False is required for SSL if there is no certificate
     #print(response)    
     tree = ET.fromstring(response.text) 
     

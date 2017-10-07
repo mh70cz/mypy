@@ -8,11 +8,20 @@ Created on Tue Sep 26 22:07:57 2017
 
 from collections import Counter
 
+
 words = list()    
 for item in big_list:
     
     link_text_lst = item[1].replace(",", "").replace(".", "").lower().split(" ")
-    txt_lst = item[2].replace(",", "").replace(".", "").lower().split(" ")
+    
+    
+
+    
+    txt_lst = item[2].replace("  celý článek", "") \
+                     .replace(",", "") \
+                     .replace(".", "").lower().split(" ") 
+    
+    
     words.extend(link_text_lst)
     words.extend(txt_lst)
     
@@ -25,3 +34,8 @@ dny_v_tydnu = [word for word in words if word in [
         ]]
 
 dny_v_tydnu_7 = Counter(dny_v_tydnu).most_common(7)
+
+
+
+    
+

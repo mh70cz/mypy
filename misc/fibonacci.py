@@ -103,6 +103,29 @@ def fib_sequence(n_from_incl, n_to_excl):
 #     #fib_runner(0, 30, memo_fibonacci)
 #     fib_runner(0, 30, memo_decor_fibonacci)s
 #t = timeit.Timer(to_time).timeit(number=5) 
+    
+
+# Fibonacci by generator
+    
+def fibonacci_gen():
+    trailing, lead = 0,1
+    while True:
+        yield lead
+        trailing, lead = lead, trailing + lead
+        
+def fib_gen_runner():
+    fg = fibonacci_gen()
+    next(fg)      # 1
+    next(fg)      # 1
+    next(fg)      # 2
+    fg.__next__() # 3   fg.next() does not work in python 3.x
+    
+    for f in fg:
+        print(f)
+        if f > 20:
+            break
+    # 5, 8, 13, 21 
+
 
 def convergence_fibs():
     """ convergence podílu dvou po sobě jdoucích fibs """

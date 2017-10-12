@@ -15,6 +15,11 @@ class TestRC(unittest.TestCase):
                    "700315/0044", "141128/1014", "766215/0892"]
         for rc in list_rc:
             self.assertTrue(validate(rc), rc)
+            
+    def test_correct_check_digit_after2004_add20_or_70_str(self):
+        list_rc = ["0424158526", "0474158531", "1381098521", "1331098527" ]
+        for rc in list_rc:
+            self.assertTrue(validate(rc), rc)            
 
     def test_correct_exc_rc_check_digit_int(self):
         list_rc = [7012115760, 7203045070, 6909107360, 6306258080,

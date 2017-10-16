@@ -13,7 +13,7 @@ import math
 
 fig, ax = plt.subplots()
 ax.set_aspect('equal')
-
+# plt.axis('off')
 
 center = (0.0, 0.0)
 radius = 0.9
@@ -34,11 +34,11 @@ for t in ts:
     centre_cogs.append((x, y))
     
     
-def circular(t):
+def circular(ts):
     while True:
         for t in ts:
             yield t
-tc = circular(t)
+tc = circular(ts)
 
 
 t = next(tc)
@@ -78,7 +78,8 @@ for idx in ts:
         
 
 
-ax.plot([x[0] for x in  centre_cogs],
-        [y[1] for y in  centre_cogs],
-        "o", color="r")
+#ax.plot([x[0] for x in  centre_cogs],
+#        [y[1] for y in  centre_cogs],
+#        "o", color="r")
 
+# plt.savefig("test.svg")

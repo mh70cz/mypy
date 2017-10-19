@@ -6,7 +6,6 @@ Created on Wed Oct 18 21:39:09 2017
 @author: mh70
 
 
-http://www.registeruz.sk/cruz-public/api/uctovna-zavierka?id=3111647
 http://www.registeruz.sk/cruz-public/api/uctovny-vykaz?id=5569453
 http://www.registeruz.sk/cruz-public/api/sablona?id=699
 
@@ -19,9 +18,10 @@ class MyException(Exception):
     pass
 
 #request do konektoru: 
-idUctovnychZavierok = [936825, 1682828, 1947947, 2380848, 2762385, 3111647]
-
-idUctovnychVykazov_big = list() # pro všechny závěrky
+idUctovnychVykazov_all = [
+        2029652, 1862915, 3254919, 3144726, 3796328, 3796329, 3796330, 4172181,
+        4643283, 4817413, 5336261, 5128543, 5569453
+        ]
 idSablon = list() #šablony pro všechny stažené výkazy
 uctove_zaverky = list() #závěrky - základní info
 uctove_vykazy = list() #všechy účetní výkazy pro všechny závěrky
@@ -32,21 +32,8 @@ url_uctovna_zavierka_suff =  "uctovna-zavierka?"
 url_uctovny_vykaz_suff = "uctovny-vykaz?"
 url_sablona_suff = "sablona?"
 
-
-try:
-    
-    for iuz in idUctovnychZavierok:
-        url_uz = url_base + url_uctovna_zavierka_suff + "id=" + str(iuz)
-        response1 = requests.get(url_uz)
-        if not response1.status_code == 200:
-            raise MyException("some problem with response1: " + str(iuz))        
-        idUctovnychVykazov = response1.json()['idUctovnychVykazov']
-        if len(idUctovnychVykazov) < 1:
-            raise MyException("nejsou účetní výkazy pro iuz: " + str(iuz))
-        idUctovnychVykazov_big.extend(idUctovnychVykazov)
-        uctove_zaverky.append(response1.json())
-                
-    for iuv in idUctovnychVykazov_big:
+try:    
+    for iuv in idUctovnychVykazov_all:
         url_uv = url_base + url_uctovny_vykaz_suff + "id=" + str(iuv)         
         response2 = requests.get(url_uv)
         if not response2.status_code == 200:

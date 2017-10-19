@@ -81,7 +81,7 @@ most_dwords_200 = Counter(
     
 most_twords_200 = Counter(
         [word.txt for word in twords 
-         if len(word.txt) > 4 ]).most_common(200)      
+         if len(word.txt) > 3 ]).most_common(200)      
     
     
 most_words_ona_200 = Counter(
@@ -95,7 +95,7 @@ most_dwords_ona_200 = Counter(
     
 most_twords_ona_200 = Counter(
         [word.txt for word in twords 
-         if len(word.txt) > 4 and word.area == "ona"]).most_common(200)      
+         if len(word.txt) > 3 and word.area == "ona"]).most_common(200)      
     
 
 most_words_krimi_200 = Counter(

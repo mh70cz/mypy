@@ -30,7 +30,11 @@ for item in big_list:
         
     txt_lst = item[2].replace("  celý článek", "") \
                      .replace(",", "").replace("?", "").replace("!", "") \
+                     .replace("\r","").replace("\n","").replace("\xa0","") \
                      .replace(".", "").lower().split(" ")
+                     
+    # remove empty words (result of multiple split char occurence)                 
+    txt_lst = [x for x in txt_lst if x != "" ]                        
                          
     for word in txt_lst:
         w_txt = Word(word, 'text', item[0], item[3], item[4])

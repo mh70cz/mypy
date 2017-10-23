@@ -89,6 +89,6 @@ def parse():
         print(my_url)
         parsed_info = list()
         page_soup = source_soup(my_url)
-        parsed_info = parse_perex_alone(page_soup, parsed_info, site, area)
+        parsed_info = parse_perex_alone(page_soup, parsed_info, site, area) # 2017-10-23 WTF parse_info? 
         parsed_info_coll.extend(parsed_info)
     return parsed_info_coll

@@ -12,18 +12,28 @@ http://www.registeruz.sk/cruz-public/api/sablona?id=699
 """
 
 import requests
-#import json
+import json
 
 class MyException(Exception):
     pass
 
+def append_id_sablon(idSablon, ico = "N/A"):
+    fname_sablony_id = "./sablony/sablony_id.txt"
+    
+    with open(fname_sablony_id, 'a', encoding='utf-8') as outfile:
+        for s_id in idSablon:
+            outfile.write(str(s_id) + ", " + str(ico) + "\n")
+
+
 #request do konektoru: 
+"""    
 idUctovnychVykazov_all = [
         2029652, 1862915, 3254919, 3144726, 3796328, 3796329, 3796330, 4172181,
         4643283, 4817413, 5336261, 5128543, 5569453
         ]
+"""
+#uctove_zaverky = list() #závěrky - základní info - presunuto do 1. "konektoru"
 idSablon = list() #šablony pro všechny stažené výkazy
-uctove_zaverky = list() #závěrky - základní info
 uctove_vykazy = list() #všechy účetní výkazy pro všechny závěrky
 sablony = list() #všecny unikátní šabony pro všechny účetní výkazy
 
@@ -33,6 +43,8 @@ url_uctovny_vykaz_suff = "uctovny-vykaz?"
 url_sablona_suff = "sablona?"
 
 try:    
+    if len(idUctovnychVykazov_all) == 0:
+        raise MyException("zadne uctove vykazy ")
     for iuv in idUctovnychVykazov_all:
         url_uv = url_base + url_uctovny_vykaz_suff + "id=" + str(iuv)         
         response2 = requests.get(url_uv)
@@ -51,8 +63,10 @@ try:
             raise MyException("some problem with response3 " + str(ids))  
         sablony.append(response3.json())
         
+    append_id_sablon(idSablon, ico)
+        
 except MyException as e:    
-    print("Custom ex: " + e)
+    print("Custom ex: " + str(e))
     pass
 except Exception as e:
     print(e)

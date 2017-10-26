@@ -17,5 +17,5 @@ with open(filename, newline='') as csvfile:
          sub_name = row[0]
          sub_id = row[2]
          #print(sub_name +"; " + sub_id)
-         print("<SubscriberId>" + sub_id + "</SubscriberId>" +
-               "<!-- " + sub_name + " -->")
+         print("<Subscriber>\n  <SubscriberId>" + sub_id + "</SubscriberId>\n" +
+               "  <SubscriberName>" + sub_name + "</SubscriberName>\n</Subscriber>")

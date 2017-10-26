@@ -19,10 +19,22 @@ import requests
 class MyException(Exception):
     pass
 
+"""
+35804564  CIS SK
+31322832  SLOVNAFT, a.s.. - multiple hit
+00190284  Poľnohospodárske družstvo Vajnory - multiple hit
+36458147  SANA, výrobné družstvo
+34129260  STAVBY, OBCHOD, SLUŽBY s.r.o.
+36862126  AGROFERT, a. s., organizačná zložka Agrochémia
+44545371  Ján Novák
+"""
 
-ico = "35804564" # CIS SK
+
+ico = "35804564" # 
+
 
 uctove_zaverky = list() #závěrky - základní info
+idUctovnychZavierok = list()
 idUctovnychVykazov_all = list() # pro všechny závěrky vstup do druhého konektoru
 
 url_base = "http://www.registeruz.sk/cruz-public/api/"
@@ -47,8 +59,12 @@ try:
     response2 = requests.get(url_uctovna_jednotka)
     if not response2.status_code == 200:
         raise MyException("some problem with response2")
-        
-    idUctovnychZavierok = response2.json()['idUctovnychZavierok']
+
+    try:            
+        idUctovnychZavierok = response2.json()['idUctovnychZavierok']
+    except:
+        raise MyException("nejsou ucetni zaverky")
+
     
     for iuz in idUctovnychZavierok:
         url_uz = url_base + url_uctovna_zavierka_suff + "id=" + str(iuz)
@@ -66,5 +82,5 @@ except MyException as e:
     print(e)
     pass
 except Exception as e:
-    print(e)
+    #print(e)
     pass

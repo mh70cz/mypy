@@ -13,27 +13,19 @@ import uuid
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-
-
-def replace_uuid(docum, string_to_replace):
-    """V textu docum nahrad uuid,
-    V pripade multiplicity left_string se bere prvni vyskyt."""
-    uuid_str = str(uuid.uuid4()) # make a random UUID
-    new_docum = docum.replace(string_to_replace, uuid_str)
-
-    return new_docum
-
+class MyBusinessException(Exception):
+    pass
 
 def replace_uuid_short(docum, string_to_replace):
     """V textu docum nahrad uuid,
-    V pripade multiplicity left_string se bere prvni vyskyt."""
+    V pripade multiplicity se bere prvni vyskyt."""
     uuid_str = str(uuid.uuid4()) # make a random UUID
     uuid_str = uuid_str.replace("-", "")
     new_docum = docum.replace(string_to_replace, uuid_str)
 
     return new_docum
 
-def upload():
+def upload(national_id):
 
     body = """<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><BatchUpload xmlns="http://cb4.creditinfosolutions.com/"><data><Batch xmlns="http://cb4.creditinfosolutions.com/BatchUploader/Batch">           
         <Header>
@@ -46,7 +38,7 @@ def upload():
         <Commands>
             <Command identifier="$ident2">
                 <Cis.CB4.Projects.GE.CIG.Reports.Body.Products.PersonalInformation>
-                    <NationalID>01012002417</NationalID>
+                    <NationalID>$national_id</NationalID>
                 </Cis.CB4.Projects.GE.CIG.Reports.Body.Products.PersonalInformation>
             </Command>
         </Commands>
@@ -70,15 +62,26 @@ def upload():
     
     batch_id = "" #BatchId
     
-    body_new =  replace_uuid_short(body, "$ident1")
-    body_new =  replace_uuid_short(body_new, "$ident2")
     
     
-    response = requests.post(url,data=body_new, headers=headers, verify=False)
-    
-    tree = ET.fromstring(response.text)
-    
-    x  = tree.find('.//{' + ns_response + '}' + "BatchId")
-    batch_id = x.text
-    
-    return batch_id
+    body_new = replace_uuid_short(body, "$ident1") #Identifier
+    body_new = replace_uuid_short(body_new, "$ident2") #Command identifier
+    body_new = body_new.replace("$national_id", str(national_id)) 
+
+    try:    
+        response = requests.post(url,data=body_new, headers=headers, verify=False)    
+        if response.status_code != 200:
+            raise MyBusinessException("Wrong/No response when uploading a batch")
+        
+        tree = ET.fromstring(response.text)
+        
+        x  = tree.find('.//{' + ns_response + '}' + "BatchId")
+        if x is None:
+            raise MyBusinessException("Wrong response when uploading a batch")
+        batch_id = x.text
+        
+        return batch_id
+
+    except MyBusinessException as e:
+        print(e)
+

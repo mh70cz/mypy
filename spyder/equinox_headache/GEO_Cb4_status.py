@@ -50,19 +50,20 @@ def batch_status(batch_id):
     
     ns_response = "http://cb4.creditinfosolutions.com/BatchUploader/Batch"
     
-    #batch_id = "" #BatchId
-    
-    # body_new =  replace_uuid_short(body, "$ident1")
     
     body_new = body.replace("$batch_id", str(batch_id))
     
     response = requests.post(url,data=body_new, headers=headers, verify=False)
+    if response.status_code != 200:
+        return ("response_error", None)
     
     tree = ET.fromstring(response.text)
     
     x  = tree.find('.//{' + ns_response + '}' + "State")
-    state = x.text
+    if x is None:
+        return ("response_error", None)
     
+    state = x.text
     if not state == "Finished":
         return (state, None)
     

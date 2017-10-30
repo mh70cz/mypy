@@ -21,10 +21,12 @@ import uuid
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+class MyBusinessException(Exception):
+    pass
 
 def replace_uuid_short(docum, string_to_replace):
     """V textu docum nahrad uuid,
-    V pripade multiplicity left_string se bere prvni vyskyt."""
+    V pripade multiplicity se bere prvni vyskyt."""
     uuid_str = str(uuid.uuid4()) # make a random UUID
     uuid_str = uuid_str.replace("-", "")
     new_docum = docum.replace(string_to_replace, uuid_str)
@@ -64,13 +66,21 @@ def batch_result(ri_id):
     
     body_new = body.replace("$ri_id", str(ri_id))
     
-    response = requests.post(url,data=body_new, headers=headers, verify=False)
-    
-    tree = ET.fromstring(response.text)
-    
-    x  = tree.find('.//{' + ns_response + '}' + "BatchResponseChunkResult")
-    batch_response_chunk_result = x.text
-    
+    try:
+        response = requests.post(url,data=body_new, headers=headers, verify=False)
+        if response.status_code != 200:
+            raise MyBusinessException("Wrong/no response when collecting a result")
+        
+        tree = ET.fromstring(response.text)
+        
+        x  = tree.find('.//{' + ns_response + '}' + "BatchResponseChunkResult")
+        if x is None:
+            raise MyBusinessException("Wrong response when collecting a result")
+            
+        batch_response_chunk_result = x.text
+                    
+        return (batch_response_chunk_result)
 
-    
-    return (batch_response_chunk_result)
+    except MyBusinessException as e:
+        print(e)
+

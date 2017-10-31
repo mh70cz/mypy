@@ -27,7 +27,7 @@ def parse_result(xml_txt):
     personal_data = tree.find('.//{' + ns_response + '}' + "PersonalData")    
     personal_data_parts = [("Firstname", "Name"),
                            ("Surname", "Surname"),
-                           ("Gender", "Sex"),
+                           ("Gender", "Gender"),
                            ("BirthDate", "DateOfBirth")
                            ]
     result = dict()

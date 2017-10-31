@@ -9,6 +9,7 @@ import GEO_Cb4_upload
 import GEO_Cb4_status
 import GEO_Cb4_result
 import GEO_Cb4_parse
+import GEO_Cb4_writef
 import time
 import json
 
@@ -16,8 +17,11 @@ import json
 class MyBusinessException(Exception):
     pass
 
-national_id = "01012002417"
+national_id = "01012002417"   
+#  01011024331  01001003356 "01012002417" 
 
+GEO_Cb4_writef.wrt_f(msg = 'national_id: ' + str(national_id),
+                     header = True)
 
 try:
     batch_id = GEO_Cb4_upload.upload(national_id) # odešli batch a vrať jeho Id 
@@ -40,12 +44,15 @@ try:
     
     #dekoduj z Base64 a odzipuj
     xml_txt = GEO_Cb4_parse.unzip_result_xml(batch_response_chunk_result)
+    #print(xml_txt)
     
     #proveď parsing 
     result = GEO_Cb4_parse.parse_result(xml_txt)
     
     result_json = json.dumps(result, ensure_ascii=False)    
     print(result_json)
+    
+    GEO_Cb4_writef.wrt_f(msg = result_json)
 
 except MyBusinessException as e:
     print(e)

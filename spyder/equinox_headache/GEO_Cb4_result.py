@@ -16,6 +16,7 @@ Created on Mon Oct 30 12:01:59 2017
 import requests
 import xml.etree.ElementTree as ET
 import uuid
+import GEO_Cb4_writef
 
 # suppress InsecureRequestWarning if SSL and no cert + see below verify=False 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -78,6 +79,13 @@ def batch_result(ri_id):
             raise MyBusinessException("Wrong response when collecting a result")
             
         batch_response_chunk_result = x.text
+        
+        GEO_Cb4_writef.wrt_f(label = 'result request header',
+                         msg = str(headers))
+        GEO_Cb4_writef.wrt_f(label = 'result request',
+                             msg = body_new)
+        GEO_Cb4_writef.wrt_f(label = 'result response',
+                                 msg = response.text)        
                     
         return (batch_response_chunk_result)
 

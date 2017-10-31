@@ -8,6 +8,7 @@ Created on Mon Oct 30 11:10:56 2017
 import requests
 import xml.etree.ElementTree as ET
 import uuid
+import GEO_Cb4_writef
 
 # suppress InsecureRequestWarning if SSL and no cert + see below verify=False 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -29,7 +30,7 @@ def upload(national_id):
 
     body = """<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><BatchUpload xmlns="http://cb4.creditinfosolutions.com/"><data><Batch xmlns="http://cb4.creditinfosolutions.com/BatchUploader/Batch">           
         <Header>
-            <!-- <Identifier>ab2254f3-26fe-4983-8845-47ec73cc9dbf</Identifier> -->
+            <!-- <Identifier> #NGUID# (guid without "-") </Identifier> -->
             <Identifier>$ident1</Identifier>
             
             <Subscriber>AdminSubscriber</Subscriber>
@@ -79,6 +80,12 @@ def upload(national_id):
         if x is None:
             raise MyBusinessException("Wrong response when uploading a batch")
         batch_id = x.text
+        
+        GEO_Cb4_writef.wrt_f(label = 'batch upload request header',
+                             msg = str(headers))
+        GEO_Cb4_writef.wrt_f(label = 'batch upload request', msg = body_new)
+        GEO_Cb4_writef.wrt_f(label = 'batch upload response',
+                             msg = response.text)
         
         return batch_id
 

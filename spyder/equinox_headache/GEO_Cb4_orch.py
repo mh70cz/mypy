@@ -19,6 +19,7 @@ class MyBusinessException(Exception):
 
 national_id = "01012002417"   
 #  01011024331  01001003356 "01012002417" 
+# "91012002412" - not found
 
 GEO_Cb4_writef.wrt_f(msg = 'national_id: ' + str(national_id),
                      header = True)

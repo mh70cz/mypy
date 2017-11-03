@@ -10,6 +10,12 @@ import base64
 import zipfile
 import io
 import xml.etree.ElementTree as ET
+from GEO_Cb4_common import MyBusinessException
+
+
+
+#class MyBusinessException(Exception):
+#    pass
 
 def unzip_result_xml(batch_response_chunk_result):
     buffer = base64.b64decode(batch_response_chunk_result)
@@ -22,8 +28,22 @@ def unzip_result_xml(batch_response_chunk_result):
 
 def parse_result(xml_txt):
     tree = ET.fromstring(xml_txt)
-    
+        
     ns_response =  "http://cb4.creditinfosolutions.com/BatchUploader/Batch"
+
+    #//Commands/Command/ReportStatus
+    
+    command = tree.find('.//{' + ns_response + '}' + "Commands" +
+                        '/{' + ns_response + '}' + "Command")
+    
+    report_status = command.find('.//{' + ns_response + '}' + "ReportStatus")
+    
+    #try:
+    if report_status.text == "ReportStatus.DataNotFound":
+        raise MyBusinessException("Subject not found")
+    if report_status.text != "ReportStatus.Ok":
+        raise MyBusinessException("Wrong ReportStatus")
+
     personal_data = tree.find('.//{' + ns_response + '}' + "PersonalData")    
     personal_data_parts = [("Firstname", "Name"),
                            ("Surname", "Surname"),
@@ -69,4 +89,7 @@ def parse_result(xml_txt):
     return result
       
 
-                       
+#    except MyBusinessException as e:
+#        print(e)
+#        #return None
+#        raise

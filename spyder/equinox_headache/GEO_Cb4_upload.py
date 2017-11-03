@@ -8,14 +8,15 @@ Created on Mon Oct 30 11:10:56 2017
 import requests
 import xml.etree.ElementTree as ET
 import uuid
-import GEO_Cb4_writef
+import GEO_Cb4_common
+from GEO_Cb4_common import MyBusinessException
 
 # suppress InsecureRequestWarning if SSL and no cert + see below verify=False 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-class MyBusinessException(Exception):
-    pass
+#class MyBusinessException(Exception):
+#    pass
 
 def replace_uuid_short(docum, string_to_replace):
     """V textu docum nahrad uuid,
@@ -81,14 +82,15 @@ def upload(national_id):
             raise MyBusinessException("Wrong response when uploading a batch")
         batch_id = x.text
         
-        GEO_Cb4_writef.wrt_f(label = 'batch upload request header',
+        GEO_Cb4_common.wrt_f(label = 'batch upload request header',
                              msg = str(headers))
-        GEO_Cb4_writef.wrt_f(label = 'batch upload request', msg = body_new)
-        GEO_Cb4_writef.wrt_f(label = 'batch upload response',
+        GEO_Cb4_common.wrt_f(label = 'batch upload request', msg = body_new)
+        GEO_Cb4_common.wrt_f(label = 'batch upload response',
                              msg = response.text)
         
         return batch_id
 
     except MyBusinessException as e:
-        print(e)
+        #print(e)
+        raise
 

@@ -9,19 +9,21 @@ import GEO_Cb4_upload
 import GEO_Cb4_status
 import GEO_Cb4_result
 import GEO_Cb4_parse
-import GEO_Cb4_writef
+import GEO_Cb4_common
+from GEO_Cb4_common import MyBusinessException
 import time
 import json
 
 
-class MyBusinessException(Exception):
-    pass
+#class MyBusinessException(Exception):
+#    pass
 
-national_id = "01012002417"   
+national_id = "01011024334" 
 #  01011024331  01001003356 "01012002417" 
 # "91012002412" - not found
+# "01011024335"   ?
 
-GEO_Cb4_writef.wrt_f(msg = 'national_id: ' + str(national_id),
+GEO_Cb4_common.wrt_f(msg = 'national_id: ' + str(national_id),
                      header = True)
 
 try:
@@ -32,12 +34,15 @@ try:
     state = ""    
     counter = 1
     while state != "Finished":          
+        if counter > 30:
+            raise MyBusinessException("Batch not finished in a given time limit")
+            #break
+        if counter < 4:
+            time.sleep(0.5)
+        else:
+            time.sleep(5) 
         state, ri_id = GEO_Cb4_status.batch_status(batch_id)
         print("iteration: " + str(counter) + " batch is: " + str(state))
-        time.sleep(1) 
-        if counter > 30:
-            raise MyBusinessException("Batch not finished in a given time limint")
-            #break
         counter += 1
 
     # vyzvedni výsledek
@@ -50,10 +55,13 @@ try:
     #proveď parsing 
     result = GEO_Cb4_parse.parse_result(xml_txt)
     
+#    if result is None:
+#        raise MyBusinessException("no result")
+    
     result_json = json.dumps(result, ensure_ascii=False)    
     print(result_json)
     
-    GEO_Cb4_writef.wrt_f(msg = result_json)
+    GEO_Cb4_common.wrt_f(msg = result_json)
 
 except MyBusinessException as e:
     print(e)

@@ -9,7 +9,7 @@ Created on Mon Oct 30 12:01:59 2017
 import requests
 import xml.etree.ElementTree as ET
 import uuid
-import GEO_Cb4_writef
+import GEO_Cb4_common
 
 # suppress InsecureRequestWarning if SSL and no cert + see below verify=False 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -71,10 +71,10 @@ def batch_status(batch_id):
     response_info = tree.find('.//{' + ns_response + '}' + "ResponseInfo")
     ri_id = response_info.find('{' + ns_response + '}' + 'Id').text
     
-    GEO_Cb4_writef.wrt_f(label = 'batch check status request header',
+    GEO_Cb4_common.wrt_f(label = 'batch check status request header',
                      msg = str(headers))
-    GEO_Cb4_writef.wrt_f(label = 'batch check status request', msg = body_new)
-    GEO_Cb4_writef.wrt_f(label = 'batch check status response',
+    GEO_Cb4_common.wrt_f(label = 'batch check status request', msg = body_new)
+    GEO_Cb4_common.wrt_f(label = 'batch check status response',
                              msg = response.text)
     
     return (state, ri_id)

@@ -6,6 +6,9 @@ Created on Tue Oct 31 07:31:29 2017
 """
 import time
 
+class MyBusinessException(Exception):
+    pass
+
 def wrt_f(label = "", msg="", header = False):
     fname = './x/GEO_Cb4_rqu+rsp.txt'
 #    header = True

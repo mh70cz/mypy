@@ -25,7 +25,7 @@ def replace_uuid_short(docum, string_to_replace):
 
     return new_docum
 
-def batch_status(batch_id):
+def batch_status(batch_id, url, host, authorization):
     body = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cb4="http://cb4.creditinfosolutions.com/">
        <soapenv:Header/>
        <soapenv:Body>
@@ -36,7 +36,6 @@ def batch_status(batch_id):
     </soapenv:Envelope>
     """
     
-    url="https://getest.creditinfosolutions.com/WebService/Service.asmx"
     
     headers = {'Accept-Encoding': 'gzip,deflate',
                'Content-Type': 'text/xml;charset=UTF-8',
@@ -48,6 +47,12 @@ def batch_status(batch_id):
                'Authorization': 'Basic Q0lTX0luZmluaXR5OktvYmxpaGE1NyE=',
                'Accept': None
                }
+    
+    
+    headers['Host'] = host
+    headers['Authorization'] = authorization
+    #url="https://getest.creditinfosolutions.com/WebService/Service.asmx"
+    
     
     ns_response = "http://cb4.creditinfosolutions.com/BatchUploader/Batch"
     

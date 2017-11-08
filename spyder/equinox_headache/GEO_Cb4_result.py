@@ -34,7 +34,7 @@ def replace_uuid_short(docum, string_to_replace):
 
     return new_docum
 
-def batch_result(ri_id):
+def batch_result(ri_id, url, host, authorization):
     
     body = """<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
         <soap:Body>
@@ -46,7 +46,6 @@ def batch_result(ri_id):
     </soap:Envelope>
     """
     
-    url="https://getest.creditinfosolutions.com/WebService/Service.asmx"
     
     headers = {'Accept-Encoding': 'gzip,deflate',
                'Content-Type': 'text/xml;charset=UTF-8',
@@ -58,6 +57,10 @@ def batch_result(ri_id):
                'Authorization': 'Basic Q0lTX0luZmluaXR5OktvYmxpaGE1NyE=',
                'Accept': None
                }
+    
+    headers['Host'] = host
+    headers['Authorization'] = authorization
+    #url="https://getest.creditinfosolutions.com/WebService/Service.asmx"
     
     ns_response = "http://cb4.creditinfosolutions.com/"
     

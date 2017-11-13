@@ -7,6 +7,8 @@ exclude_folder_names = []
 exclude_file_names = []
 exclude_file_extensions = []
 now = dt.datetime.now()
+delta_days = 100
+before = now - dt.timedelta(days=delta_days)
 
 error_log = []
 
@@ -14,9 +16,9 @@ def main():
 
 
     rootFolders = [
-        r"/home/mh70/Documents",
-        r"/home/mh70/Pictures",
-        r"/home/mh70/test"
+        r"/home/mh/Documents",
+        r"/home/mh/Pictures",
+        r"/home/mh/test"
     ]
     print_details = False
 
@@ -39,8 +41,11 @@ def iterate_over_files(rootFolders, print_details):
             for filename in filenames:                
                 if excludedFilenameOrExtension(filename):
                     continue
-                path = folderName + "//" + filename
+                path = folderName + "/" + filename
                 timeModiTimeStamp = os.path.getmtime(path)
+                mod_time = dt.datetime.fromtimestamp(timeModiTimeStamp)
+                if mod_time  < before:
+                    continue
                 size = os.path.getsize(path)
                 folder_file_count += 1
                 folder_total_size += size

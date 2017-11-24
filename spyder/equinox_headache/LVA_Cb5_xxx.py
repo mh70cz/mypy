@@ -30,7 +30,7 @@ headers = {'Accept-Encoding': 'gzip,deflate',
            'Host': 'ws.kib.lv',
            'Connection': 'Keep-Alive',
            'User-Agent': 'Apache-HttpClient/4.1.1 (java 1.5)',
-           'Authorization': 'Basic ', #'Basic hashed(name+pass)'
+           'Authorization': 'Basic ', #'Basic hashed(name+pass)' e.g. 'Basic Q0lTX0luZmluaXR5OktvYmxpaGE1NyE='
            'Accept': None
            }
 

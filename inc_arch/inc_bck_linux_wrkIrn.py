@@ -16,13 +16,13 @@ def main():
 
 
     rootFolders = [
-        r"/home/mh/Documents",
-        r"/home/mh/Pictures",
+        r"/home/irena/Documents",
+        r"/home/irena/Pictures",
         r"/home/mh/test"
     ]
     print_details = False
     copy_files = True
-    dst_path_prefix = "/tmp/mh"
+    dst_path_prefix = "/tmp/irena"
     
 
     iterate_over_files(rootFolders, print_details, dst_path_prefix, copy_files)
@@ -59,7 +59,10 @@ def iterate_over_files(rootFolders, print_details, dst_path_prefix, copy_files):
                     dst_folder = os.path.dirname(dst_path)
                     if not os.path.exists(dst_folder):
                         os.makedirs(dst_folder)
-                    shutil.copy2(path, dst_path)
+                    try:
+                        shutil.copy2(path, dst_path)
+                    except(PermissionError):
+                        print("PermissionError " + path)
                 
                 size = os.path.getsize(path)
                 folder_file_count += 1

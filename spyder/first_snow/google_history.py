@@ -9,6 +9,7 @@ https://applecrazy.github.io/blog/posts/analyzing-browser-hist-using-python/
 
 import sqlite3
 from sqlite3 import Error
+import platform
 import pandas as pd
 
 import numpy as np
@@ -32,9 +33,13 @@ def create_connection(db_file):
 
 def get_raw_data():
     
-    db_path = r"C:\Users\m.houska\AppData\Local\Google\Chrome\User Data\Default"
     db_file_name = "History"
-    database = db_path + '\\' + db_file_name
+    if platform.system() == 'Linux':
+        db_path = r"/home/mh/.config/google-chrome/Default"
+        database = db_path + '/' + db_file_name
+    else:    
+        db_path = r"C:\Users\m.houska\AppData\Local\Google\Chrome\User Data\Default"
+        database = db_path + '\\' + db_file_name
         
     # create a database connection        
     conn = create_connection(database)
@@ -49,7 +54,30 @@ def get_raw_data():
         
     return rows
 
-raw_data = get_raw_data()
+    
+def data_sites(pd_df):
+    data = pd_df.copy()
+    #remove all information from the URL, leaving only the domain/subdomain:
+    parser = lambda u: urlparse(u).netloc
+    data.url = data.url.apply(parser)   
+    
+    site_frequencies = data.url.value_counts().to_frame()
+    site_frequencies.reset_index(inplace=True) # Make the domain a column
+    
+    site_frequencies.columns = ['domain', 'count']
+    return site_frequencies
+
+def visualize_sf(site_frequencies):
+    topN = 20
+    plt.title('Top $n sites Visited'.replace('$n', str(topN)))
+    pie_data = site_frequencies['count'].head(topN).tolist()
+    
+    pie_labels = None
+    
+    plt.pie(pie_data, autopct='1.1f%%', labels=pie_labels)
+    plt.show()
+    
+#raw_data = get_raw_data() #read from db , close chrome first
 
 data = pd.DataFrame(raw_data, columns=['datetime', 'url'])
 
@@ -63,21 +91,8 @@ data = pd.DataFrame(raw_data, columns=['datetime', 'url'])
 
 data.datetime = pd.to_datetime(data.datetime, errors='coerce')
 
-#remove all information from the URL, leaving only the domain/subdomain:
-parser = lambda u: urlparse(u).netloc
-data.url = data.url.apply(parser)   
+site_frequencies = data_sites(data)
+visualize_sf(site_frequencies)
 
-site_frequencies = data.url.value_counts().to_frame()
-site_frequencies.reset_index(inplace=True) # Make the domain a column
-
-site_frequencies.columns = ['domain', 'count']
-
-topN = 20
-plt.title('Top $n sites Visited'.replace('$n', str(topN)))
-pie_data = site_frequencies['count'].head(topN).tolist()
-
-pie_labels = None
-
-plt.pie(pie_data, autopct='1.1f%%', labels=pie_labels)
-plt.show()
+sites_per_week = data['datetime'].groupby(data['datetime'].dt.week).count()
 

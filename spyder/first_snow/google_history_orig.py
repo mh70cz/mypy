@@ -4,6 +4,8 @@ Created on Wed Dec  6 17:34:16 2017
 based on:
 https://applecrazy.github.io/blog/posts/analyzing-browser-hist-using-python/
 
+example gets misleading indo - does not factor in the visit_count column
+
 @author: mh70
 """
 
@@ -74,10 +76,10 @@ def visualize_sf(site_frequencies):
     
     pie_labels = None
     
-    plt.pie(pie_data, autopct='1.1f%%', labels=pie_labels)
+    plt.pie(pie_data, autopct='%1.1f%%', labels=pie_labels)
     plt.show()
     
-#raw_data = get_raw_data() #read from db , close chrome first
+raw_data = get_raw_data() #read from db , close chrome first
 
 data = pd.DataFrame(raw_data, columns=['datetime', 'url'])
 

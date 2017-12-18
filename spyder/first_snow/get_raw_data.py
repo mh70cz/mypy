@@ -52,15 +52,15 @@ def get_data_from_db(db_file):
         # (dt_1970 - dt_1601).total_seconds()  ->  11644473600.0
 
         
-        sql_urls = """select 
+        sql_urls = """select id, url,
         datetime(last_visit_time/1000000-11644473600,'unixepoch'),         
-        url,  visit_count 
+        visit_count 
         from  urls 
         order by last_visit_time desc;
         """
         
         sql_visits = """select 
-        datetime(visit_time/1000000-11644473600,'unixepoch'), url  
+        datetime(visit_time/1000000-11644473600,'unixepoch'), url, transition  
         from visits
         order by visit_time desc;
         """
@@ -83,8 +83,10 @@ def main():
     raw_urls, raw_visits  = get_data_from_db(get_db_fname()) 
     
     #read into pandas DF
-    df_visits = pd.DataFrame(raw_visits, columns=['datetime', 'url_fk'])
-    df_urls = pd.DataFrame(raw_urls, columns=['datetime', 'url', 'visitcount'])
+    df_visits = pd.DataFrame(raw_visits,
+                             columns=['datetime', 'url_fk', 'transition'])
+    df_urls = pd.DataFrame(raw_urls,
+                           columns=['id', 'url', 'datetime', 'visitcount'])
     
     
     #convert the datetime string column into a column of Pandas datetime elements
@@ -95,8 +97,12 @@ def main():
     # see pd.Timestamp.min ; pd.Timestamp.max
     # errors='coerce' create NaT for invalid values
     
-    df_visits.datetime = pd.to_datetime(df_visits.datetime, errors='coerce')
     df_urls.datetime = pd.to_datetime(df_urls.datetime, errors='coerce')
+    df_visits.datetime = pd.to_datetime(df_visits.datetime, errors='coerce')
+
+    df_visits['trans_type'] = df_visits['transition'].apply(lambda t: t & 0xff)
+    # https://groups.google.com/a/chromium.org/forum/#!topic/chromium-discuss/r7UQ2i98Lu4
+    # https://developer.chrome.com/extensions/history
 
     return (df_visits, df_urls)
 

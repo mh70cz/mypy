@@ -13,7 +13,8 @@ import matplotlib.pyplot as plt
 
 import get_raw_data
 
-df_visits, df_urls = get_raw_data.main()
+#df_visits, df_urls = get_raw_data.main()
+# df_visits['trans_type'] = df_visits['transition'].apply(lambda t: t & 0xff)
 
 def data_sites(pd_df):
     data = pd_df.copy()
@@ -38,6 +39,28 @@ def visualize_sf(site_frequencies):
     
     plt.pie(pie_data, autopct='%1.1f%%', labels=pie_labels)
     plt.show()
+    
+def transition(df_visits):
+    t1 = df_visits.groupby(['trans_type','transition'],
+                          as_index=False)['transition'].agg({'count': len})
+    # as_index=False is effectively “SQL-style” grouped output
+    # agg If a dict is passed, the keys will be used to name the columns.
+    
+    
+    t2 = df_visits.groupby(
+            ['trans_type','transition']).transition.count().to_frame()
+    t2.columns = ['count']         # rename column first
+    t2.reset_index(inplace=True)   # make the index columns
+    
+    # t1 == t2 - should be True
+    
+    trans_types = ["link", "typed", "auto_bookmark", "auto_subframe",
+                   "manual_subframe", "generated", "auto_toplevel",
+                   "form_submit", "reload", "keyword", "keyword_generated"]
+    
+    t2['trans_type_txt'] = t2['trans_type'].apply(lambda i: trans_types[i])
+    # https://groups.google.com/a/chromium.org/forum/#!topic/chromium-discuss/r7UQ2i98Lu4
+    # https://developer.chrome.com/extensions/history
     
 site_frequencies = data_sites(df_urls)
 visualize_sf(site_frequencies)

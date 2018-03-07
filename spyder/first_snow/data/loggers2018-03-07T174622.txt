@@ -50,6 +50,7 @@ GC40WZM,UnhoKuba
 GC40WZM,petr.27
 GC40WZM,DaLeSt
 GC6QWNR,onjireji
+GC6QWNR,Rýchly Šíp
 GC6QWNR,mcimpl
 GC6QWNR,bagrik062
 GC6QWNR,placlivo
@@ -73,9 +74,10 @@ GC6QWNR,Midlan2
 GC6QWNR,vlcak2
 GC6QWNR,Luci-geo
 GC6QWNR,PEGAS 711
-GC6QWNR,Frida007
+GC6V72Y,_fanoush
 GC6V72Y,onjireji
 GC6V72Y,hwnd
+GC6V72Y,Rýchly Šíp
 GC6V72Y,mcimpl
 GC6V72Y,cunakus
 GC6V72Y,bagrik062
@@ -97,8 +99,6 @@ GC6V72Y,Frida007
 GC6V72Y,Janča96
 GC6V72Y,bafbaf
 GC6V72Y,priseryrpr
-GC6V72Y,Merrill_cz
-GC6V72Y,Vranicka
 GC6ZNTB,EVSL
 GC6ZNTB,Marty 1905
 GC6ZNTB,kapitanR
@@ -124,6 +124,7 @@ GC6ZNTB,Sunzie
 GC6ZNTB,marky-cz
 GC6ZNTB,onjireji
 GC6ZNTB,REAL11
+GC7030Q,Arrow&Fabi
 GC7030Q,Vlsilhavy
 GC7030Q,gabuking
 GC7030Q,mrkva4
@@ -148,7 +149,20 @@ GC7030Q,XBRUNO
 GC7030Q,jabahu
 GC7030Q,wabicek
 GC7030Q,afrina
-GC7030Q,Duklis
+GC7JMAV,Benjo5
+GC7JMAV,JirkaPiha
+GC7JMAV,frka123
+GC7JMAV,vojtik3012
+GC7JMAV,vera47
+GC7JMAV,Bingas
+GC7JMAV,Bubenik_cz
+GC7JMAV,krtekgps
+GC7JMAV,horace3
+GC7JMAV,retropop
+GC7JMAV,mh70+ic76
+GC7JMAV,arnepi
+GC7JMAV,marta437
+GC7JMAV,horace3
 GC7JMAV,marek007
 GC7JMAV,Trhac
 GC7JMAV,ovcakovi
@@ -160,9 +174,3 @@ GC7JMAV,Hoblik
 GC7JMAV,muryru
 GC7JMAV,frettie
 GC7JMAV,mtauf
-GC7JMAV,SvenEckersberg
-GC7JMAV,BaryBal
-GC7JMAV,Monty&Miru
-GC7JMAV,jezevecjezevec
-GC7JMAV,MiroslavRouta
-GC7JMAV,Rico Reviewer

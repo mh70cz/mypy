@@ -2,6 +2,8 @@ __pycache__/
 .vscode/
 wrk/
 x/
+**/scrsht/
+**/geckodriver.log
 
 #spyder
 **/untitled*

@@ -33,6 +33,24 @@ browser.back()
 browser.refresh()
 
 
+
+# scroll
+browser.execute_script("window.scrollTo(0, 300)") 
+y = 900
+browser.execute_script("window.scrollTo(0, arguments[0])", y) 
+#where y is the height, předání pomocí y -> arguments[0]
+
+browser.set_window_size(300,600)
+x, y = 150, 1200
+browser.execute_script("window.scrollTo(arguments[0], arguments[1])", x, y) 
+
+browser.set_window_size(600,600)
+# scroll-down na konec okna
+browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+
+
+
 #zavři cookie warning
 cookies = browser.get_cookies()
 cookies_old = cookies.copy()

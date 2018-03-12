@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Mar  3 14:31:25 2018
-
-@author: mh70
+Created on Sat Mar  3 14:31:25 2018 @author: mh70
 """
 
 from selenium.webdriver import Firefox
@@ -19,6 +17,14 @@ opts.set_headless()
 assert opts.headless # operation in headles mode
 browser = Firefox(options=opts)
 
+caches = {'GC290AN': 'Trapistický klášter',
+          'GC40WZM': 'Pod mohutnym modrinem',
+          'GC6QWNR': 'Polokacer',
+          'GC6V72Y': 'Superkacer',
+          'GC6ZNTB': 'Treti kacer',
+          'GC7030Q': 'Kostel na Barrandove',
+          'GC7JMAV': 'Kostel na Zlichove',          
+          }
 
 def get_password():
     home =  str(Path.home())
@@ -93,14 +99,7 @@ def read_from_file(fname):
         return dict_to_import        
         
 def get_caches_loggers():
-    caches = {'GC290AN': 'Trapistický klášter',
-              'GC40WZM': 'Pod mohutnym modrinem',
-              'GC6QWNR': 'Polokacer',
-              'GC6V72Y': 'Superkacer',
-              'GC6ZNTB': 'Treti kacer',
-              'GC7030Q': 'Kostel na Barrandove',
-              'GC7JMAV': 'Kostel na Zlichove',          
-              }
+
 
     cache_loggers = dict()
     
@@ -110,7 +109,8 @@ def get_caches_loggers():
         logs_table = browser.find_element_by_id('cache_logs_table')
         loggers = logs_table.find_elements_by_class_name('logOwnerProfileName')
         loggers_lst = list()
-        print(str(cache) + ':')
+        #print(str(cache) + ' ('+ caches[cache] +':')
+        print (f'\n{cache} ({caches[cache]}):')
         for l in loggers:
             print (l.text)
             loggers_lst.append(l.text)
@@ -132,6 +132,8 @@ def compare(n=1):
     if len(fnames) <= n :
         print('No data for comparison')
         return False
+    print ('\n   *** Comparison ***')
+    print(f'{fnames[0]} vs {fnames[n]}')
     
     last_dict = read_from_file('./data/' + fnames[0])
     refr_dict = read_from_file('./data/' + fnames[n])
@@ -140,7 +142,7 @@ def compare(n=1):
         last = last_dict[cache]
         refr = refr_dict[cache]
         diff = [x for x in last if x not in refr]
-        print(cache)
+        print(f'\n{cache} ({caches[cache]}):')
         print(diff)    
 
 if gc_log_in():

@@ -6,6 +6,7 @@ Created on Sat Mar  3 14:31:25 2018 @author: mh70
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from pathlib import Path
 import csv
 import datetime
@@ -15,7 +16,27 @@ import os
 opts = Options()
 opts.set_headless()
 assert opts.headless # operation in headles mode
-browser = Firefox(options=opts)
+
+
+'''
+When Page Loading takes too much time and you need to stop downloading 
+additional subresources (images, css, js etc) you can change 
+the  pageLoadStrategy through the webdriver.
+'''
+caps = DesiredCapabilities().FIREFOX
+caps["pageLoadStrategy"] = "eager"  #  interactive
+# caps["pageLoadStrategy"] = "normal"  #  complete
+# caps["pageLoadStrategy"] = "none"   #  undefined
+    
+browser = Firefox(options=opts, capabilities=caps)
+browser.implicitly_wait(2) # seconds
+# An implicit wait tells WebDriver to poll the DOM 
+# for a certain amount of time when trying to find 
+# any element (or elements) not immediately available. 
+# The default setting is 0. Once set, 
+# the implicit wait is set for the life of the WebDriver object.
+
+
 
 caches = {'GC290AN': 'Trapistický klášter',
           'GC40WZM': 'Pod mohutnym modrinem',
@@ -43,6 +64,7 @@ def get_password():
 def gc_log_in(usr_val = 'mh70+ic76', pwd_val = ''):
     if pwd_val == "":
         pwd_val = get_password()
+    print('try to log in')        
     browser.get('https://www.geocaching.com/account/login')
     usr = browser.find_element_by_id('Username')
     pwd = browser.find_element_by_id('Password')
@@ -100,17 +122,17 @@ def read_from_file(fname):
         
 def get_caches_loggers():
 
-
     cache_loggers = dict()
     
     for cache in caches.keys():
         cache_url = 'https://coord.info/' + cache
+        
+        print (f'\n{cache} ({caches[cache]}):')
         browser.get(cache_url)
         logs_table = browser.find_element_by_id('cache_logs_table')
         loggers = logs_table.find_elements_by_class_name('logOwnerProfileName')
         loggers_lst = list()
         #print(str(cache) + ' ('+ caches[cache] +':')
-        print (f'\n{cache} ({caches[cache]}):')
         for l in loggers:
             print (l.text)
             loggers_lst.append(l.text)

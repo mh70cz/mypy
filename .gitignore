@@ -4,6 +4,7 @@ wrk/
 x/
 **/scrsht/
 **/geckodriver.log
+**/tmp*
 
 #spyder
 **/untitled*

@@ -1,4 +1,6 @@
 '''Bite 5. Parse a list of names'''
+# pylint: disable=W0108
+
 NAMES = ['arnold schwarzenegger', 'alec baldwin', 'bob belderbos',
          'julian sequeira', 'sandra bullock', 'keanu reeves',
          'julbob pybites', 'bob belderbos', 'julian sequeira',
@@ -14,7 +16,7 @@ def dedup_and_title_case_names(names):
 def sort_by_surname_desc(names):
     """Returns names list sorted desc by surname"""
     names = dedup_and_title_case_names(names)
-    return sorted(names, key=lambda x: x.split(" ")[1], reverse = True)
+    return sorted(names, key=lambda x: x.split(" ")[1], reverse=True)
 
 
 def shortest_first_name(names):

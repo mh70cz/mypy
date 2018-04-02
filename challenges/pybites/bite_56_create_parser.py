@@ -1,3 +1,7 @@
+""""
+Bite 56. Add a command line interface to our BMI calculator
+create parser ; argparse
+"""
 import argparse
 
 

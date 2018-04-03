@@ -22,6 +22,8 @@ initrd  /initrd.img-4.8.0-58-generic
 
 ---
 
+---
+
 recordfail
 load_video
 gfxmode $linux_gfx_mode

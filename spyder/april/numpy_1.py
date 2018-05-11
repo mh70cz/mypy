@@ -31,3 +31,5 @@ ax.plot(d, label="d")
 
 ax.legend(loc='upper left')
 plt.show()
+
+

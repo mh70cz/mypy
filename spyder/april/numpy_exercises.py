@@ -29,3 +29,4 @@ def np_02_03():
     y = np.ones((3,3), dtype=bool)
     assert(x.all() == y.all())    
     print(x)
+    

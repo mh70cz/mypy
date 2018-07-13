@@ -9,14 +9,20 @@ import os
 #fname = "NRKI_6959106286.xml"
 #fname= "NRKI_7851047787.xml"
 #fname="NRKI_7251068077_predZmenou.xml"
-fname="NRKI_7807029912_poZmene.xml"
+#fname="NRKI_7807029912_poZmene.xml"
+#fname="NRKI_7262119656_7763.xml"
+#fname="NRKI_490115176_7762.xml"
+fname = "NRKI_8701158730_7764.xml"
 
 
 xmlpath = os.path.join(r'C:\Users\m.houska\Documents\_CIS\Toyota', fname)
 tree = ET.parse(xmlpath)
 root = tree.getroot()
 
-fic = root.find(".//CustomerData/FoundCustomer/Customer/FIPersonalCode")
+fi_pc_rqu = root.find(".//CustomerData/ReqCustomer/Customer/FIPersonalCode")
+#ccb_pc_rqu = root.find(".//CustomerData/ReqCustomer/Customer/CCBPersonalCode") 
+fi_pc_rsp = root.find(".//CustomerData/FoundCustomer/Customer/FIPersonalCode")
+ccb_pc_rsp = root.find(".//CustomerData/FoundCustomer/Customer/CCBPersonalCode") 
 
 # root.findall(".//ContractData/Cards/CardDetail")
 # root.findall(".//ContractData/Cards/CardDetail/CommonData/[OpPhase='EX']../ResidualAmount")
@@ -27,6 +33,21 @@ fic = root.find(".//CustomerData/FoundCustomer/Customer/FIPersonalCode")
 # mai_inst  MonthlyInstallment Amount  Installment operations
 # mai_cc    MonthlyInstallments Amount Card operations
 
+
+def get_type_of_query():
+    function_code_elem = root.find(".//Header/FunctionCode")
+    if function_code_elem is not None:
+        function_code = function_code_elem.text
+    else:
+        function_code = "not_found"
+    query_types = {"01001":"RI_REQ",
+                   "02001":"EC_REQ",
+                   "03001":"CI_REQ" ,                   
+                   "not_found":" not found "
+            }
+    
+    return query_types.get(function_code, function_code)        
+        
 
 def get_inst_cc_values():
     card_detail = root.findall(".//ContractData/Cards/CardDetail")
@@ -96,12 +117,15 @@ def monthly_amount(mai_inst, mai_cc, limit_cc):
 ra_cc, mai_cc, limit_cc, ra_inst, mai_inst =  get_inst_cc_values()
 score_raw, cbs_core_range, score_factor, score_error = get_score_values()
 
+print(f"FIPersonalCode CIS     : {fi_pc_rqu.text if fi_pc_rqu is not None else ''}")
+print(f"CCBPersonalCode CRIF   : {ccb_pc_rsp.text if ccb_pc_rsp is not None else ''}")
+print(f"FIPersonalCode CRIF    : {fi_pc_rsp.text if fi_pc_rsp is not None else ''}")
+print(f"Type of query          : {get_type_of_query()}")
 
 if score_error:    
     print(f"Score error Code       : {score_error[0].text}")
     print(f"Score error Description: {score_error[1].text}")   
 else:    
-    print(f"FIPersonalCode CRIF    : {fic.text if fic is not None else ''}")
     print(f"ScoreRaw               : {score_raw}")
     print(f"CBSCoreRange           : {cbs_core_range}")
     
@@ -110,5 +134,5 @@ else:
         print(f"SFDescription          : {sf[1].text}")  
 
 print(f"Celková měsíční splátka: {monthly_amount(mai_inst, mai_cc, limit_cc)}")        
-print(f"Zustatkova hodnota     : {residual_amout(ra_inst, ra_cc, limit_cc)}")
+print(f"Zůstatková hodnota     : {residual_amout(ra_inst, ra_cc, limit_cc)}")
 

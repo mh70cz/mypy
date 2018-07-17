@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Apr 23 09:37:46 2018; @author: mh70
-Bite 19. Write a simple property 
+Bite 19. Write a simple property
 """
 
 from datetime import datetime
@@ -10,20 +10,16 @@ NOW = datetime.now()
 
 
 class Promo:
-    
     def __init__(self, s, d):
         self.s = s
         self.d = d
-    
+
     @property
     def expired(self):
         if self.d < NOW:
             return True
         else:
             return False
-
-
-
 
 
 """

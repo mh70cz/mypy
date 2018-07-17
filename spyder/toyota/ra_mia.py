@@ -5,14 +5,14 @@
 import xml.etree.ElementTree as ET
 import os
 
-#fname = 'NRKI_6901209084.xml'
+fname = 'NRKI_6901209084.xml'
 #fname = "NRKI_6959106286.xml"
 #fname= "NRKI_7851047787.xml"
 #fname="NRKI_7251068077_predZmenou.xml"
 #fname="NRKI_7807029912_poZmene.xml"
 #fname="NRKI_7262119656_7763.xml"
 #fname="NRKI_490115176_7762.xml"
-fname = "NRKI_8701158730_7764.xml"
+#fname = "NRKI_8701158730_7764.xml"
 
 
 xmlpath = os.path.join(r'C:\Users\m.houska\Documents\_CIS\Toyota', fname)
@@ -43,7 +43,7 @@ def get_type_of_query():
     query_types = {"01001":"RI_REQ",
                    "02001":"EC_REQ",
                    "03001":"CI_REQ" ,                   
-                   "not_found":" not found "
+                   "not_found":"not found in repsonse"
             }
     
     return query_types.get(function_code, function_code)        

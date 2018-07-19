@@ -5,7 +5,7 @@
 import xml.etree.ElementTree as ET
 import os
 
-fname = 'NRKI_6901209084.xml'
+#fname = 'NRKI_6901209084.xml'
 #fname = "NRKI_6959106286.xml"
 #fname= "NRKI_7851047787.xml"
 #fname="NRKI_7251068077_predZmenou.xml"
@@ -13,6 +13,8 @@ fname = 'NRKI_6901209084.xml'
 #fname="NRKI_7262119656_7763.xml"
 #fname="NRKI_490115176_7762.xml"
 #fname = "NRKI_8701158730_7764.xml"
+#fname= "NRKI_8707139463_7770.xml"
+fname= "NRKI_8061298289_7770.xml"
 
 
 xmlpath = os.path.join(r'C:\Users\m.houska\Documents\_CIS\Toyota', fname)

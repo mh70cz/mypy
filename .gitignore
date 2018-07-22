@@ -5,6 +5,7 @@ x/
 **/scrsht/
 **/geckodriver.log
 **/tmp*
+**/.cache/
 
 #spyder
 **/untitled*

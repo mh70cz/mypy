@@ -14,7 +14,10 @@ import os
 #fname="NRKI_490115176_7762.xml"
 #fname = "NRKI_8701158730_7764.xml"
 #fname= "NRKI_8707139463_7770.xml"
-fname= "NRKI_8061298289_7770.xml"
+#fname= "NRKI_8061298289_7770.xml"
+
+#fname= "NRKI_7756307548_79486.xml"
+fname= "NRKI_7207317491_79486.xml"
 
 
 xmlpath = os.path.join(r'C:\Users\m.houska\Documents\_CIS\Toyota', fname)

@@ -17,7 +17,13 @@ import os
 #fname= "NRKI_8061298289_7770.xml"
 
 #fname= "NRKI_7756307548_79486.xml"
-fname= "NRKI_8852047380_7781.xml"
+#fname= "NRKI_7207317491_79486.xml"
+
+#fname= "NRKI_8157317850_7779.xml"
+#fname= "NRKI_460914705_7779.xml"
+
+#fname= "NRKI_9758056176_7780.xml"
+fname= "NRKI_8307197987_7780.xml"
 
 
 
@@ -67,8 +73,17 @@ def get_inst_cc_values():
             ra_cc_e = e.find("./ResidualAmount").text
             mai_cc_e = e.find("./MonthlyInstalmentAmount").text
             limit_cc_e = e.find("./CreditLimit").text
+            CCBOperationCode = e.find("./CommonData/CCBOperationCode").text
             #print(e)
             #print (ra_cc_e, mai_cc_e, limit_cc_e)
+            
+            if (ra_cc_e is None or mai_cc_e is None or limit_cc_e is None):
+                print("*** None value >>> ****")
+                print(f"CCBOperationCode {CCBOperationCode}")
+                print (f"ra_cc_e {ra_cc_e}, mai_cc_e  {mai_cc_e}, limit_cc_e {limit_cc_e}" )
+                print("*** <<< None value ****")
+            
+                
             ra_cc += int(ra_cc_e or 0)
             mai_cc += int(mai_cc_e or 0)
             limit_cc += int(limit_cc_e or 0)
@@ -82,7 +97,13 @@ def get_inst_cc_values():
             ra_inst_e = e.find("./ResidualAmount").text
             mai_inst_e = e.find("./MonthlyInstalmentAmount").text
             #print(e)
-            #print (ra_inst_e, mai_inst_e)
+            CCBOperationCode = e.find("./CommonData/CCBOperationCode").text
+            if (ra_inst_e is None or mai_inst_e is None):
+                print("*** None value >>> ****")
+                print(f"CCBOperationCode {CCBOperationCode}")
+                print (f"ra_inst_e  {ra_inst_e}, mai_inst_e  {mai_inst_e}" )
+                print("*** <<< None value ****")
+            
             ra_inst += int(ra_inst_e or 0)
             mai_inst += int(mai_inst_e or 0)
     #print(ra_inst, mai_inst)

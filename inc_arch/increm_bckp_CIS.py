@@ -43,6 +43,14 @@ rootFolders_oneD = [
     ]
 backup_folder_oneD = r"C:\Users\m.houska\OneDrive\ZZ-Archive\OneDrive_increm"
 
+
+#M:
+rootFolders_M = [
+    r"m:\Projects\CZ_Toyota\Projects",
+    r"m:\Projects\SK_Toyota\Projects"
+    ]
+backup_folder_M = r"C:\Users\m.houska\OneDrive\ZZ-Archive\MDrive_increm"
+
 ignored_filenames = ["Thumbs.db"]
 ignored_extension = ["tmp", "wrk"]
 delta_days = 100
@@ -55,6 +63,7 @@ def haf():
 
     do_bck(rootFolders_oneD, backup_folder_oneD)
     do_bck(rootFolders_CIS_NB, backup_folder_CIS_NB)
+    do_bck(rootFolders_M, backup_folder_M)
 
     for msg in error_log:
         print(msg)

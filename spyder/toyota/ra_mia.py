@@ -1,4 +1,3 @@
-d# -*- coding: utf-8 -*-
 """
 
 """
@@ -17,7 +16,9 @@ import os
 #fname= "NRKI_8061298289_7770.xml"
 
 #fname= "NRKI_7756307548_79486.xml"
-fname= "NRKI_8852047380_7781.xml"
+#fname= "NRKI_8256179382_79772.xml"
+
+fname= "NRKI_7604136100_79772.xml"
 
 
 
@@ -52,7 +53,7 @@ def get_type_of_query():
                    "not_found":"not found in repsonse"
             }
     
-    return query_types.get(function_code, function_code)        
+    return query_types.get(function_code, "unknown query type " + str(function_code))        
         
 
 def get_inst_cc_values():

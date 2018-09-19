@@ -17,11 +17,10 @@ fname_out = "op36.csv"
 #fname_in= "strategy79.xml"
 #fname_out = "op79.csv"
 
+# načti popisy obchodních proavidel z csv
 csvname = 'rulesDesc.csv'
 op_desc_csv = os.path.join(pname, csvname )
-
 op_desc = []
-
 with open(op_desc_csv) as f:
     reader = csv.reader(f, delimiter=";")
     for row in reader:
@@ -106,4 +105,4 @@ with open(pth_out, 'w') as f:
     wrt(results, op_set)   
     sys.stdout = sys.__stdout__
 
-#sys.stdout = sys.__stdout__
+sys.stdout = sys.__stdout__

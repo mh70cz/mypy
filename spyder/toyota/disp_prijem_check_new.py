@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 po úpravě dle typu bydlení
-v případě že je v pronájmu se odečítá 
+v případě že applicant (neaplikuje se na coApplicant) je v pronájmu,
+se odečítá 
 mesačné výdavky na domácnosť (náklady na bývanie, energia, strava, ...) v €   
 ->  Applicant: SpendingPerHousehold
-
-ToDo: doplnit notConcluded
 
 
 """

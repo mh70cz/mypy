@@ -6,7 +6,8 @@ https://codechalleng.es/bites/99
 from itertools import cycle
 
 
-def sequence_generator():
+
+def sequence_generator_orig():
     s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     z = zip(range(1, len(s)+1), s)
     c = cycle(z)
@@ -14,6 +15,23 @@ def sequence_generator():
         t = next(c)
         yield t[0] 
         yield t[1]
+
+def sequence_generator_pybites():
+    s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    numbers = cycle(range(1, len(s) + 1))
+    letters = cycle(s)
+
+    for number, letter in zip(numbers, letters):
+        yield number
+        yield letter      
+
+def sequence_generator():
+    s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    num = cycle(range(1, len(s)+1))
+    char = cycle(s)
+    while True:
+        yield next(num)
+        yield next(char)      
                 
 import pytest
 from itertools import islice

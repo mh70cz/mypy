@@ -61,5 +61,3 @@ class TestFib(unittest.TestCase):
             fib.fib_runner(1, 10, self.wrong_fake_method())
         the_exception = cm.exception
         self.assertRegex(the_exception.args[0], "method")
-
-unittest.main() 

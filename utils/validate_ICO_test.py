@@ -45,4 +45,4 @@ class TestICO(unittest.TestCase):
             self.assertTrue(validate(ico), ico)
 
 
-unittest.main()
+

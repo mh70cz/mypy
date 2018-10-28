@@ -62,5 +62,4 @@ class TestRC(unittest.TestCase):
         list_rc = [True, False, None, "NaN", (7003150044, 1411281014)]
         for rc in list_rc:
             self.assertIsNone(validate(rc), rc)
-
-unittest.main()            
+           

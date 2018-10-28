@@ -1,5 +1,5 @@
 """
-Check red blood cell compatibility between donor and recipient.
+Write a function which checks the red blood cell compatibility between donor and recipient.
 https://en.wikipedia.org/wiki/Blood_type#Red_blood_cell_compatibility
 For simplicity, the appearance of 8 basic types of blood is considered.
 The input of blood type can be in the form of:
@@ -36,7 +36,7 @@ blood_type_text = {
     "AB+": Bloodtype.AB_POS,
 }
 
-# possible solution:
+# complete :
 def check_bt(donor, recipient):
     """ Checks red blood cell compatibility based on 8 blood types
         Args:
@@ -45,33 +45,4 @@ def check_bt(donor, recipient):
         Returns:
         bool: True for compatability, False otherwise.
     """
-    donor = _check_convert_input(donor)
-    recipient = _check_convert_input(recipient)
-    d = donor.value
-    r = recipient.value
-    anti_gen_comp = (r // 4 % 2 - d // 4 % 2, r // 2 % 2 - d // 2 % 2, r % 2 - d % 2)
-    return all(agc >= 0 for agc in anti_gen_comp)
-
-
-def _check_convert_input(inpval):
-    """ Checks onput data type and value,
-        if necessary and possible it converts it to Bloodtype.
-        Arg:
-        inpval (int | str | Bloodtype)
-        Returns:
-        (Bloodtype): converted (if needed) impval
-    """
-    if isinstance(inpval, Bloodtype):
-        return inpval
-    if isinstance(inpval, int):
-        if 0 <= inpval <= 7:
-            return Bloodtype(inpval)
-        else:
-            raise ValueError
-    if isinstance(inpval, str):
-        if inpval in blood_type_text.keys():
-            return blood_type_text[inpval]
-        else:
-            raise ValueError
-    else:
-        raise TypeError
+    pass

@@ -28,8 +28,8 @@ http://montypython.wikia.com/wiki/Cheese_Shop_sketch )
 Complete the method *best_match_per_wine* which returns the best scored wine-cheese pair.
 Matching can be for a certain wine type (i.e. red, white, sparkling) or for all types.
 
-Complete the method *match_wine_5cheeses* which returns  for each wine 5 best matching cheeses.  
-All types of wines (i.e. red, white, sparkling) are included.
+Complete the method *match_wine_5cheeses* which returns a sorted list of wines , where for each wine are listed 5 best matching cheeses.  
+All types of wines (i.e. red, white, and sparkling) are included.
 
 ---
 Hint for sum of occurence of chars shared by both words:  

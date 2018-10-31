@@ -97,23 +97,25 @@ def _score(wine_type="all"):
                  1 + square of length difference of both words
     returns a list of tuples, where each tuple contains: cheese, wine, score
     """
-
     wine_types = {"white": WHITE_WINES, "red": RED_WINES, "sparkling": SPARKLING_WINES}
     if wine_type == "all":
         wines = RED_WINES + WHITE_WINES + SPARKLING_WINES
     else:
+        if wine_type not in wine_types.keys():
+            raise ValueError("unrecognized wine type")
         wines = wine_types[wine_type]
     wi_ch_pairs = []
-    for c in CHEESES:
-        c_cnt = Counter(c.lower())
-        for w in wines:
-            w_cnt = Counter(w.lower())
-            c_cnt_w_cnt = c_cnt & w_cnt
-            square_len_diff = (len(c) - len(w)) ** 2
-            similarity = sum([c_cnt_w_cnt[i] for i in c_cnt_w_cnt]) / (
+    for cheese in CHEESES:
+        ch_cnt = Counter(cheese.lower())
+        for wine in wines:
+            wi_cnt = Counter(wine.lower())
+            wi_cnt_ch_cnt = wi_cnt & ch_cnt
+            square_len_diff = (len(cheese) - len(wine)) ** 2
+            similarity = sum([wi_cnt_ch_cnt[i] for i in wi_cnt_ch_cnt]) / (
                 1 + square_len_diff
             )
-            wi_ch_pairs.append((w, c, similarity, c_cnt, w_cnt))
+            #ToDo remove diagnostic w_cnt, c_cnt
+            wi_ch_pairs.append((wine, cheese, similarity, wi_cnt, ch_cnt))
     return wi_ch_pairs
 
 
@@ -126,7 +128,7 @@ def best_match_per_wine(wine_type="all"):
 
 def match_wine_5cheeses():
     """  pairs all types of wines with cheeses ; returns a list of tuples,
-    where each tuple contains: wine, 5 best matching cheeses
+    where each tuple contains: wine, list of 5 best matching cheeses
     """
     wi_ch_pairs_srt = sorted(_score(), key=operator.itemgetter(0, 2))
     matches_wine_5cheeses = []
@@ -140,7 +142,7 @@ def match_wine_5cheeses():
         matches_wine_5cheeses.append((w, cheeses_5))
     return matches_wine_5cheeses
 
-
+#ToDo remove
 mwc = match_wine_5cheeses()
 bmw = best_match_per_wine(wine_type="white")
 bmr = best_match_per_wine(wine_type="red")

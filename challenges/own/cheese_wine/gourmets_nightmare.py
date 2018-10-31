@@ -119,15 +119,15 @@ def _score(wine_type="all"):
 
 def best_match_per_wine(wine_type="all"):
     """ wine cheese pair with the highest score
-    return a tuple which contains wine, cheese, score
-    """    
+    returns a tuple which contains wine, cheese, score
+    """
     return sorted(_score(wine_type), key=lambda x: x[2])[-1]
 
 
 def match_wine_5cheeses():
-    """  pairs all types of wines with cheeses ; returns a list of tuples, 
+    """  pairs all types of wines with cheeses ; returns a list of tuples,
     where each tuple contains: wine, 5 best matching cheeses
-    """    
+    """
     wi_ch_pairs_srt = sorted(_score(), key=operator.itemgetter(0, 2))
     matches_wine_5cheeses = []
     len_c = len(CHEESES)

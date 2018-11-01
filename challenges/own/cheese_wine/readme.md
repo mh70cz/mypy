@@ -9,7 +9,6 @@ weird and scary matching criteria.
 You will match by similarity of cheese and wine name, where the name similarity is defined as follows:
 
 ```
-
              sum of values of intersection of char counters of names
 similarity = ―――――――――――――――――――――――――――――――――――――――――――――――――――――――
              1 + square of length difference of both words
@@ -32,11 +31,11 @@ You will match them with 43 cheeses mentioned in the in the "Cheese Shop" sketch
   
 ---
 ### Tasks
-Complete the method *best_match_per_wine* which returns the best scored wine-cheese pair.
+1\. Complete the method *best_match_per_wine* which returns the best scored wine-cheese pair.
 Matching can be for a certain wine type (i.e. red, white, sparkling) or for all types.
 For an invalid wine type raise ValueError.
 
-Complete the method *match_wine_5cheeses* which returns a sorted list of wines , where for each wine are listed 5 best matching cheeses.  
+2\. Complete the method *match_wine_5cheeses* which returns a sorted list of wines , where for each wine are listed 5 best matching cheeses.  
 All types of wines (i.e. red, white, and sparkling) are included.
 Output example:
 ```
@@ -46,22 +45,11 @@ Output example:
 ...
 ('Zinfandel', ['Caithness', 'Limburger', 'Ilchester', 'Bel Paese', 'Lancashire'])
 ]
-
 ```
 ---
 
 
 Keywords: Counter intersection, Operator, Multi key sort
 
-ToDo:
-- [x] Examples of similarity
-- [x] Example of output
-- [x] Requirment text: best performing matches based on wine type (or absolute)
-- [x] Requirment text: list of wines and 5 top matching cheeses
-- [x] Assignment file
-- [x] Solution file
-- [x] Test case file
-- [ ] Test of test 
-- [ ] Remove diagnostic from solution file & test file
 
 

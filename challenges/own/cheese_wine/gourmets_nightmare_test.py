@@ -16,8 +16,7 @@ cases_best_by_wine = [
 @pytest.mark.parametrize("case", cases_best_by_wine)
 def test_best_match_per_wine_type(case):
     wine_type, *result = case
-    assert best_match_per_wine(wine_type)[:3] == tuple(result)
-    # assert best_match_per_wine(wine_type) == tuple(result)
+    assert best_match_per_wine(wine_type) == tuple(result)
 
 
 def test_invalid_wine_type():

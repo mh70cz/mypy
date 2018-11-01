@@ -112,7 +112,8 @@ def _score(wine_type="all"):
             wi_cnt_ch_cnt = wi_cnt & ch_cnt
             square_len_diff = (len(cheese) - len(wine)) ** 2
             similarity = sum(wi_cnt_ch_cnt.values()) / (1 + square_len_diff)
-            wi_ch_pairs.append((wine, cheese, similarity))
+            # ToDo remove diagnostic wi_cnt, ch_cnt + modify test
+            wi_ch_pairs.append((wine, cheese, similarity, wi_cnt, ch_cnt))
     return wi_ch_pairs
 
 
@@ -140,4 +141,9 @@ def match_wine_5cheeses():
     return matches_wine_5cheeses
 
 
-
+# ToDo remove
+mwc = match_wine_5cheeses()
+bmw = best_match_per_wine(wine_type="white")
+bmr = best_match_per_wine(wine_type="red")
+bms = best_match_per_wine(wine_type="sparkling")
+bma = best_match_per_wine(wine_type="all")

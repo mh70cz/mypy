@@ -92,9 +92,9 @@ SPARKLING_WINES = [
 
 def _score(wine_type="all"):
     """ scores wine-cheese pairs by similiarity of names
-                 sum of occurences of chars shared by both words
-    similarity = ------------------------------------------------
-                 1 + square of length difference of both words
+                 sum of values of intersection of char counters of names
+    similarity = -------------------------------------------------------
+                 1 + square of length difference of names
     returns a list of tuples, where each tuple contains: cheese, wine, score
     """
     wine_types = {"white": WHITE_WINES, "red": RED_WINES, "sparkling": SPARKLING_WINES}
@@ -111,10 +111,8 @@ def _score(wine_type="all"):
             wi_cnt = Counter(wine.lower())
             wi_cnt_ch_cnt = wi_cnt & ch_cnt
             square_len_diff = (len(cheese) - len(wine)) ** 2
-            similarity = sum([wi_cnt_ch_cnt[i] for i in wi_cnt_ch_cnt]) / (
-                1 + square_len_diff
-            )
-            #ToDo remove diagnostic w_cnt, c_cnt
+            similarity = sum(wi_cnt_ch_cnt.values()) / (1 + square_len_diff)
+            # ToDo remove diagnostic wi_cnt, ch_cnt + modify test
             wi_ch_pairs.append((wine, cheese, similarity, wi_cnt, ch_cnt))
     return wi_ch_pairs
 
@@ -127,7 +125,7 @@ def best_match_per_wine(wine_type="all"):
 
 
 def match_wine_5cheeses():
-    """  pairs all types of wines with cheeses ; returns a list of tuples,
+    """  pairs all types of wines with cheeses ; returns a sorted list of tuples,
     where each tuple contains: wine, list of 5 best matching cheeses
     """
     wi_ch_pairs_srt = sorted(_score(), key=operator.itemgetter(0, 2))
@@ -142,7 +140,8 @@ def match_wine_5cheeses():
         matches_wine_5cheeses.append((w, cheeses_5))
     return matches_wine_5cheeses
 
-#ToDo remove
+
+# ToDo remove
 mwc = match_wine_5cheeses()
 bmw = best_match_per_wine(wine_type="white")
 bmr = best_match_per_wine(wine_type="red")

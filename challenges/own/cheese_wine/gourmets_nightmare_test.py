@@ -48,3 +48,4 @@ def test_match_wine_5cheeses(case):
     assert mw5c[idx][0] == wine
     assert cheese1 in mw5c[idx][1]  # first cheese is in the list
     assert cheese2 in mw5c[idx][1]  # second cheese is in the list
+    assert len(mw5c[idx][1]) == 5   # 5 cheeses are in the list

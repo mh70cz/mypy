@@ -18,3 +18,4 @@ git remote add origin https://github.com/mh70cz/mypy.git
 ```
 git status -s | while read mode file; do echo $mode $file $(stat -c %y $file); done
 ```
+ 

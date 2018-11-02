@@ -46,3 +46,25 @@ def check_bt(donor, recipient):
         bool: True for compatability, False otherwise.
     """
     pass
+
+
+# hint
+def _particular_antigen_comp(donor: int, recipient: int) -> tuple:
+    """Returns a particalar antigen compatibility, where each tuple member
+    marks a compatibility for a particular antigen  (A, B, Rh-D).
+    If tuple member is non-negative there is a compatibility.
+    For red blood cell compatibility is required that 
+    all tuple members are non-negative (i.e. compatibility for all 3 antigens).
+    0- bloodtype is represented as 0 ; AB+ is represented as 7; see Bloodtype enum
+    Examples:
+    _particular_antigen_comp(0, 7) -> (1, 1, 1)    0- can donate to AB+
+    _particular_antigen_comp(1, 3) -> (0, 1, 0)    0+ can donate to B+
+    _particular_antigen_comp(2, 5) -> (1, -1, 1)   B+ cannot donate to A+
+    _particular_antigen_comp(7, 0) -> (-1, -1, -1) AB+ cannot donate to 0-
+    """
+    return (
+        ((recipient // 4) % 2) - ((donor // 4) % 2),
+        ((recipient // 2) % 2) - ((donor // 2) % 2),
+        (recipient % 2) - (donor % 2),
+    )
+

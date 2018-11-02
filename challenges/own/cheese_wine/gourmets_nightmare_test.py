@@ -30,11 +30,31 @@ def test_all_wines_included():
 
 mw5c = match_wine_5cheeses()
 cases = [
-    (0, "Barbera", "Cheddar", "Gruyère"),
-    (1, "Barolo", "Boursin", "Cheddar"),
-    (2, "Cabernet sauvignon", "Dorset Blue Vinney", "Norwegian Jarlsberg"),
-    (3, "Cava", "Edam", "Gouda"),
-    (-1, "Zinfandel", "Caithness", "Limburger"),
+    (0, "Barbera", ["Cheddar", "Gruyère", "Boursin", "Parmesan", "Liptauer"]),
+    (1, "Barolo", ["Boursin", "Cheddar", "Gouda", "Stilton", "Tilsit"]),
+    (
+        2,
+        "Cabernet sauvignon",
+        [
+            "Dorset Blue Vinney",
+            "Norwegian Jarlsberg",
+            "Czech sheep's milk",
+            "Double Gloucester",
+            "Japanese Sage Derby",
+        ],
+    ),
+    (3, "Cava", ["Edam", "Gouda", "Cheddar", "Savoyard", "Parmesan"]),
+    (
+        4,
+        "Champagne",
+        ["Caithness", "Camembert", "Bel Paese", "Ilchester", "Lancashire"],
+    ),
+    (-2, "Syrah", ["Gouda", "Cheddar", "Brie", "Edam", "Tilsit"]),
+    (
+        -1,
+        "Zinfandel",
+        ["Caithness", "Bel Paese", "Ilchester", "Limburger", "Lancashire"],
+    ),
 ]
 
 
@@ -43,8 +63,7 @@ def test_match_wine_5cheeses(case):
     """ test of presence of first 2 cheeses only
     because if score is same for more pairs, order of pairs cannot be assumed
     """
-    idx, wine, cheese1, cheese2 = case
+    idx, wine, cheeses = case
     assert mw5c[idx][0] == wine
-    assert cheese1 in mw5c[idx][1]  # first cheese is in the list
-    assert cheese2 in mw5c[idx][1]  # second cheese is in the list
-    assert len(mw5c[idx][1]) == 5   # 5 cheeses are in the list
+    assert mw5c[idx][1] == cheeses
+

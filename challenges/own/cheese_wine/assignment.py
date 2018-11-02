@@ -98,12 +98,13 @@ def best_match_per_wine(wine_type="all"):
 
 def match_wine_5cheeses():
     """  pairs all types of wines with cheeses ; returns a sorted list of tuples,
-    where each tuple contains: wine, list of 5 best matching cheeses
+    where each tuple contains: wine, list of 5 best matching cheeses.
+    List of cheeses is sorted by score descending then alphabetically ascending.
     e.g: [
-    ('Barbera', ['Cheddar', 'Gruyère', 'Parmesan', 'Boursin', 'Savoyard']),
+    ('Barbera', ['Cheddar', 'Gruyère', 'Boursin', 'Parmesan', 'Liptauer']),
     ...
     ...
-    ('Zinfandel', ['Caithness', 'Limburger', 'Ilchester', 'Bel Paese', 'Lancashire'])
+    ('Zinfandel', ['Caithness', 'Bel Paese', 'Ilchester', 'Limburger', 'Lancashire'])
     ]
     """
     pass

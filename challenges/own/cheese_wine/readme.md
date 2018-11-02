@@ -36,14 +36,15 @@ Matching can be for a certain wine type (i.e. red, white, sparkling) or for all 
 For an invalid wine type raise ValueError.
 
 2\. Complete the method *match_wine_5cheeses* which returns a sorted list of wines , where for each wine are listed 5 best matching cheeses.  
-All types of wines (i.e. red, white, and sparkling) are included.
+All types of wines (i.e. red, white, and sparkling) are included.  
+List of cheeses is sorted by score descending then alphabetically ascending.  
 Output example:
 ```
 [
-('Barbera', ['Cheddar', 'Gruyère', 'Parmesan', 'Boursin', 'Savoyard']),
+('Barbera', ['Cheddar', 'Gruyère', 'Boursin', 'Parmesan', 'Liptauer']),
 ...
 ...
-('Zinfandel', ['Caithness', 'Limburger', 'Ilchester', 'Bel Paese', 'Lancashire'])
+('Zinfandel', ['Caithness', 'Bel Paese', 'Ilchester', 'Limburger', 'Lancashire'])
 ]
 ```
 ---

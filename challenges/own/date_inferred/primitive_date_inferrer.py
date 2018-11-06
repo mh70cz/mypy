@@ -3,7 +3,11 @@
 """
 Created on Mon Nov  5 21:24:33 2018
 
-Primitive date inferrer
+
+
+trivial date format inferrer
+dateparser https://dateparser.readthedocs.io/en/latest/
+dateinfer
 """
 
 from enum import Enum

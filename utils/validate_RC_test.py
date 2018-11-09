@@ -21,7 +21,14 @@ class TestRC(unittest.TestCase):
         for rc in list_rc:
             self.assertTrue(validate(rc), rc)            
 
+
+
     def test_correct_exc_rc_check_digit_int(self):
+        """
+        výjimka: pokud je zbytek po dělení devítimístného čísla roven deseti 
+        (a neexistuje tedy žádná kontrolní číslice, která by splňovala předchozí podmínku), 
+        jako kontrolní číslice se použije nula (a celé rodné číslo pak dělitelné jedenácti není).
+        """
         list_rc = [7012115760, 7203045070, 6909107360, 6306258080,
                    7206251900, 5711193280, 5905250330, 6705026780,
                    8105183670, 5904225240]

@@ -39,7 +39,11 @@ for n in range(3):
     dates.append(rand_date)
     rand_date = _rand(99) + "/" + _rand() + "/" + _rand(31)
     dates.append(rand_date)
-    rand_date = _rand(99) + "/" + _rand(31) + "/" + _rand()    
+    
+    rand_date = _rand(31) + "/" + _rand() + "/" + _rand(99)
     dates.append(rand_date)
+    
+
+    
         
         

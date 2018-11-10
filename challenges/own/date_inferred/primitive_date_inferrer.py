@@ -14,22 +14,23 @@ from enum import Enum
 from datetime import datetime
 from collections import Counter
 
-class Date_format(Enum):
+class DateFormat(Enum):
     DDMMYY = 0
     MMDDYY = 1
     YYMMDD = 2
-    INVALID = "N/A"
+    NONPARSABLE = -999
     
     @classmethod
     def d_parse_formats(cls, idx=None):
         d_parse_formats = ["%d/%m/%y", "%m/%d/%y", "%y/%m/%d"]
         if idx is None:
             return d_parse_formats
-        if 0 <= idx <= 2:
+        if 0 <= idx <= len(d_parse_formats):
             return d_parse_formats[idx]
         raise ValueError
         
-    
+class InfDateFmtError(Exception):
+    pass    
     
     
 
@@ -49,50 +50,61 @@ dates_d = ['10/21/05', '06/10/05', '06/05/08', '28/16/07', '10/07/90',
            '29/06/60', '46/11/02', '10/17/05', '11/08/94', '02/02/60', 
            '65/04/15', '62/14/12']
 
+dates_e = ['12/22/68', '31/09/87', '37/13/29', '41/28/13', '13/03/32',
+           '18/08/74', '46/09/27', '49/07/10', '05/31/88', '28/13/17',
+           '71/14/19', '85/08/09']
 
-def _inf_date_formats(date_str):
-    d_parse_formats = ["%d/%m/%y", "%m/%d/%y", "%y/%m/%d"]
-    #d_parse_fmt = d_parse_formats[0]
+dates_f = ['12/16/30', '16/03/54', '97/07/26', '04/04/31', '01/08/07', 
+           '02/02/29', '73/03/08', '06/07/55', '10/09/77', '18/03/43', 
+           '30/11/24', '08/01/51']
+
+
+def _maybe_DateFormats(date_str):
+    d_parse_formats = DateFormat.d_parse_formats()
     maybe_formats = []
     for idx, d_parse_fmt in enumerate(d_parse_formats):
         try:
             parsed_date = datetime.strptime(date_str, d_parse_fmt)
-            maybe_formats.append(Date_format(idx))
+            maybe_formats.append(DateFormat(idx))
         except ValueError:
             pass
     if len(maybe_formats) == 0:
-        maybe_formats.append(Date_format.INVALID)
+        maybe_formats.append(DateFormat.NONPARSABLE)
     return maybe_formats
 
 dates = dates_d
-total_possible_d_formats = []
-for date_str in dates:
-#    d1 = date[0:2]
-#    d2 = date[3:5]
-#    d3 = date[5:7]
-    possible_d_formats = _inf_date_formats(date_str)
-    total_possible_d_formats.extend(possible_d_formats)
-cnt_d_formats = Counter(total_possible_d_formats) 
 
-if len(cnt_d_formats.most_common()) > 1: 
-    if cnt_d_formats.most_common()[0][1] == cnt_d_formats.most_common()[1][1]:
-        #tie    
-        print("Cannot decide")
-
-if cnt_d_formats.most_common()[0][0] == Date_format.INVALID:
-    print ("Too many invalid dates to infer a date format")
+def _inf_most_prevalent_DateFormat(dates):
+    total_possible_d_formats = []
+    for date_str in dates:
+        possible_d_formats = _maybe_DateFormats(date_str)
+        total_possible_d_formats.extend(possible_d_formats)
+    cnt_d_formats = Counter(total_possible_d_formats) 
     
-d_format_value = cnt_d_formats.most_common()[0][0].value
-d_parse_format = Date_format.d_parse_formats(d_format_value)
+    if len(cnt_d_formats.most_common()) > 1: 
+        if cnt_d_formats.most_common()[0][1] == cnt_d_formats.most_common()[1][1]:
+            #tie    
+            raise InfDateFmtError("Cannot decide a date format")
+    
+    if cnt_d_formats.most_common()[0][0] == DateFormat.NONPARSABLE:
+        raise InfDateFmtError("Too many NONPARSABLE dates to infer a date format")
+        
+    return cnt_d_formats.most_common()[0][0].value
 
-out_dates = []
-for date_str in dates:
-    try:
-        date = datetime.strptime(date_str, d_parse_format)
-        date = datetime.strftime(date,"%Y-%m-%d")
-        out_dates.append(date)
-    except ValueError:
-        out_dates.append("Invalid")
+def get_dates(dates):
+    
+    d_format_value = _inf_most_prevalent_DateFormat(dates)
+    d_parse_format = DateFormat.d_parse_formats(d_format_value)
+    
+    out_dates = []
+    for date_str in dates:
+        try:
+            date = datetime.strptime(date_str, d_parse_format)
+            date = datetime.strftime(date,"%Y-%m-%d")
+            out_dates.append(date)
+        except ValueError:
+            out_dates.append("Invalid")
+    return out_dates
     
     
 

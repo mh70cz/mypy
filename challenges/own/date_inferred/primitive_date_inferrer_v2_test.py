@@ -3,6 +3,9 @@ from primitive_date_inferrer_v2 import get_dates, InfDateFmtError
 
 
 def test_tie():
+    """ any date string can be parsed using the following formats:
+    dd/mm/yy , mm/dd/yy, yy/mm/dd
+    so no the prevalent format cannot be inferred """
     dates = [
         "11/11/07",
         "01/05/07",
@@ -22,6 +25,9 @@ def test_tie():
 
 
 def test_too_many_nonparsable():
+    """{<DateFormat.MMDDYY: 1>: 2,  <DateFormat.NONPARSABLE: -999>: 5,
+         <DateFormat.DDMMYY: 0>: 2, <DateFormat.YYMMDD: 2>: 3}
+    """
     dates = [
         "12/22/68",
         "31/09/87",
@@ -41,6 +47,10 @@ def test_too_many_nonparsable():
 
 
 def test_mmddyy():
+    """ {<DateFormat.MMDDYY: 1>: 7, <DateFormat.DDMMYY: 0>: 5,
+         <DateFormat.YYMMDD: 2>: 5, <DateFormat.NONPARSABLE: -999>: 2}
+        the single most prevalent format is mm/dd/yy
+    """
     dates = [
         "04/25/79",
         "08/09/70",
@@ -73,6 +83,9 @@ def test_mmddyy():
 
 
 def test_yymmdd():
+    """ {<DateFormat.YYMMDD: 2>: 7, <DateFormat.NONPARSABLE: -999>: 1,
+         <DateFormat.MMDDYY: 1>: 3, <DateFormat.DDMMYY: 0>: 3}
+         the single most prevalent format is yy/mm/dd """
     dates = [
         "68/12/22",
         "31/09/87",
@@ -105,7 +118,9 @@ def test_yymmdd():
 
 
 def test_ddmmyy():
-
+    """ {<DateFormat.MMDDYY: 1>: 7, <DateFormat.DDMMYY: 0>: 9,
+        <DateFormat.YYMMDD: 2>: 4}
+        the single most prevalent format is dd/mm/yy """
     dates = [
         "12/16/30",
         "16/03/54",
@@ -138,7 +153,9 @@ def test_ddmmyy():
 
 
 def test_different_enum():
-    """Enum now supports 4 different time formats. Order of formats is changed as well"""
+    """ A different enum is passed as an argumnet,
+        Enum now supports 4 different time formats.
+        Order of formats is changed as well"""
     from enum import Enum
 
     class DateFormat_ext(Enum):
@@ -187,9 +204,3 @@ def test_different_enum():
     ]
     assert get_dates(dates, DateFormat_ext) == results
 
-
-# import sys
-# if __name__ == '__main__':
-#    pytest.main(sys.argv)
-
-# python -m pytest xxx_test.py

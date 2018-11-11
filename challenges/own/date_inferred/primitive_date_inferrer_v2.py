@@ -1,9 +1,4 @@
-"""
-
-trivial date format inferrer
-dateparser https://dateparser.readthedocs.io/en/latest/
-dateinfer
-"""
+""" trivial date format inferrer """
 
 from enum import Enum
 from datetime import datetime
@@ -34,16 +29,18 @@ class DateFormat(Enum):
 
 
 class InfDateFmtError(Exception):
+    """custom exception when it is not possible to distinguish a date format
+    e.g. too many NONPARSABLE or a tie """
     pass
 
 
 def _maybe_DFs(date_str, DF):
     """ Args:
     date_str (str) string representing a date in unknown format
-    DF (Enum) enum class with supported date formats
+    DF (Enum) enum class with allowed/supported date formats
     Returns:
-    a list of enum members,
-    where each member represents a possible date format for date_str
+    a list of enum members, where each member represents
+    a possible date format for the input date_str
     """
     d_parse_formats = DF.get_d_parse_formats()
     maybe_formats = []
@@ -53,7 +50,7 @@ def _maybe_DFs(date_str, DF):
             maybe_formats.append(DF(idx))
         except ValueError:
             pass
-    if len(maybe_formats) == 0:
+    if len(maybe_formats) == 0: # pylint: disable=C1801
         maybe_formats.append(DF.NONPARSABLE)
     return maybe_formats
 

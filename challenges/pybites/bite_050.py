@@ -18,8 +18,8 @@ def _convert_struct_time_to_dt(stime):
     """Convert a time.struct_time as returned by feedparser into a
     datetime.date object, so:
     time.struct_time(tm_year=2016, tm_mon=12, tm_mday=28, ...)
-    -> date(2016, 12, 28)"""
-    return datetime.strptime("-".join(stime.split(" ")[1:4]), "%d-%b-%Y")
+    -> date(2016, 12, 28)"""   
+    return date(stime.tm_year, stime.tm_mon, stime.tm_mday)
 
 
 def get_feed_entries(feed=FEED):
@@ -28,10 +28,11 @@ def get_feed_entries(feed=FEED):
     feed = feedparser.parse(FEED)
     entries = []
     for e in feed["entries"]:
-        dat = _convert_struct_time_to_dt(e["published"])
+        dat = _convert_struct_time_to_dt(e["published_parsed"])
         title = e["title"]
         link = e["link"]
-        tags = e["tags"]
+        tags_raw = e["tags"]
+        tags = [t["term"].lower() for t in tags_raw]
         entry = Entry(dat, title, link, tags)
         entries.append(entry)
     return entries
@@ -48,23 +49,27 @@ def filter_entries_by_tag(search, entry):
           e.g. flask&api should match entries with both tags
        2. Elif | in search do an OR match,
           e.g. flask|django should match entries with either tag
-       3. Else: match if search is in tags"""
-    terms = [t["term"].lower() for t in entry.tags]
-    
-    
+       3. Else: match if search is in tags"""       
     if "&" in search:
-        search1, search2 = search.split("&")
-        if (search1.lower() in terms) and (search2.lower() in terms):
-            return True
-        return False
-        
+        for s in search.split("&"):
+            if not s.lower() in entry.tags:
+                return False
+        return True
+                        
     if "|" in search:
-        search1, search2 = search.split("|")
-        if (search1.lower() in terms) or (search2.lower() in terms):
-            return True
+        for s in  search.split("|"):
+            if s.lower() in entry.tags:
+                return True
         return False
-    
-    if search.lower() in terms:
+#    if "&" in search:          
+#        if all([s.lower() in entry.tags  for s in search.split("&")]):
+#            return True
+#        return False
+#    if "|" in search:          
+#        if any([s.lower() in entry.tags  for s in search.split("|")]):
+#            return True
+#        return False                     
+    if search.lower() in entry.tags:
         return True
     return False
     
@@ -79,8 +84,27 @@ def main():
        5. Print the date+title+link of each match ordered by date desc
        6. Secondly, print the number of matches"""
     entries = get_feed_entries()
+    found_ent = []
+    while True:
+        search = input("Search for (q for exit):")
+        if search == "q":
+            return None
+        if search =="None":
+            continue
+        for entry in entries:
+            if filter_entries_by_tag(search, entry):
+                found_ent.add(entry)
+        if len(found_ent) == 0:
+            print(f"0 entries matched {search}")
+            break
+        found_ent.sort(key = lambda x: x.date, reverse=True)
+        for e in found_ent:
+            print(f"{e.date} | {e.title} | {e.link}")
+            
+            
+        
 
-e
+
 
 from unittest.mock import patch
 

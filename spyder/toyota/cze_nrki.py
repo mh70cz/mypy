@@ -19,7 +19,7 @@ from collections import namedtuple
 
 """
 
-fname= "155921.xml"
+fname= "155905.xml"
 path = r'C:\Users\m.houska\Documents\_CIS\Toyota\NRKI_CZE_Live'
 xmlpath = os.path.join(path, fname)
 
@@ -85,12 +85,13 @@ def get_installments():
     mia_r = 0   #monthly installment amount ručitel (R) 
     for e in inst_detail:
         if e.findall("./CommonData/[OpPhase='EX']"):
-            if e.findall("./CommonData/[Role='A']") or e.findall("./CommonData/[Role='S']"):
+            role = e.find("./CommonData/Role").text
+            if role in ["A", "S"]:
                 ra = e.find("./ResidualAmount").text
                 mia= e.find("./MonthlyInstalmentAmount").text
                 ra_as += int(ra)
                 mia_as += int(mia)
-            if e.findall("./CommonData/[Role='R']"):
+            if role == "R": 
                 ra = e.find("./ResidualAmount").text
                 mia= e.find("./MonthlyInstalmentAmount").text
                 ra_r += int(ra)
@@ -120,14 +121,15 @@ def get_cards(st="exclude"):
             if st == "only":     #pouze staveb sporeni
                 if not op_type == "ST":
                     continue                
-            if e.findall("./CommonData/[Role='A']") or e.findall("./CommonData/[Role='S']"):
+            role = e.find("./CommonData/Role").text
+            if role in ["A", "S"]:
                 ra = e.find("./ResidualAmount").text
                 mia = e.find("./MonthlyInstalmentAmount").text
                 cl = e.find("./CreditLimit").text
                 ra_as += int(ra)
                 mia_as += int(mia)
                 cl_as += int(cl)
-            if e.findall("./CommonData/[Role='R']"):
+            if role == "R":    
                 ra = e.find("./ResidualAmount").text
                 mia= e.find("./MonthlyInstalmentAmount").text
                 cl = e.find("./CreditLimit").text

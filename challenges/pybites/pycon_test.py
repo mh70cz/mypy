@@ -8,7 +8,7 @@ from copy import deepcopy
 
 import pytest
 
-from bite_094 import (load_pycon_data,
+from pycon import (load_pycon_data,
                    get_most_popular_talks_by_views,
                    get_most_popular_talks_by_like_ratio,
                    get_talks_gt_one_hour,

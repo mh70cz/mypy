@@ -1,0 +1,38 @@
+"""
+Bite 145. Record Breakers 
+ 
+https://codechalleng.es/bites/145
+
+"""
+ 
+import datetime
+
+import pytest
+
+from bite_145 import STATION
+from bite_145 import high_low_record_breakers_for_2015 as hl_2015
+
+
+@pytest.fixture(scope="module")
+def high_low():
+    return hl_2015()
+
+
+def test_for_correct_return_of_hl_2015(high_low):
+    assert len(high_low) == 2
+    assert isinstance(high_low[0], STATION)
+    assert isinstance(high_low[1], STATION)
+
+
+def test_high_hl_2015(high_low):
+    high = high_low[0]
+    assert high.ID == "USW00094889"
+    assert high.Date == datetime.date(2015, 7, 29)
+    assert high.Value == 36.1
+
+
+def test_low_hl_2015(high_low):
+    low = high_low[1]
+    assert low.ID == "USC00200032"
+    assert low.Date == datetime.date(2015, 2, 5)
+    assert low.Value == -27.7

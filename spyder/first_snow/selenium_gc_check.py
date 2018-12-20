@@ -14,7 +14,8 @@ import os
 
 
 opts = Options()
-opts.set_headless()
+#opts.set_headless()
+opts.headless = True
 assert opts.headless # operation in headles mode
 
 

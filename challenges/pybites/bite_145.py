@@ -135,47 +135,47 @@ def high_low_record_breakers_for_2015():
    
     
     
-    """
-    
-    
-        for row in df_mm.itertuples():
-        date = row.date
-        
-        
-        element = row.element
-        x = pd.to_datetime(df_mm["Date"])
-        x.dt.dayofyear
-        
-        dfminmax = pd.DataFrame(columns=list(df.columns.values))
-    
-        dfmax = df[df["Element"] == "TMAX"]
-        dfmin = df[df["Element"] == "TMIN"]
-    
-        dtmax = df[(df["Date"] == d) & (df["Element"] == "TMAX")]
-        d_max = dtmax[dtmax["Data_Value"] == max(dtmax["Data_Value"])]
-        dlist.append(d_max.values[0].tolist())
-        #dfminmax.append(d_max)
-        dtmin = df[(df["Date"] == d) & (df["Element"] == "TMIN")]
-        d_min= dtmin[dtmin["Data_Value"] == min(dtmin["Data_Value"])]    
-        #dfminmax.append(d_min)
-        dlist.append(d_min.values[0].tolist())
-    
-    
-    
-        dates = df["Date"].unique()
-        dfminmax = pd.DataFrame(columns=list(df.columns.values))
-        
-       df = df.set_index("Date")
-    
-    
-    
-    dtmax = df[(df["Date"] < "2005-01-02") & (df["Element"] == "TMAX")]
-    df.loc[-1] = row
-    
-    df[df["Date"]=="2006-09-04"]
-    df[(df["Date"]>="2005") & (df["Date"]<="2015")]
-    df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMAX")]
-    maxtmp = df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMAX")]
-    mintmp = df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMIN")]
-    
-    """
+"""
+
+
+   for row in df_mm.itertuples():
+   date = row.date
+   
+   
+   element = row.element
+   x = pd.to_datetime(df_mm["Date"])
+   x.dt.dayofyear
+   
+   dfminmax = pd.DataFrame(columns=list(df.columns.values))
+
+   dfmax = df[df["Element"] == "TMAX"]
+   dfmin = df[df["Element"] == "TMIN"]
+
+   dtmax = df[(df["Date"] == d) & (df["Element"] == "TMAX")]
+   d_max = dtmax[dtmax["Data_Value"] == max(dtmax["Data_Value"])]
+   dlist.append(d_max.values[0].tolist())
+   #dfminmax.append(d_max)
+   dtmin = df[(df["Date"] == d) & (df["Element"] == "TMIN")]
+   d_min= dtmin[dtmin["Data_Value"] == min(dtmin["Data_Value"])]    
+   #dfminmax.append(d_min)
+   dlist.append(d_min.values[0].tolist())
+
+
+
+   dates = df["Date"].unique()
+   dfminmax = pd.DataFrame(columns=list(df.columns.values))
+   
+   df = df.set_index("Date")
+
+
+
+dtmax = df[(df["Date"] < "2005-01-02") & (df["Element"] == "TMAX")]
+df.loc[-1] = row
+
+df[df["Date"]=="2006-09-04"]
+df[(df["Date"]>="2005") & (df["Date"]<="2015")]
+df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMAX")]
+maxtmp = df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMAX")]
+mintmp = df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMIN")]
+
+"""

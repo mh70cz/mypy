@@ -1,11 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Dec 20 18:11:19 2018
-
-@author: mh70
-"""
-
+import pytest
 from operas import operas_both_at_premiere
 
 
@@ -18,7 +11,9 @@ def test_wagner_verdi():
 def test_verdi_wagner():
     verdi_wagner = operas_both_at_premiere("verdi", "wagner")
     assert len(verdi_wagner) == 11
-    assert "The Fairies" not in verdi_wagner  # premiere after death
+
+    # premiere after Wagner's death (composed in 1833)
+    assert "The Fairies" not in verdi_wagner
 
 
 def test_beethoven_wagner():
@@ -30,6 +25,19 @@ def test_wagner_beethoven():
     wagner_beethoven = operas_both_at_premiere("wagner", "beethoven")
     assert len(wagner_beethoven) == 0
 
+
 def test_beethoven_mozart():
     beethoven_mozart = operas_both_at_premiere("beethoven", "mozart")
-    assert len(beethoven_mozart) == 5    
+    assert len(beethoven_mozart) == 5
+    assert "Apollo and Hyacinth" not in beethoven_mozart
+
+
+def test_non_listed_composer():
+    with pytest.raises(ValueError):
+        _ = operas_both_at_premiere("verdi", "dvorak")
+
+
+def test_non_listed_guest():
+    # a guest must be in the list of composers
+    with pytest.raises(ValueError):
+        _ = operas_both_at_premiere("dvorak", "verdi")

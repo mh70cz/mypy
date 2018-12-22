@@ -32,7 +32,7 @@ operas = [
     ("wagner", "Tristan and Isolde", "10 June 1865"),
     ("wagner", "The Master-Singers of Nuremberg", "21 June 1868"),
     ("wagner", "Parsifal", "26 July 1882"),
-    ("beethoven", "Fidelio", "20 November 1805"), #originally titled Leonore
+    ("beethoven", "Fidelio", "20 November 1805"),
     ("verdi", "Nabucco", "9 March 1842"),
     ("verdi", "Ernani", "9 March 1844"),
     ("verdi", "Macbeth", "14 March 1847"),
@@ -53,7 +53,7 @@ def _get_date(date_str):
 
 
 def operas_both_at_premiere(guest, composer, operas=operas):
-    """ Returns a list of titles of operas,
+    """ Returns a list of operas,
     where the guest and the composer could have been together at premiere.
     Args:
         guest (str): one of the composers but not the author of an opera
@@ -61,4 +61,20 @@ def operas_both_at_premiere(guest, composer, operas=operas):
         operas (list): list of operas
     Returns a list of titles of operas.
     """
-    pass
+    if guest not in composers.keys():
+        raise ValueError("guest is not in composers")
+    if composer not in composers.keys():
+        raise ValueError("composer is not in composers")
+
+    at_premiere = []
+    guest_born = _get_date(composers[guest][1])
+    guest_died = _get_date(composers[guest][2])
+    composer_died = _get_date(composers[composer][2])
+
+    for opera in operas:
+        if opera[0] == composer:
+            premiere = _get_date(opera[2])
+            if (guest_born < premiere < guest_died) and (premiere < composer_died):
+                at_premiere.append(opera[1])
+    return at_premiere
+

@@ -21,23 +21,46 @@ def get_possible_dict_words(draw):
     """Get all possible words from a draw (list of letters) which are
        valid dictionary words. Use _get_permutations_draw and provided
        dictionary"""
-    valid_words= []
-    all_p = _get_permutations_draw(draw)
-    for ll in all_p:
-        w = "".join(ll).lower()
-        if w in dictionary:
-            valid_words.append(w)
-    return valid_words
-
+    actual_words = []
+    for potential_word in _get_permutations_draw(draw):
+        if potential_word in dictionary:
+            actual_words.append(potential_word)
+    if len(actual_words) == 1:
+        return actual_words[0]
+    else:
+        return tuple(actual_words)
+ 
 def _get_permutations_draw(draw):
     """Helper to get all permutations of a draw (list of letters), hint:
        use itertools.permutations (order of letters matters)"""
-    #w = draw.split(", ")
-    all_p = []
-    for i in range(2, len(draw)+1):
-        p = itertools.permutations(draw, i)
-        all_p.extend(p)
-    return set(all_p)
+    r = 0
+    p = 0
+    draw = [letter.lower().strip() for letter in draw]
+    no_repeat_perms = []
+    num_letters = len(draw)
+    for num in range(2,num_letters+1):
+        for letters in itertools.permutations(draw, num):
+            word = "".join(letters)
+            if word not in no_repeat_perms:
+                no_repeat_perms.append(word)
+                p += 1
+            else:
+                r += 1
+                print(str(r) + " repeated: " + word)
+    print ("non repeated permutations: " + str(p))
+    return no_repeat_perms 
+
+def _get_permutations_draw_(draw):
+    """Helper to get all permutations of a draw (list of letters), hint:
+       use itertools.permutations (order of letters matters)"""
+    draw = [letter.lower().strip() for letter in draw]
+    perms = []
+    num_letters = len(draw)
+    for num in range(2,num_letters+1):
+        for letters in itertools.permutations(draw, num):
+            word = "".join(letters)
+            perms.append(word)
+    return set(perms)
 
 
 
@@ -78,4 +101,7 @@ def test_max_word(draw, expected):
         
 import sys
 if __name__ == '__main__':
-    pytest.main(sys.argv)             
+#    pytest.main(sys.argv)   
+#    print(get_possible_dict_words(["T", "I", "I", "G", "T", "T", "L"]))
+    print(get_possible_dict_words(["T", "I",  "I", "G", "L"]))
+    

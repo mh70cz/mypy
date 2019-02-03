@@ -1,5 +1,5 @@
 """
-Bite 145. Record Breakers - not passing test 
+Bite 145. Record Breakers 
 
 https://codechalleng.es/bites/145
 
@@ -9,6 +9,7 @@ from collections import namedtuple
 from datetime import date
 
 import pandas as pd
+import numpy as np
 
 DATA_FILE = "http://projects.bobbelderbos.com/pcc/weather-ann-arbor.csv"
 STATION = namedtuple("Station", "ID Date Value")
@@ -41,141 +42,59 @@ def high_low_record_breakers_for_2015():
        * Return those as STATION namedtuples, (high_2015, low_2015)
     """
     df = pd.read_csv(DATA_FILE)
+    g_tmax = df[df["Element"] == "TMAX"]
+    g_tmin = df[df["Element"] == "TMIN"]
+    
+
+    grp_tmax = g_tmax.groupby(["Date"])
+    grp_tmin = g_tmin.groupby(["Date"])  
+    
+    daily_max = grp_tmax.agg({ "Data_Value": np.max })
+    daily_min = grp_tmin.agg({ "Data_Value": np.min })
+    
+    daily_max.reset_index(inplace=True)
+    daily_min.reset_index(inplace=True)
+    
+    daily_max_15 = daily_max[daily_max["Date"] >= "2015-01-01"]
+    daily_max_05_14 = daily_max[daily_max["Date"] <= "2014-12-31"]
+    daily_min_15 = daily_min[daily_min["Date"] >= "2015-01-01"]
+    daily_min_05_14 = daily_min[daily_min["Date"] <= "2014-12-31"]    
+    md_05_14 = daily_max_05_14["Date"].str[5:]
+    
+    daily_max_05_14["md"] = md_05_14
+    daily_min_05_14["md"] = md_05_14
+    grp_md_max_05_14 = daily_max_05_14.groupby("md")
+    grp_md_min_05_14 = daily_min_05_14.groupby("md")
+    md_max_05_14 = grp_md_max_05_14.agg({"Date": "first", "Data_Value": np.max})
+    md_min_05_14 = grp_md_min_05_14.agg({"Date": "first", "Data_Value": np.min})
+    
     record_breakers = []
     record_breakers_total = []
-
-    idx_list = []
-    dates = df["Date"].unique()
-
-    for d in dates:
-        idx_max_date = df[(df["Date"] == d) & (df["Element"] == "TMAX")]["Data_Value"].idxmax()
-        idx_min_date = df[(df["Date"] == d) & (df["Element"] == "TMIN")]["Data_Value"].idxmin()
-        idx_list.append(idx_max_date)
-        idx_list.append(idx_min_date)
-    df_mm = df.loc[idx_list]
-    idx_leap = df_mm[df_mm["Date"].str.contains("02-29")].index
-    df_mm = df_mm.drop(idx_leap)
     
-    df_05_14 = df_mm[df_mm["Date"] < "2015-01-01"]
-    df_15 = df_mm[df_mm["Date"] >= "2015-01-01"]
-    
-    month_days = df_15["Date"].str[5:].unique()
+    month_days = list(daily_max_15["Date"].str[5:])
+
     for md in month_days:
-        #print(md)
-        row_05_14 = df_05_14[df_05_14["Date"].str[5:] == md]
-        row_15 = df_15[df_15["Date"].str[5:] == md]
-        
-        row_05_14_max = row_05_14[row_05_14["Element"] == "TMAX"]
-        row_05_14_min = row_05_14[row_05_14["Element"] == "TMIN"]
-        row_15_max = row_15[row_15["Element"] == "TMAX"]
-        row_15_min = row_15[row_15["Element"] == "TMIN"]
-        
-        max_05_14 = row_05_14_max["Data_Value"].max()
-        min_05_14 = row_05_14_min["Data_Value"].min()
-        max_15 = row_15_max["Data_Value"].iloc[0]
-        min_15 = row_15_min["Data_Value"].iloc[0]
-        
-        if max_15 > max_05_14 :
-            record_breakers.append(row_15_max.index[0])
-#            id_ = row_15_max["ID"].iloc[0]
-#            d = row_15_max["Date"].iloc[0]
-#            d = date(int(d[:4]), int(d[5:7]), int(d[8:]))
-#            value = row_15_max["Data_Value"].iloc[0]
-#            value = int(value) / 10            
-#            station = STATION(id_, d, value)
-#            record_breakers.append(station)
+        day_15 = daily_max_15[daily_max_15["Date"].str[5:] == md]
+        day_05_14 = md_max_05_14.loc[md]        
+        if (day_15["Data_Value"].iloc[0]) > (day_05_14["Data_Value"]):
+            record_breakers.append(day_15.iloc[0])
             
-            
+        day_15 = daily_min_15[daily_min_15["Date"].str[5:] == md]
+        day_05_14 = md_min_05_14.loc[md]        
+        if (day_15["Data_Value"].iloc[0]) < (day_05_14["Data_Value"]):
+            record_breakers.append(day_15.iloc[0])            
+                      
+    rbs = sorted(record_breakers, key = lambda x: x["Data_Value"])
+    for s in [rbs[-1], rbs[0]]:
         
-        if min_15 < min_05_14:
-            record_breakers.append(row_15_min.index[0])
-#            id_ = row_15_min["ID"].iloc[0]
-#            d = row_15_min["Date"].iloc[0]
-#            d = date(int(d[:4]), int(d[5:7]), int(d[8:]))
-#            value = row_15_min["Data_Value"].iloc[0]
-#            value = int(value) / 10                       
-#            station = STATION(id_, d, value)
-#            record_breakers.append(station)
-            
-    total_max_idx = df_mm.loc[record_breakers]["Data_Value"].idxmax()
-    total_min_idx = df_mm.loc[record_breakers]["Data_Value"].idxmin()
-    
-    total_max = df_mm.loc[total_max_idx]
-    total_min = df_mm.loc[total_min_idx]
-    for s in [total_max, total_min]:
-        id_ = s["ID"]
         d = s["Date"]
-        d = date(int(d[:4]), int(d[5:7]), int(d[8:]))
         value = s["Data_Value"]
+        id_ = df[(df["Date"]==d ) & (df["Data_Value"]==value)].iloc[0]["ID"]
+        
         value = int(value) / 10            
+        d = date(int(d[:4]), int(d[5:7]), int(d[8:]))
         station = STATION(id_, d, value)
         record_breakers_total.append(station)
-        
-    return record_breakers_total       
-        
-"""
-[Station(ID='USW00014853', Date=datetime.date(2015, 7, 29), Value=36.1),
- Station(ID='USW00094889', Date=datetime.date(2015, 2, 20), Value=-34.3)]
-"""    
+                  
+    return record_breakers_total
     
-    
-            
-            
-            
-             
-    
-    
-        
-    
-    
-    
-
-
-        
-   
-    
-    
-"""
-
-
-   for row in df_mm.itertuples():
-   date = row.date
-   
-   
-   element = row.element
-   x = pd.to_datetime(df_mm["Date"])
-   x.dt.dayofyear
-   
-   dfminmax = pd.DataFrame(columns=list(df.columns.values))
-
-   dfmax = df[df["Element"] == "TMAX"]
-   dfmin = df[df["Element"] == "TMIN"]
-
-   dtmax = df[(df["Date"] == d) & (df["Element"] == "TMAX")]
-   d_max = dtmax[dtmax["Data_Value"] == max(dtmax["Data_Value"])]
-   dlist.append(d_max.values[0].tolist())
-   #dfminmax.append(d_max)
-   dtmin = df[(df["Date"] == d) & (df["Element"] == "TMIN")]
-   d_min= dtmin[dtmin["Data_Value"] == min(dtmin["Data_Value"])]    
-   #dfminmax.append(d_min)
-   dlist.append(d_min.values[0].tolist())
-
-
-
-   dates = df["Date"].unique()
-   dfminmax = pd.DataFrame(columns=list(df.columns.values))
-   
-   df = df.set_index("Date")
-
-
-
-dtmax = df[(df["Date"] < "2005-01-02") & (df["Element"] == "TMAX")]
-df.loc[-1] = row
-
-df[df["Date"]=="2006-09-04"]
-df[(df["Date"]>="2005") & (df["Date"]<="2015")]
-df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMAX")]
-maxtmp = df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMAX")]
-mintmp = df[(df["Date"]>="2005") & (df["Date"]<="2015") & (df["Element"] == "TMIN")]
-
-"""

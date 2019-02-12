@@ -3,7 +3,7 @@
 """
 import xml.etree.ElementTree as ET
 import os
-
+from collections import namedtuple
 
 """
 "28510101.xml" CI CEE
@@ -15,15 +15,13 @@ path = r'C:\Users\m.houska\Documents\_CIS\Toyota\GlobalReport'
 xmlpath = os.path.join(path, fname)
 
 tree = ET.parse(xmlpath)
-root = tree.getroot()
-outer_Data = root.find(".//Responses/Response/Data")
 
 ns = {'ur': 'https://ws.urplus.sk"',
       'grpt': "urn:crif-cribiscz-GetGlobalReport:2013-05-03"}
 
 def clean_street_zip(subject):
-    street_number = subject.get("_HomeAddressStreet_Number")    
-    street =  subject.get("_HomeAddressStreet_Raw")
+    street_number = subject.get("HomeAddressStreet_Number")    
+    street =  subject.get("HomeAddressStreet_Raw")
     zip_ = subject.get("HomeAddressZip")
     
     if (street is not None) and (street_number is not None):
@@ -42,29 +40,41 @@ def clean_street_zip(subject):
         subject["HomeAddressZip"] = zip_.replace(" ", "")
 
 
+root = tree.getroot()
+
+outer_Data = root.find(".//Responses/Response/Data")
 # CompanyGlobalReport = outer_Data.find(".//{urn:crif-cribiscz-GetGlobalReport:2013-05-03}CompanyGlobalReport")
+
+
 cgr = outer_Data.find(".//grpt:CompanyGlobalReport", ns)  #CompanyGlobalReport
+ 
+e = cgr.find(".//grpt:CompanyIdentification/grpt:Name", ns)
+if e is not None:
+    applicant_trade_name = e.text
+else:
+    applicant_trade_name = None
  
     
 applicant_parse =    {
     "TradeName": "grpt:Name",
     "RegistrationOfficeType": "grpt:DistrictCourt",
     "RegistrationSectionFileNo": "grpt:InsertNumber",
-    "_RegistrationOfficeName_District": "grpt:District",
-    "_RegistrationOfficeName_Region": "grpt:Region",
+    "RegistrationOfficeName_District": "grpt:District",
+    "RegistrationOfficeName_Region": "grpt:Region",
     "AresORDateEntry": "grpt:DateOfCreation" , #BusinessCreation??
     "TaxRegistrationNumber": "grpt:VATID",
     "PhoneNumber": "grpt:PhoneNumbers/grpt:PhoneNumber[1]/grpt:Number",
     "Email": "grpt:Email",
-    "_Bank_Acc_Raw": "grpt:BankInfoList/grpt:BankInfo[1]/grpt:Value",
-    "_Bank_Acc_Type": "grpt:BankInfoList/grpt:BankInfo[1]/grpt:Type",
-    "_Bank_Acc_InacInd": "grpt:BankInfoList/grpt:BankInfo[1]/grpt:InacInd",
-    "_HomeAddressStreet_Raw": "grpt:Seat/grpt:Street",
-    "_HomeAddressStreet_Number": "grpt:Seat/grpt:StreetNumber",
+    "Bank_Acc_Raw": "grpt:BankInfoList/grpt:BankInfo[1]/grpt:Value",
+    "Bank_Acc_Type": "grpt:BankInfoList/grpt:BankInfo[1]/grpt:Type",
+    "Bank_Acc_InacInd": "grpt:BankInfoList/grpt:BankInfo[1]/grpt:InacInd",
+    "HomeAddressStreet_Raw": "grpt:Seat/grpt:Street",
+    "HomeAddressStreet_Number": "grpt:Seat/grpt:StreetNumber",
     "HomeAddressCity": "grpt:Seat/grpt:City",
     "HomeAddressZip": "grpt:Seat/grpt:Zip",
     "HomeAddressState": "grpt:Seat/grpt:Country",
 }
+
 
 
 app = cgr.find("./grpt:CompanyIdentification", ns)
@@ -76,8 +86,8 @@ for item in applicant_parse:
         applicant[item] = e.text
         
 # RegistrationOfficeName
-ro_district =  applicant.get("_RegistrationOfficeName_District")
-ro_region =  applicant.get("_RegistrationOfficeName_Region")
+ro_district =  applicant.get("RegistrationOfficeName_District")
+ro_region =  applicant.get("RegistrationOfficeName_Region")
 
 if (ro_district is not None) and (ro_region is not None):
     if (ro_district.lower() in ro_region.lower() ) or (ro_region.lower() in ro_district.lower()):
@@ -97,13 +107,13 @@ elif ro_district is not None:
 
 
 #předčíslí, čílo účtu, kod banky
-acc_type = applicant.get("_Bank_Acc_Type")
-acc_inac_ind = applicant.get("_Bank_Acc_InacInd")          
+acc_type = applicant.get("Bank_Acc_Type")
+acc_inac_ind = applicant.get("Bank_Acc_InacInd")          
 if acc_type == "05" and acc_inac_ind == "00":
-    _Bank_Acc_Raw = applicant.get("_Bank_Acc_Raw")
-    _Bank_Acc_Raw_split =  _Bank_Acc_Raw.split("/")
-    applicant["BankCode"] = _Bank_Acc_Raw_split[1]
-    account_split = _Bank_Acc_Raw_split[0].split("-")
+    bank_acc_raw = applicant.get("Bank_Acc_Raw")
+    bank_acc_raw_split =  bank_acc_raw.split("/")
+    applicant["BankCode"] = bank_acc_raw_split[1]
+    account_split = bank_acc_raw_split[0].split("-")
     if len(account_split) == 2:
         applicant["BankAccountNumber1"] = account_split[0] #předčíslí
         applicant["BankAccountNumber"] = account_split[1] #číslo účtu 
@@ -118,8 +128,8 @@ clean_street_zip(applicant)
 statutory_parse =    {
     "Name": "grpt:Name",
     "Surname": "grpt:Surname",
-    "_HomeAddressStreet_Raw": "grpt:Address/grpt:Street",
-    "_HomeAddressStreet_Number": "grpt:Address/grpt:StreetNumber",
+    "HomeAddressStreet_Raw": "grpt:Address/grpt:Street",
+    "HomeAddressStreet_Number": "grpt:Address/grpt:StreetNumber",
     "HomeAddressState": "grpt:Address/grpt:Country",
     "HomeAddressZip": "grpt:Address/grpt:Zip",
     "DateOfBirth": "grpt:DateOfBirth"
@@ -128,18 +138,16 @@ statutory_parse =    {
 
 # stat = cgr.find("./grpt:OtherCompanyInformation/grpt:StatutoryList/grpt:Statutory[1]", ns)
 stats = cgr.find("./grpt:OtherCompanyInformation/grpt:StatutoryList", ns)
-statutories = []
-for stat in stats:
+statutories = {}
+for idx, stat in enumerate(stats):
     statutory = {}
     for item in statutory_parse:
         e = stat.find("./" + statutory_parse[item], ns)
         if e is not None:
             statutory[item] = e.text
     clean_street_zip(statutory)
-    statutories.append(statutory)
+    statutories[str(idx)] = statutory
     
-response = {"applicant": applicant,
-            "statutories": statutories}
     
 
 

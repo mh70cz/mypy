@@ -18,7 +18,7 @@ import shutil
 #     ]
 # backup_folder = r"C:\Users\Miroslav\OneDrive\ZZ_BackupHome"
 
-  # CIS
+# CIS
   
 rootFolders_CIS_NB = [
     r"C:\Users\m.houska\Documents\_CIS",
@@ -47,7 +47,8 @@ backup_folder_oneD = r"C:\Users\m.houska\OneDrive\ZZ-Archive\OneDrive_increm"
 #M:
 rootFolders_M = [
     r"m:\Projects\CZ_Toyota\Projects",
-    r"m:\Projects\SK_Toyota\Projects"
+    r"m:\Projects\SK_Toyota\Projects",
+    r"m:\Projects\CZ_Toyota\CNAV",
     ]
 backup_folder_M = r"C:\Users\m.houska\OneDrive\ZZ-Archive\MDrive_increm"
 

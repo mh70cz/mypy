@@ -6,13 +6,15 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import time
+import random
 
+def open_browser():
+    browser = webdriver.Chrome()
+    web_app = "http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/"
+    browser.get(web_app)
+    return browser
 
-browser = webdriver.Chrome()
-web_app = "http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/"
-browser.get(web_app)
-
-def login():
+def login(browser=browser):
     try:
         usr = browser.find_element_by_id('txtUsername')
         pwd = browser.find_element_by_id('txtPassword')
@@ -41,21 +43,27 @@ def login():
 http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/Processing/processList.aspx
 """
 
-def fillscreen():
+def fillscreen(browser=browser):
     nova_zadost_url = "Processing/processStart.aspx?definitionID={AB260856-E6EA-42D4-998C-175099591E9A}"
     browser.get(web_app + nova_zadost_url)
     time.sleep(3)
     
     
-    subj_type = "SPO"
-    prod_type = "OL"
+    subj_type = "PO"  # SPO, FOP, PO
+    prod_type = "FC"   # FC - úvěr , FO - operativní leasing
     
     
     
     label_fc = browser.find_element_by_xpath('//span[contains(text(), "' + "úvěr" + '")]')
     label_fo = browser.find_element_by_xpath('//span[contains(text(), "' + "operativní leasing" + '")]')
     
-    #label_f0.click()
+    if prod_type == "FC":
+        label_fc.click()
+        campaign_code = "KAMPAN_PRO_FC_VARIO_V_15_X02"
+        
+    elif prod_type == "FO":
+        label_fo.click()
+        campaign_code = "KAMPAN_PRO_FO_RENT_V_15_064"
     
     label_nove = browser.find_element_by_xpath('//span[contains(text(), "' + "nové" + '")]')
     label_ojete = browser.find_element_by_xpath('//span[contains(text(), "' + "ojeté" + '")]')
@@ -77,8 +85,35 @@ def fillscreen():
     Select(equipment).select_by_value("CT__AUHTSMC15_T0006363L__")
     
     time.sleep(0.2)
-    subj_type = browser.find_element_by_id("__SubjType")
-    Select(subj_type).select_by_value("1")
+    subj_type_dd = browser.find_element_by_id("__SubjType")
+    vehicle_operation = browser.find_element_by_id("__VehicleOperation")
+    vat_r_buttons = browser.find_elements_by_name("__VATPayer")
+    if subj_type == "SPO":
+        Select(subj_type_dd).select_by_value("1")
+    elif subj_type == "FOP":
+        Select(subj_type_dd).select_by_value("2")
+        time.sleep(0.2)
+        Select(vehicle_operation).select_by_value("1")
+        vat_r_buttons[0].click() #platce DPH ano
+        
+    elif subj_type == "PO":
+        Select(subj_type_dd).select_by_value("3")
+        time.sleep(0.2)
+        Select(vehicle_operation).select_by_value("1")
+        vat_r_buttons[0].click() #platce DPH ano
+    
+    #cena doplňků
+    accessories_price = browser.find_element_by_id("__AccessoriesPrice")
+    accessories_price_value = random.randint(5_000, 20_000)
+    accessories_price.send_keys(accessories_price_value)
+    
+    # sleva s dph
+    time.sleep(0.1)
+    discount_price = browser.find_element_by_id("__DiscountPrice")
+    discount_price_value = random.randint(5_000, 20_000)
+    discount_price.send_keys(discount_price_value)
+    
+    
     
     time.sleep(0.2)
     dealer = browser.find_element_by_id("__TFSCDealer")
@@ -86,13 +121,13 @@ def fillscreen():
     
     time.sleep(0.2)
     campaign = browser.find_element_by_id("__CampaignCode")
-    time.sleep(0.5)
-    #Select(campaign).select_by_value("KAMPAN_PRO_FO_RENT_V_15_064") #FO
-    Select(campaign).select_by_value("KAMPAN_PRO_FC_VARIO_V_15_X02") #FC
+    time.sleep(0.6) #opravdu tolik
+    Select(campaign).select_by_value(campaign_code) 
     
     
     time.sleep(0.2)
     pocet_mesicu = browser.find_element_by_id("__NoOfInstalmentsMax")
+    time.sleep(0.2)
     Select(pocet_mesicu).select_by_index(1)
     
     time.sleep(0.2)
@@ -103,11 +138,29 @@ def fillscreen():
     for p in pojisteni:
         time.sleep(0.2)
         Select(browser.find_element_by_id(p)).select_by_index(1)
-        
+     
+    doplnkove_pojisteni = [
+            ("__MotorSIWindscreenInsurance", "__MotorSIWindscreenLimit"),
+            ("__MotorSILuggageInsurance", "__MotorSILuggageLimit"),
+            ("__MotorSIVehicleRentInsurance", "__MotorSIVehicleRentDays"),
+            ("__MotorAPISeatInsurance", "__MotorAPISeatAmount"),
+            ("__MotorSIPlusInsurance", "__MotorSIPlusType")
+            ]    
+    
+    for p in doplnkove_pojisteni:
+        cb = browser.find_element_by_id(p[0])
+        cb.click()
+        time.sleep(0.2)
+        Select(browser.find_element_by_id(p[1])).select_by_index(1)
+    Select(browser.find_element_by_id("__MotorAPIMultiple")).select_by_index(1)
+    
     
     time.sleep(0.2)
     id_zadosti = browser.find_element_by_id("__IdentificationRequest")
     id_zadosti.send_keys(f"mh {prod_type} ; tsts ; nové")
+    
+#login()
+fillscreen()    
 
 #
 #from selenium.webdriver import Firefox

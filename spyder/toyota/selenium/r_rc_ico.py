@@ -10,9 +10,9 @@ def rc_dat():
     r_sex = random.choice(["M","Z"])
     r_day = str(random.randint(1,28))
     r_month = random.randint(1,12)
-    r_year = random.randint(1920, 2000)
+    r_year = random.randint(1945, 2000)
     
-    dat_nar = f"{r_day}. {str(r_month)}. {r_year}" 
+    dat_nar = f"{r_day}.{str(r_month)}.{r_year}" 
   
     r_seq = str(random.randint(0, 999)).zfill(3)
     r_day = r_day.zfill(2)
@@ -33,7 +33,7 @@ def r_ico():
     for i in range(0,7):
         w = 8-i
         suma += w*int(ico_raw[i])
-    check = (suma % 11) % 10    
+    check = (11 -(suma % 11)) % 10    
     ico = ico_raw + str(check)
     return ico
 
@@ -54,5 +54,14 @@ for i in range (0,111111):
 
     if not is_ico_valid:
         print(ico)
+        
+     
+    27600297    69663963
+        
+    8025436
 
 """
+for i in range(1000):
+    ico = r_ico()
+
+        

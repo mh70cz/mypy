@@ -5,16 +5,16 @@
 """
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-import time
+from time import sleep
 import random
 
 def open_browser():
     browser = webdriver.Chrome()
     web_app = "http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/"
     browser.get(web_app)
-    return browser
+    return browser, web_app
 
-def login(browser=browser):
+def login(browser):
     try:
         usr = browser.find_element_by_id('txtUsername')
         pwd = browser.find_element_by_id('txtPassword')
@@ -23,16 +23,14 @@ def login(browser=browser):
         usr_val = "cis\\m.houska"
         pwd_val = "heslo"
         
-        time.sleep(0.2)
+        sleep(0.2)
         usr.send_keys(usr_val)
         pwd.send_keys(pwd_val)
-        time.sleep(0.2)
+        sleep(0.2)
         log_in.click()
         print("tried to log in")
     except:
         print("problem with login or already logged in")
-    
-
     
 
 """
@@ -43,14 +41,14 @@ def login(browser=browser):
 http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/Processing/processList.aspx
 """
 
-def fillscreen(browser=browser):
+def fillscreen(browser, web_app, subj_type="SPO", prod_type="FC"):
     nova_zadost_url = "Processing/processStart.aspx?definitionID={AB260856-E6EA-42D4-998C-175099591E9A}"
     browser.get(web_app + nova_zadost_url)
-    time.sleep(3)
+    sleep(3)
     
     
-    subj_type = "PO"  # SPO, FOP, PO
-    prod_type = "FC"   # FC - úvěr , FO - operativní leasing
+    #subj_type = "PO"  # SPO, FOP, PO
+    #prod_type = "FC"   # FC - úvěr , FO - operativní leasing
     
     
     
@@ -72,19 +70,22 @@ def fillscreen(browser=browser):
     #vyrobce = browser.find_element_by_id("__VehicleMaker")
     #Select(vyrobce).select_by_value("L") #Lexus
     
-    time.sleep(0.2)
+    sleep(0.2)
     model_type = browser.find_element_by_id("__VehicleModelType")
+    sleep(0.2)
     Select(model_type).select_by_value("AUHTS")
     
-    time.sleep(0.2)
+    sleep(0.2)
     model = browser.find_element_by_id("__VehicleModel")
+    sleep(0.2)
     Select(model).select_by_value("000636")
     
-    time.sleep(0.2)
+    sleep(0.2)
     equipment = browser.find_element_by_id("__EquipmentLevel")
+    sleep(0.2)
     Select(equipment).select_by_value("CT__AUHTSMC15_T0006363L__")
     
-    time.sleep(0.2)
+    sleep(0.2)
     subj_type_dd = browser.find_element_by_id("__SubjType")
     vehicle_operation = browser.find_element_by_id("__VehicleOperation")
     vat_r_buttons = browser.find_elements_by_name("__VATPayer")
@@ -92,13 +93,13 @@ def fillscreen(browser=browser):
         Select(subj_type_dd).select_by_value("1")
     elif subj_type == "FOP":
         Select(subj_type_dd).select_by_value("2")
-        time.sleep(0.2)
+        sleep(0.2)
         Select(vehicle_operation).select_by_value("1")
         vat_r_buttons[0].click() #platce DPH ano
         
     elif subj_type == "PO":
         Select(subj_type_dd).select_by_value("3")
-        time.sleep(0.2)
+        sleep(0.2)
         Select(vehicle_operation).select_by_value("1")
         vat_r_buttons[0].click() #platce DPH ano
     
@@ -108,35 +109,35 @@ def fillscreen(browser=browser):
     accessories_price.send_keys(accessories_price_value)
     
     # sleva s dph
-    time.sleep(0.1)
+    sleep(0.1)
     discount_price = browser.find_element_by_id("__DiscountPrice")
     discount_price_value = random.randint(5_000, 20_000)
     discount_price.send_keys(discount_price_value)
     
     
     
-    time.sleep(0.2)
+    sleep(0.2)
     dealer = browser.find_element_by_id("__TFSCDealer")
     Select(dealer).select_by_value("1373")
     
-    time.sleep(0.2)
+    sleep(0.2)
     campaign = browser.find_element_by_id("__CampaignCode")
-    time.sleep(0.6) #opravdu tolik
+    sleep(0.8) #opravdu tolik
     Select(campaign).select_by_value(campaign_code) 
     
     
-    time.sleep(0.2)
+    sleep(0.4)
     pocet_mesicu = browser.find_element_by_id("__NoOfInstalmentsMax")
-    time.sleep(0.2)
-    Select(pocet_mesicu).select_by_index(1)
+    sleep(0.4)
+    Select(pocet_mesicu).select_by_index(3)
     
-    time.sleep(0.2)
+    sleep(0.2)
     rocni_najezd = browser.find_element_by_id("__StepMileAgePerYear")
     Select(rocni_najezd).select_by_index(1)
     
     pojisteni = ["__InsuranceCoName", "__MTPLInsuranceLimits", "__InsuranceCoNameMotor", "__MotorInsuranceParticipation"]
     for p in pojisteni:
-        time.sleep(0.2)
+        sleep(0.2)
         Select(browser.find_element_by_id(p)).select_by_index(1)
      
     doplnkove_pojisteni = [
@@ -150,19 +151,47 @@ def fillscreen(browser=browser):
     for p in doplnkove_pojisteni:
         cb = browser.find_element_by_id(p[0])
         cb.click()
-        time.sleep(0.2)
+        sleep(0.2)
         Select(browser.find_element_by_id(p[1])).select_by_index(1)
     Select(browser.find_element_by_id("__MotorAPIMultiple")).select_by_index(1)
     
     
-    time.sleep(0.2)
+    sleep(0.2)
     id_zadosti = browser.find_element_by_id("__IdentificationRequest")
-    id_zadosti.send_keys(f"mh {prod_type} ; tsts ; nové")
+    id_zadosti.send_keys(f"mh {prod_type}; {subj_type}; nové")
     
+
+#browser, web_app = open_browser()
 #login()
-fillscreen()    
+#fillscreen(browser, web_app)    
+
+"""
+browser, web_app = open_browser()
+login()
+
+fillscreen(browser, web_app)
+
+fillscreen(browser, web_app, subj_type = "FOP", prod_type = "FO")
+
+
+
+
+
+
+
+for subj_type in ["SPO", "FOP", "PO"]:
+    for prod_type in ["FC", "FO"]:
+        fillscreen(browser, web_app, 
+                   subj_type = subj_type, prod_type = prod_type)
+        sleep(2)
+        browser.back()
+        sleep(1)
+        
+"""
 
 #
+
+
 #from selenium.webdriver import Firefox
 #from selenium.webdriver.firefox.options import Options
 #from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -255,13 +284,13 @@ fillscreen()
 #url_pre = current_url[:current_url.rfind("/")]
 #
 #browser.get(url_pre + '/NewQuery')
-#time.sleep(1)
+#sleep(1)
 ##strategy type
 #links = browser.find_elements_by_tag_name('a')
 #for link in links:
 #    if strategy_type in link.text:
 #        link.click()
-#time.sleep(1)
+#sleep(1)
 ##strategy name
 #elems = browser.find_elements_by_tag_name('td')
 #for e in elems:
@@ -274,7 +303,7 @@ fillscreen()
 #if consent.is_selected() == False:
 #    consent.click()
 #browser.find_element_by_id("submit-query-btn").click()
-#time.sleep(1)
+#sleep(1)
 ## open report
 #tds = browser.find_elements_by_tag_name("td")
 #for td in tds:

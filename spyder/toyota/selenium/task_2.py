@@ -20,10 +20,10 @@ start.login(browser)
 #http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/Processing/processDetail.aspx?id=7537
 #http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/Processing/TaskEdit.aspx?id=46889
 """
-def init(browser, web_app):
+def init(browser, web_app, task_id):
     web_app = "http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/"
     web_task_edit = "Processing/TaskEdit.aspx?id="
-    task_id = "46894"  #46889  46891
+    #task_id = "46889"  #46889  46891  46889
     browser.get(web_app + web_task_edit + task_id)
     
     sleep(2)
@@ -52,14 +52,14 @@ def fill_spo(browser):
     sleep(0.1)
     Select(main_inc_dd).select_by_value("0")
     
-    avg_miat_dd = browser.find_element_by_id("__AverageMIAT")
-    avg_miat_dd.send_keys(str(random.randint(18_000, 50_000)))
+    avg_miat_f = browser.find_element_by_id("__AverageMIAT")
+    avg_miat_f.send_keys(str(random.randint(18_000, 50_000)))
     
-    other_inc_type_field = browser.find_element_by_id("__OtherIncomeType")
-    other_inc_type_field.send_keys("Pronájem nemovitosti")
+    other_inc_type_f = browser.find_element_by_id("__OtherIncomeType")
+    other_inc_type_f.send_keys("Pronájem nemovitosti")
     sleep(0.2)
-    other_inc_field = browser.find_element_by_id("__OtherIncomeAmount")
-    other_inc_field.send_keys(str(random.randint(2_000, 7_000)))
+    other_inc_f = browser.find_element_by_id("__OtherIncomeAmount")
+    other_inc_f.send_keys(str(random.randint(2_000, 7_000)))
     
       
     
@@ -72,15 +72,15 @@ def fill_spo(browser):
     sleep(0.2)
     Select(browser.find_element_by_id("__IsLiabilities")).select_by_value("1")
     sleep(0.2)
-    monthly_inst_field = browser.find_element_by_id("__Liabilities")
-    monthly_inst_field.send_keys(str(random.randint(400, 9_000)))
+    monthly_inst_f = browser.find_element_by_id("__Liabilities")
+    monthly_inst_f.send_keys(str(random.randint(400, 9_000)))
     
         
     Select(browser.find_element_by_id("__Spoluzadatel")).select_by_value("1")
     sleep(0.2)
     
-    coapp_avg_miat_field = browser.find_element_by_id("__CoAverageMIAT")
-    coapp_avg_miat_field.send_keys(str(random.randint(15_000, 39_000)))
+    coapp_avg_miat_f = browser.find_element_by_id("__CoAverageMIAT")
+    coapp_avg_miat_f.send_keys(str(random.randint(15_000, 39_000)))
     
     
     browser.find_element_by_id("__HouseholdNumberPersons").send_keys("5")
@@ -94,13 +94,13 @@ def fill_spo(browser):
     
     sex, pin, dat_nar = r_rc_ico.rc_dat()
     
-    dat_nar_field = browser.find_element_by_id("__DateOfBirth")
-    dat_nar_field.send_keys(dat_nar)
+    dat_nar_f = browser.find_element_by_id("__DateOfBirth")
+    dat_nar_f.send_keys(dat_nar)
     sleep(0.2)
 
     
-    pin_field = browser.find_element_by_id("__PIN")
-    pin_field.send_keys(pin)
+    pin_f = browser.find_element_by_id("__PIN")
+    pin_f.send_keys(pin)
     
     sleep(0.1)
     sex_dd = browser.find_element_by_id("__Gender")
@@ -134,8 +134,8 @@ def fill_fop(browser):
     Select(co_applicant).select_by_value("1")
     sleep(0.2)
     
-    prijem_coapp_field = browser.find_element_by_id("__CoAverageMIAT2")
-    prijem_coapp_field.send_keys(str(random.randint(10_000, 45_000)))
+    prijem_coapp_f = browser.find_element_by_id("__CoAverageMIAT2")
+    prijem_coapp_f.send_keys(str(random.randint(10_000, 45_000)))
     
     sex, pin, dat_nar = r_rc_ico.rc_dat()
     ico = r_rc_ico.r_ico()
@@ -144,9 +144,9 @@ def fill_fop(browser):
     identif_app = [("__PIN", pin),]
     fill_numeric_fields(browser, identif_app)
         
-    dat_nar_field = browser.find_element_by_id("__DateOfBirth")
+    dat_nar_f = browser.find_element_by_id("__DateOfBirth")
     sleep(0.1)
-    dat_nar_field.send_keys(dat_nar)  
+    dat_nar_f.send_keys(dat_nar)  
     sleep(0.2)
     
     
@@ -155,8 +155,8 @@ def fill_fop(browser):
     sleep(0.1)
     Select(sex_dd).select_by_value(sex)
     sleep(0.2)
-    ico_field = browser.find_element_by_id("__RegistrationNumber")
-    ico_field.send_keys(ico)
+    ico_f = browser.find_element_by_id("__RegistrationNumber")
+    ico_f.send_keys(ico)
     sleep(0.2)
     
     prepocitat(browser)
@@ -193,9 +193,9 @@ def fill_po(browser):
     fill_numeric_fields(browser, vykazy_plne_ne)    
     
     
-    ico_field = browser.find_element_by_id("__RegistrationNumber3")
+    ico_f = browser.find_element_by_id("__RegistrationNumber3")
     ico = r_rc_ico.r_ico()
-    ico_field.send_keys(ico)
+    ico_f.send_keys(ico)
    
     prepocitat(browser)
     

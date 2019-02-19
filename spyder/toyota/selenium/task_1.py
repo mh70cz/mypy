@@ -157,8 +157,15 @@ def fillscreen(browser, web_app, subj_type="SPO", prod_type="FC"):
     
     
     sleep(0.2)
+    if prod_type == "FC":
+        prod_type_text = "úvěr"
+    elif prod_type == "FO":
+        prod_type_text = "operL"
+    else:
+        prod_type_text = ""
+    prod_type_text
     id_zadosti = browser.find_element_by_id("__IdentificationRequest")
-    id_zadosti.send_keys(f"mh {prod_type}; {subj_type}; nové")
+    id_zadosti.send_keys(f"{prod_type_text}; ")
     
 
 #browser, web_app = open_browser()
@@ -167,12 +174,14 @@ def fillscreen(browser, web_app, subj_type="SPO", prod_type="FC"):
 
 """
 browser, web_app = open_browser()
-login()
+login(browser)
 
 fillscreen(browser, web_app)
 
-fillscreen(browser, web_app, subj_type = "FOP", prod_type = "FO")
 
+fillscreen(browser, web_app, subj_type = "SPO", prod_type = "FO")
+fillscreen(browser, web_app, subj_type = "FOP", prod_type = "FO")
+fillscreen(browser, web_app, subj_type = "PO", prod_type = "FO")
 
 
 

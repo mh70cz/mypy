@@ -90,9 +90,9 @@ def spo_m():
     return (
         app_values,
         app_address_values,
+        emp_values,
         coapp_values,
         guar_values,
-        emp_values,
         vehicle_values,
         contract_values,
     )
@@ -178,10 +178,19 @@ def spo_z():
     return (
         app_values,
         app_address_values,
+        emp_values,
         coapp_values,
         guar_values,
-        emp_values,
         vehicle_values,
         contract_values,
     )
 
+"""
+app_values = {'TitleBefore': 'ing.', 'Name': 'Pavel', 'Surname': 'Ploc', 'TitleAfter': 'MBA', 'MaritalStatus': '1', 'Foreigner': '0', 'DateOfBirth': '26.1.1979', 'PIN': '7951266884', 'Gender': 'M', 'Citizenship': 'CZ', 'BankAccountNumber1': '31', 'BankAccountNumber': '314159', 'BankCode': '0100', 'DocumentType': '0', 'DocumentNumber': 'OP913746', 'DocumentValidTo': '13.3.2025', 'SecondDocumentType': '6', 'SecondDocumentNumber': 'RP853257', 'SecondDocumentValidTo': '14.12.2027', 'PhoneNumber': '+420398827620', 'Email': 'josef.novak@elposta.cz', "NRKISign":"1"}
+app_address_values = {'HomeAddressStreet': 'Koněvova 242', 'HomeAddressCity': 'Praha 3', 'HomeAddressZip': '13000', 'HomeAddressState': 'CZ', 'AddressSame': '0', 'AddressServicesStreet': 'Park Str. 37', 'AddressServicesCity': 'Köln Chorweiler', 'AddressServicesZip': '50765', 'AddressServicesState': 'DE'}
+emp_values = {'RegistrationNumber': '04134940', 'ProbationPeriod': '0', 'EmploymentIndefinitePeriod': '0', 'NoticePeriod': '0', 'WorkPhoneNumber': '+420731555999', 'Foreigner': '0', 'EmploymentIndefinitePeriodUntil': '21.11.2020'}
+coapp_values = {'TitleBefore': 'ing', 'Name': 'Jana', 'Surname': 'Nováková', 'TitleAfter': 'PhD', 'Foreigner': '0', 'DateOfBirth': '1.1.1970', 'AverageMIAT': '22656', 'AddressServicesStreet': 'Augsburger Strasse 44', 'AddressServicesCity': 'Wershofen', 'AddressServicesZip': '53520', 'AddressServicesState': 'DE'}
+za60 = datetime.datetime.now() + datetime.timedelta(days=60).strftime("%d.%m.%Y")
+vehicle_values = {"ExpectedDeliveryDate":za60}
+contract_values = {"RequestSign":"1"}
+"""

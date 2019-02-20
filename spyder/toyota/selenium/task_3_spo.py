@@ -11,15 +11,22 @@ import random
 from collections import namedtuple
 import datetime
 
+#import data_spo
 # import start
-
-app_values = {'TitleBefore': 'ing.', 'Name': 'Josef', 'Surname': 'Novák', 'TitleAfter': 'MBA', 'MaritalStatus': '1', 'Foreigner': '0', 'DateOfBirth': '19.2.1971', 'PIN': '7102193318', 'Gender': 'M', 'Citizenship': 'CZ', 'BankAccountNumber1': '31', 'BankAccountNumber': '314159', 'BankCode': '0100', 'DocumentType': '0', 'DocumentNumber': 'OP913746', 'DocumentValidTo': '13.3.2025', 'SecondDocumentType': '6', 'SecondDocumentNumber': 'RP853257', 'SecondDocumentValidTo': '14.12.2027', 'PhoneNumber': '+420398827620', 'Email': 'josef.novak@elposta.cz', "NRKISign":"1"}
-
-app_elements = {'TitleBefore': '__TitleBefore', 'Name': '__Name', 'Surname': '__Surname', 'TitleAfter': '__TitleAfter', 'MaritalStatus': '__MaritalStatus', 'Foreigner': '__Foreigner', 'DateOfBirth': '__DateOfBirth', 'PIN': '__PIN', 'Gender': '__Gender', 'Citizenship': '__Citizenship', 'BankAccountNumber1': '__BankAccountNumber1', 'BankAccountNumber': '__BankAccountNumber', 'BankCode': '__BankCode', 'DocumentType': '__DocumentType', 'DocumentNumber': '__DocumentNumber', 'DocumentValidTo': '__DocumentValidTo', 'SecondDocumentType': '__SecondDocumentType', 'SecondDocumentNumber': '__SecondDocumentNumber', 'SecondDocumentValidTo': '__SecondDocumentValidTo', 'PhoneNumber': '__PhoneNumber', 'Email': '__Email', "NRKISign":"__NRKISign"}
 
 Ekp = namedtuple("Ekp", "key, etype, before, after") # element key + properties
 
+app_values = {'TitleBefore': 'ing.', 'Name': 'Pavel', 'Surname': 'Ploc', 'TitleAfter': 'MBA', 'MaritalStatus': '1', 'Foreigner': '0', 'DateOfBirth': '26.1.1979', 'PIN': '7951266884', 'Gender': 'M', 'Citizenship': 'CZ', 'BankAccountNumber1': '31', 'BankAccountNumber': '314159', 'BankCode': '0100', 'DocumentType': '0', 'DocumentNumber': 'OP913746', 'DocumentValidTo': '13.3.2025', 'SecondDocumentType': '6', 'SecondDocumentNumber': 'RP853257', 'SecondDocumentValidTo': '14.12.2027', 'PhoneNumber': '+420398827620', 'Email': 'josef.novak@elposta.cz', "NRKISign":"1"}
+app_address_values = {'HomeAddressStreet': 'Koněvova 242', 'HomeAddressCity': 'Praha 3', 'HomeAddressZip': '13000', 'HomeAddressState': 'CZ', 'AddressSame': '0', 'AddressServicesStreet': 'Park Str. 37', 'AddressServicesCity': 'Köln Chorweiler', 'AddressServicesZip': '50765', 'AddressServicesState': 'DE'}
+emp_values = {'RegistrationNumber': '04134940', 'ProbationPeriod': '0', 'EmploymentIndefinitePeriod': '0', 'NoticePeriod': '0', 'WorkPhoneNumber': '+420731555999', 'Foreigner': '0', 'EmploymentIndefinitePeriodUntil': '21.11.2020'}
+coapp_values = {'TitleBefore': 'ing', 'Name': 'Jana', 'Surname': 'Nováková', 'TitleAfter': 'PhD', 'Foreigner': '0', 'DateOfBirth': '1.1.1970', 'AverageMIAT': '22656', 'AddressServicesStreet': 'Augsburger Strasse 44', 'AddressServicesCity': 'Wershofen', 'AddressServicesZip': '53520', 'AddressServicesState': 'DE'}
+za60 = datetime.datetime.now() + datetime.timedelta(days=60).strftime("%d.%m.%Y")
+vehicle_values = {"ExpectedDeliveryDate":za60}
+contract_values = {"RequestSign":"1"}
+
 def fill(browser):
+    
+    app_elements = {'TitleBefore': '__TitleBefore', 'Name': '__Name', 'Surname': '__Surname', 'TitleAfter': '__TitleAfter', 'MaritalStatus': '__MaritalStatus', 'Foreigner': '__Foreigner', 'DateOfBirth': '__DateOfBirth', 'PIN': '__PIN', 'Gender': '__Gender', 'Citizenship': '__Citizenship', 'BankAccountNumber1': '__BankAccountNumber1', 'BankAccountNumber': '__BankAccountNumber', 'BankCode': '__BankCode', 'DocumentType': '__DocumentType', 'DocumentNumber': '__DocumentNumber', 'DocumentValidTo': '__DocumentValidTo', 'SecondDocumentType': '__SecondDocumentType', 'SecondDocumentNumber': '__SecondDocumentNumber', 'SecondDocumentValidTo': '__SecondDocumentValidTo', 'PhoneNumber': '__PhoneNumber', 'Email': '__Email', "NRKISign":"__NRKISign"}
     
     app = [
     Ekp("TitleBefore", "txt", 0.1, 0.1),
@@ -28,10 +35,10 @@ def fill(browser):
     Ekp("TitleAfter", "txt", 0.1, 0.1),
     Ekp("BankAccountNumber1", "txt", 0.1, 0.1),
     Ekp("BankAccountNumber", "txt", 0.1, 0.1),
-    Ekp("BankCode", "dd", 0.1, 0.2), 
+    Ekp("BankCode", "dd", 0.1, 0.2),
     Ekp("DocumentType", "dd", 0.1, 0.2),
     Ekp("DocumentNumber", "txt", 0.1, 0.1),
-    Ekp("DocumentValidTo",  "txt", 0.1, 0.1),
+    Ekp("DocumentValidTo", "txt", 0.1, 0.1),
     Ekp("SecondDocumentType", "dd", 0.1, 0.2),
     Ekp("SecondDocumentNumber", "txt", 0.1, 0.1),
     Ekp("SecondDocumentValidTo", "txt", 0.1, 0.1),
@@ -48,7 +55,6 @@ def fill(browser):
     sleep(0.2)    
         
     app_address_elements =  {'HomeAddressStreet': '__HomeAddressStreet', 'HomeAddressCity': '__HomeAddressCity', 'HomeAddressZip': '__HomeAddressZip', 'HomeAddressState': '__HomeAddressState', 'AddressSame': None, 'AddressServicesStreet': '__AddressServicesStreet', 'AddressServicesCity': '__AddressServicesCity', 'AddressServicesZip': '__AddressServicesZip', 'AddressServicesState': '__AddressServicesState'}  
-    app_address_values = {'HomeAddressStreet': 'Koněvova 242', 'HomeAddressCity': 'Praha 3', 'HomeAddressZip': '13000', 'HomeAddressState': 'CZ', 'AddressSame': '0', 'AddressServicesStreet': 'Park Str. 37', 'AddressServicesCity': 'Köln Chorweiler', 'AddressServicesZip': '50765', 'AddressServicesState': 'DE'}
       
     app_address_1 = [
         Ekp("HomeAddressStreet", "txt", 0.1, 0.1),
@@ -82,7 +88,6 @@ def fill(browser):
     
         
     #Zdroj příjmů žadatele
-    emp_values = {'RegistrationNumber': '04134940', 'ProbationPeriod': '0', 'EmploymentIndefinitePeriod': '0', 'NoticePeriod': '0', 'WorkPhoneNumber': '+420731555999', 'Foreigner': '0', 'EmploymentIndefinitePeriodUntil': '21.11.2020'}
     emp_elements = {'RegistrationNumber': '__RegistrationNumber', 'ProbationPeriod': '__ProbationPeriod', 'EmploymentIndefinitePeriod': '__EmploymentIndefinitePeriod', 'NoticePeriod': '__NoticePeriod', 'WorkPhoneNumber': '__WorkPhoneNumber', 'Foreigner': '__Emp_Foreigner', 'EmploymentIndefinitePeriodUntil': '__EmploymentIndefinitePeriodUntil'}
             
     emp = [
@@ -105,7 +110,7 @@ def fill(browser):
     #Manžel/-ka žadatele
     sleep(0.3)
     
-    coapp_values = {'TitleBefore': 'ing', 'Name': 'Jana', 'Surname': 'Nováková', 'TitleAfter': 'PhD', 'Foreigner': '0', 'DateOfBirth': '1.1.1970', 'AverageMIAT': '22656', 'AddressServicesStreet': 'Augsburger Strasse 44', 'AddressServicesCity': 'Wershofen', 'AddressServicesZip': '53520', 'AddressServicesState': 'DE'}
+    
     coapp_elements = {'TitleBefore': '__CoA_TitleBefore', 'Name': '__CoA_Name', 'Surname': '__CoA_Surname', 'TitleAfter': '__CoA_TitleAfter', 'Foreigner': '__CoA_Foreigner', 'DateOfBirth': '__CoA_DateOfBirth', 'AverageMIAT': '__CoA_AverageMIAT', 'AddressServicesStreet': '__CoA_HomeAddressStreet', 'AddressServicesCity': '__CoA_HomeAddressCity', 'AddressServicesZip': '__CoA_HomeAddressZip', 'AddressServicesState': '__CoA_HomeAddressState'}
     
     _section_coapp = browser.find_element_by_xpath("//div[contains(text(),'Manžel/-ka žadatele')]")
@@ -152,16 +157,13 @@ def fill(browser):
     
     #Poptávkový list
     sleep(0.4)
-    za60 = datetime.datetime.now() + datetime.timedelta(days=60)
-    za60 = za60.strftime("%d.%m.%Y")
-    
-    vehicle_values = {"ExpectedDeliveryDate":za60}
+       
     vehicle_elements = {"ExpectedDeliveryDate":"__ExpectedDeliveryDate"}
     
     vehicle = [Ekp("ExpectedDeliveryDate", "txt", 0.1, 0.1),]
     fill_elems(browser, vehicle, vehicle_elements, vehicle_values)
     
-    contract_values = {"RequestSign":"1"}
+    
     contract_elements = {"RequestSign":"__RequestSign"}
     
     contract = [Ekp("RequestSign", "dd", 0.1, 0.1),]

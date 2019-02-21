@@ -23,15 +23,16 @@ def get_data(browser):
     if (gender == "M"):
         values = data_spo.spo_m()
     elif (gender == "Z"):
-         values = data_spo.spo_z()
+        values = data_spo.spo_z()
     return values
 
-values = get_data(browser)
-app_values, app_address_values, emp_values, coapp_values, guar_values, vehicle_values, contract_values = values
 
 def fill(browser):
     
-    app_elements = {'TitleBefore': '__TitleBefore', 'Name': '__Name', 'Surname': '__Surname', 'TitleAfter': '__TitleAfter', 'MaritalStatus': '__MaritalStatus', 'Foreigner': '__Foreigner', 'DateOfBirth': '__DateOfBirth', 'PIN': '__PIN', 'Gender': '__Gender', 'Citizenship': '__Citizenship', 'BankAccountNumber1': '__BankAccountNumber1', 'BankAccountNumber': '__BankAccountNumber', 'BankCode': '__BankCode', 'DocumentType': '__DocumentType', 'DocumentNumber': '__DocumentNumber', 'DocumentValidTo': '__DocumentValidTo', 'SecondDocumentType': '__SecondDocumentType', 'SecondDocumentNumber': '__SecondDocumentNumber', 'SecondDocumentValidTo': '__SecondDocumentValidTo', 'PhoneNumber': '__PhoneNumber', 'Email': '__Email', "NRKISign":"__NRKISign"}
+    values = get_data(browser)
+    app_values, app_address_values, emp_values, coapp_values, guar_values, vehicle_values, contract_values = values
+    
+    app_elements = {'TitleBefore': '__TitleBefore', 'Name': '__Name', 'Surname': '__Surname', 'TitleAfter': '__TitleAfter', 'MaritalStatus': '__MaritalStatus', 'Foreigner': '__Foreigner', 'DateOfBirth': '__DateOfBirth', 'PIN': '__PIN', 'Gender': '__Gender', 'Citizenship': '__Citizenship', 'BankAccountNumber1': '__BankAccountNumber1', 'BankAccountNumber': '__BankAccountNumber', 'BankCode': '__BankCode', 'DocumentType': '__DocumentType', 'DocumentNumber': '__DocumentNumber', 'DocumentValidTo': '__DocumentValidTo', 'SecondDocumentType': '__SecondDocumentType', 'SecondDocumentNumber': '__SecondDocumentNumber', 'SecondDocumentValidTo': '__SecondDocumentValidTo', 'PhoneNumber': '__PhoneNumber', 'Email': '__Email', "NRKISign":"__NRKISign", "IsDebtor": "__IsDebtor"}
     
     app = [
     Ekp("TitleBefore", "txt", 0.1, 0.1),
@@ -180,6 +181,12 @@ def fill(browser):
 
     _section_poptavkovy_list = browser.find_element_by_xpath("//div[contains(text(),'Poptávkový list')]")
     _section_poptavkovy_list.click()
+
+    # Guarantor 
+    # ano / ne - je uloženo v app
+    app = [Ekp("IsDebtor", "radio", 0.1, 0.1),]
+    #fill_elems(browser, app, app_elements, app_values)
+    
              
 def fill_elems(browser, ekps, elements, values):
     for ekp in ekps:
@@ -205,11 +212,13 @@ def fill_elems(browser, ekps, elements, values):
                 if rbval == values[key]:
                     rb.click()
 
-
+    
 
 """
 browser.back() 
 browser.get("http://cishd-cls-app01/dm/CzechRep_Toyota_branch/Dev/WebApp/Processing/taskEdit.aspx?id=46938") 
 fill(browser)
 
+
+"IsDebtor": "1"
 """

@@ -34,6 +34,7 @@ def spo_m():
         "PhoneNumber": "+420398827620",
         "Email": "andrej.bures@elposta.cz",
         "NRKISign": "1",
+        "IsDebtor": "1",        
     }
 
     app_address_values = {
@@ -122,6 +123,7 @@ def spo_z():
         "PhoneNumber": "+420398827620",
         "Email": "andrej.bures@elposta.cz",
         "NRKISign": "1",
+        "IsDebtor": "1",
     }
 
     app_address_values = {

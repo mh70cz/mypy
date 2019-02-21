@@ -8,6 +8,7 @@ Created on Mon Feb 18 17:39:27 2019
 import task_1
 import task_2
 import task_3_spo
+import task_3_guar_fo
 
 
 
@@ -32,5 +33,14 @@ task_2.fill_fop(browser)
 task_2.fill_po(browser)
 
 task_3_spo.fill(browser)
+
+
+task_3_guar_fo.fill(browser)
+
+
+web_task_edit = "Processing/TaskEdit.aspx?id="
+task_id = "46950"  #46889  46891  46889
+browser.get(web_app + web_task_edit + task_id)
+
 
 """

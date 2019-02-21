@@ -48,7 +48,57 @@ def fill(browser):
     _section_guar_udaje = browser.find_element_by_xpath("//div[contains(text(),'Údaje o ručiteli')]")
     _section_guar_udaje.click()
     sleep(0.3)
-
+    
+    guar_address_values = data_guar_fo.guar_address_values
+    
+    guar_address_elements = [
+            Ekp('HomeAddressStreet', '__Deb_HomeAddressStreet', "", "txt", 0.1, 0.1),
+            Ekp('HomeAddressCity', '__Deb_HomeAddressCity', "", "txt", 0.1, 0.1),
+            Ekp('HomeAddressZip', '__Deb_HomeAddressZip', "", "txt", 0.1, 0.1),
+            #Ekp('HomeAddressState', '__Deb_HomeAddressState', "", "txt", 0.1, 0.1),
+            #Ekp('AddressSame', '__Deb_AddressSame', "", "cb", 0.1, 0.1),   
+            ]    
+        
+    fill_elems(browser, guar_address_elements, guar_address_values)
+    
+    # otevři koresp. adresu    
+    _section_guar_add = browser.find_element_by_xpath("//div[contains(text(),'Adresa ručitele')]")
+    _section_guar_add.click()    
+    _address_same= browser.find_element_by_name("__Deb_AddressSame")
+    if (_address_same.is_selected()):        
+        _address_same.click()
+        sleep(0.3)
+        
+    guar_address_elements = [
+            Ekp('AddressServicesStreet', '__Deb_AddressServicesStreet', "", "txt", 0.1, 0.1),
+            Ekp('AddressServicesCity', '__Deb_AddressServicesCity', "", "txt", 0.1, 0.1),
+            Ekp('AddressServicesZip', '__Deb_AddressServicesZip', "", "txt", 0.1, 0.1),
+            Ekp('AddressServicesState', '__Deb_AddressServicesState', "", "dd", 0.1, 0.1),     
+            ]            
+    
+    fill_elems(browser, guar_address_elements, guar_address_values)
+    
+    _section_guar_add.click()  
+    # Zaměstnání ručitele
+    sleep(0.3)
+    _section_guar_emp = browser.find_element_by_xpath("//div[contains(text(),'Zaměstnání ručitele')]")
+    _section_guar_emp.click()
+    
+    guar_employer_values = data_guar_fo.guar_employer_values
+    guar_employer_elements = [
+            Ekp('EmployerType', '__Deb_SourceOfIncome',"","dd", 0.1, 0.1),
+            Ekp('WorkPhoneNumber', '__Deb_WorkPhoneNumber',"","txt", 0.1, 0.1),
+            Ekp('RegistrationNumber', '__DebEmp_RegistrationNumber',"","txt", 0.1, 0.1),
+            #Ekp('Foreigner', '__Emp_Foreigner',"","dd", 0.1, 0.1),
+            Ekp('ProbationPeriod', '',"__Deb_ProbationPeriod","cb", 0.1, 0.1),
+            Ekp('NoticePeriod', '',"__Deb_NoticePeriod","cb", 0.1, 0.1),
+            Ekp('EmploymentIndefinitePeriod', '',"__Deb_EmploymentIndefinitePeriod","cb", 0.1, 0.1),
+            Ekp('EmploymentIndefinitePeriodUntil', '__Deb_EmploymentIndefinitePeriodUntil', "","txt", 0.1, 0.1),            
+            ]
+    fill_elems(browser, guar_employer_elements, guar_employer_values)
+    
+    _section_guar_emp.click()
+    
 def fill_elems(browser, elements, values):
     for ekp in elements:
         key = ekp.key

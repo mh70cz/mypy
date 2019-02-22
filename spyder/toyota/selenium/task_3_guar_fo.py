@@ -92,12 +92,44 @@ def fill(browser):
             #Ekp('Foreigner', '__Emp_Foreigner',"","dd", 0.1, 0.1),
             Ekp('ProbationPeriod', '',"__Deb_ProbationPeriod","cb", 0.1, 0.1),
             Ekp('NoticePeriod', '',"__Deb_NoticePeriod","cb", 0.1, 0.1),
-            Ekp('EmploymentIndefinitePeriod', '',"__Deb_EmploymentIndefinitePeriod","cb", 0.1, 0.1),
-            Ekp('EmploymentIndefinitePeriodUntil', '__Deb_EmploymentIndefinitePeriodUntil', "","txt", 0.1, 0.1),            
+            Ekp('EmploymentIndefinitePeriod', '',"__Deb_EmploymentIndefinitePeriod","cb", 0.1, 0.2),
+            Ekp('EmploymentIndefinitePeriodUntil', '__Deb_EmploymentIndefinitePeriodUntil', "","txt", 0.1, 0.1), #ToDo podmíněné pole           
             ]
     fill_elems(browser, guar_employer_elements, guar_employer_values)
     
     _section_guar_emp.click()
+    
+    # Bonit ručitle
+    sleep(0.3)
+    _section_guar_bonita = browser.find_element_by_xpath("//div[contains(text(),'Bonita ručitele')]")
+    _section_guar_bonita.click()
+    
+    guar_values = data_guar_fo.guar_values
+    
+    guar_elements = [
+            Ekp("MainIncomeType", "__Deb_MainIncomeType", "", "dd", 0.1, 0.2),
+            #Ekp("IncomeType", "__Deb_IncomeType", "",  "txt", 0.1, 0.1), #Pokud MainIncomeType == Jiné
+            Ekp("AverageMIAT", "__Deb_AverageMIAT", "",  "txt", 0.1, 0.1),
+            Ekp("OtherIncomeType", "__Deb_OtherIncomeType", "",  "txt", 0.1, 0.2),
+            Ekp("OtherIncomeAmount", "__Deb_OtherIncomeAmount", "",  "txt", 0.1, 0.1),
+            Ekp("TypeOfHousing", "__Deb_TypeOfHousing", "",  "dd", 0.1, 0.1),
+            #Ekp("TrReceivedFromAllEmployers", "__Deb_TrReceivedFromAllEmployersFO", "",  "txt", 0.1, 0.1), #OSVC
+            #Ekp("TrTaxBaseLineTotals", "__Deb_TrTaxBaseLineTotalsFO", "",  "txt", 0.1, 0.1), #OSVC
+            #Ekp("TrTaxAfterApplyingDiscount", "__Deb_TrTaxAfterApplyingDiscountFO", "",  "txt", 0.1, 0.1), #OSVC
+            Ekp("IsLiabilities", "__Deb_IsLiabilities", "",  "dd", 0.1, 0.2),
+            Ekp("Liabilities", "__Deb_Liabilities", "",  "txt", 0.1, 0.1),
+            Ekp("HouseholdNumberPersons", "__Deb_HouseholdNumberPersons", "",  "txt", 0.1, 0.1),
+            Ekp("NumberDependentPersons", "__Deb_NumberDependentPersons", "",  "txt", 0.1, 0.1),
+            Ekp("NumberDependentPersons1", "__Deb_NumberDependentPersons1", "",  "txt", 0.1, 0.1),
+            Ekp("NumberDependentPersons2", "__Deb_NumberDependentPersons2", "",  "txt", 0.1, 0.1),
+            Ekp("IsExecutionAgainst", "", "__Deb_IsExecutionAgainst",  "radio", 0.1, 0.1),
+            Ekp("IsInsolvencyAgainst", "", "__Deb_IsInsolvencyAgainst",  "radio", 0.1, 0.1),
+            Ekp("IsPoliticallyExposedPerson", "", "__Deb_IsPoliticallyExposedPerson",  "radio", 0.1, 0.1),
+            ]
+    
+    fill_elems(browser, guar_elements, guar_values)
+    
+    _section_guar_bonita.click()
     
 def fill_elems(browser, elements, values):
     for ekp in elements:

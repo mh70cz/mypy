@@ -118,9 +118,10 @@ def fillscreen(browser, web_app, subj_type="SPO", prod_type="FC"):
     
     sleep(0.2)
     dealer = browser.find_element_by_id("__TFSCDealer")
+    sleep(0.2)
     Select(dealer).select_by_value("1373")
     
-    sleep(0.2)
+    sleep(0.4)
     campaign = browser.find_element_by_id("__CampaignCode")
     sleep(0.8) #opravdu tolik
     Select(campaign).select_by_value(campaign_code) 

@@ -14,17 +14,30 @@ def rc_dat():
     
     dat_nar = f"{r_day}.{str(r_month)}.{r_year}" 
   
-    r_seq = str(random.randint(0, 999)).zfill(3)
-    r_day = r_day.zfill(2)
+    day = r_day.zfill(2)
+    month = r_month
     if r_sex == "Z":
-        r_month = r_month + 50
-    r_month = str(r_month).zfill(2)    
+        month = r_month + 50
+    month = str(month).zfill(2)    
             
-    pin = str(r_year)[2:] + r_month + r_day + r_seq
-    
-    if r_year >= 1954:
-        check = (int(pin) % 11) % 10
-        pin = pin + str(check)
+        
+    while True:
+        r_seq = str(random.randint(0, 999)).zfill(3)
+        pin = str(r_year)[2:] + month + day + r_seq
+        if r_year >= 1954:
+            check = (int(pin) % 11) % 10
+            pin = pin + str(check)
+            
+            suma = 0
+            for n in pin:
+                suma += int(n)
+            if int(suma) % 11 != 0:
+                #print(pin)
+                continue # nevracej čísla s výjimkou 
+            else:
+                break
+        else:
+            break
     return (r_sex, pin, dat_nar)
 
 def r_ico():
@@ -38,7 +51,11 @@ def r_ico():
     return ico
 
 """
-for i in range (0,111111):
+for i in range (10):
+    print (str(i) + rc_dat())
+    
+    
+for i in range (10):
     
 
     sex, rc, dat_nar = rc_dat()

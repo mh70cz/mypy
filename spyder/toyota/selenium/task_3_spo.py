@@ -12,6 +12,7 @@ from collections import namedtuple
 import datetime
 
 import data_spo
+import task_3_guar_fo
 # import start
 
 Ekp = namedtuple("Ekp", "key, etype, before, after") # element key + properties
@@ -161,6 +162,16 @@ def fill(browser):
         sleep(0.1)
         _section_coapp.click()
     
+
+    # Guarantor 
+    # ano / ne - je uloženo v applicant
+    app = [Ekp("IsDebtor", "radio", 0.1, 0.1),]
+    fill_elems(browser, app, app_elements, app_values)
+    
+    if app_values["IsDebtor"] == "1":
+        sleep (0.3)
+        task_3_guar_fo.fill(browser)
+        
     
     #Poptávkový list
     sleep(0.4)
@@ -182,10 +193,8 @@ def fill(browser):
     _section_poptavkovy_list = browser.find_element_by_xpath("//div[contains(text(),'Poptávkový list')]")
     _section_poptavkovy_list.click()
 
-    # Guarantor 
-    # ano / ne - je uloženo v app
-    app = [Ekp("IsDebtor", "radio", 0.1, 0.1),]
-    #fill_elems(browser, app, app_elements, app_values)
+
+        
     
              
 def fill_elems(browser, ekps, elements, values):

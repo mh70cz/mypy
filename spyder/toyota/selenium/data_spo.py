@@ -102,8 +102,8 @@ def spo_m():
 def spo_z():
     app_values = {
         "TitleBefore": "ing.",
-        "Name": "Monika",
-        "Surname": "Burešová",
+        "Name": "Trillian",
+        "Surname": "McMillan",
         "TitleAfter": "MBA",
         "MaritalStatus": "1",
         "Foreigner": "0",
@@ -121,7 +121,7 @@ def spo_z():
         "SecondDocumentNumber": "RP853257",
         "SecondDocumentValidTo": "14.12.2027",
         "PhoneNumber": "+420398827620",
-        "Email": "andrej.bures@elposta.cz",
+        "Email": "trillian.mcmillan@ex_earth.com",
         "NRKISign": "1",
         "IsDebtor": "1",
     }
@@ -140,8 +140,8 @@ def spo_z():
 
     coapp_values = {
         "TitleBefore": "JUDr",
-        "Name": "Marika",
-        "Surname": "Burešová",
+        "Name": "Ford",
+        "Surname": "Prefect",
         "TitleAfter": "PhD",
         "Foreigner": "0",
         "DateOfBirth": "1.1.1970",
@@ -163,7 +163,7 @@ def spo_z():
         "AddressServicesStreet": "Via Apipa Nuova 823/4",
         "AddressServicesCity": "Roma",
         "AddressServicesZip": "00184",
-        "AddressServicesState": "DE",
+        "AddressServicesState": "IT",
     }
     emp_values = {
         "RegistrationNumber": "04134940",

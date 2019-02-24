@@ -11,28 +11,23 @@ import random
 from collections import namedtuple
 import datetime
 
-import data_spo
+import data_spo_new
 import task_3_guar_fo
 # import start
 
-#Xkp = namedtuple("Xkp", "key, etype, before, after") # element key + properties
 Ekp = namedtuple("Ekp", "key, eid, name, etype, before, after") # element key + properties
 
 def get_data(browser):
     gender_e = browser.find_element_by_id("__Gender")
     gender = gender_e.get_property("value")
-    if (gender == "M"):
-        values = data_spo.spo_m()
-    elif (gender == "Z"):
-        values = data_spo.spo_z()
-    return values
+    data = data_spo_new.get_data(gender=gender)
+    return data
 
 
-def fill(browser):
-    
-    values = get_data(browser)
-    app_values, app_address_values, emp_values, coapp_values, guar_values, vehicle_values, contract_values = values
-            
+def fill(browser, data=None):
+    if data is None:
+        data = get_data(browser)
+                
     app_elements = [
         Ekp("TitleBefore", "__TitleBefore", "","txt","0.1","0.1"),
         Ekp("Name", "__Name", "","txt","0.1","0.1"),
@@ -53,7 +48,7 @@ def fill(browser):
         Ekp("Gender", "__Gender", "","dd","0.1","0.2"),
     ]
              
-    fill_elems(browser, app_elements, app_values )
+    fill_elems(browser, app_elements, data["applicant"] )
 
     _section_udaje_zadatele = browser.find_element_by_xpath("//div[contains(text(),'Údaje žadatele')]")
     _section_udaje_zadatele.click()
@@ -67,7 +62,7 @@ def fill(browser):
         Ekp("HomeAddressZip", "__HomeAddressZip", "","txt","0.1","0.1"),
         #Ekp("HomeAddressState", "__HomeAddressState", "","dd","0.2","0.1"),
         ]
-    fill_elems(browser,  app_address_elements_1, app_address_values )
+    fill_elems(browser,  app_address_elements_1, data["applicant_address"] )
 
         
     _address_same= browser.find_element_by_name("__AddressSame")
@@ -88,7 +83,7 @@ def fill(browser):
             Ekp("AddressServicesZip", "__AddressServicesZip", "","txt","0.1","0.1"),
             Ekp("AddressServicesState", "__AddressServicesState", "","dd","0.2","0.1"),
                 ]
-        fill_elems(browser, app_address_elements_2, app_address_values)    
+        fill_elems(browser, app_address_elements_2, data["applicant_address"])    
     
         
     #Zdroj příjmů žadatele
@@ -103,10 +98,10 @@ def fill(browser):
         #Ekp("Foreigner", "__Emp_Foreigner", "","cb","0.1","0.1"),
         #Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "","txt","0.1","0.1"),                        
             ]
-    if emp_values["EmploymentIndefinitePeriod"] == "0": # pp na dobu určitou
+    if data["employer"]["EmploymentIndefinitePeriod"] == "0": # pp na dobu určitou
         emp.append(Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "", "txt", 0.1, 0.1))
         
-    fill_elems(browser, emp_elements, emp_values)
+    fill_elems(browser, emp_elements, data["employer"])
     
     _section_zdoj_prijmu = browser.find_element_by_xpath("//div[contains(text(),'Zdroj příjmů žadatele')]")
     _section_zdoj_prijmu.click()
@@ -126,7 +121,7 @@ def fill(browser):
         #Ekp("AverageMIAT", "__CoA_AverageMIAT", "","txt","0.1","0.1"),         
             ]
 
-    fill_elems(browser, coapp_elements, coapp_values)
+    fill_elems(browser, coapp_elements, data["coapplicant"])
     sleep(0.2)
     _section_coapp.click()
     
@@ -151,7 +146,7 @@ def fill(browser):
             Ekp("AddressServicesState", "__CoA_HomeAddressState", "","dd","0.1","0.1"),        
             ]
             
-        fill_elems(browser, coapp_elements, coapp_values)
+        fill_elems(browser, coapp_elements, data["applicant_address"])
         sleep(0.1)
         _section_coapp.click()
     
@@ -159,9 +154,9 @@ def fill(browser):
     # Guarantor 
     # ano / ne - je uloženo v applicant
     app_elements = [Ekp("IsDebtor", "", "__IsDebtor", "radio", 0.1, 0.1),]
-    fill_elems(browser, app_elements, app_values)
+    fill_elems(browser, app_elements, data["applicant"])
     
-    if app_values["IsDebtor"] == "1":
+    if data["applicant"]["IsDebtor"] == "1":
         sleep (0.3)
         task_3_guar_fo.fill(browser)
         
@@ -170,14 +165,14 @@ def fill(browser):
     sleep(0.4)
            
     vehicle_elements = [Ekp("ExpectedDeliveryDate", "__ExpectedDeliveryDate", "", "txt", 0.1, 0.1),]
-    fill_elems(browser, vehicle_elements, vehicle_values)
+    fill_elems(browser, vehicle_elements, data["vehicle"])
     
     
     contract_elements = [Ekp("RequestSign", "__RequestSign", "", "dd", 0.1, 0.1),]
-    fill_elems(browser,  contract_elements, contract_values)
+    fill_elems(browser,  contract_elements, data["contract"])
     
     app_elements = [Ekp("NRKISign", "__NRKISign", "", "dd", 0.1, 0.1),]
-    fill_elems(browser, app_elements, app_values )
+    fill_elems(browser, app_elements, data["applicant"] )
 
     _section_poptavkovy_list = browser.find_element_by_xpath("//div[contains(text(),'Poptávkový list')]")
     _section_poptavkovy_list.click()

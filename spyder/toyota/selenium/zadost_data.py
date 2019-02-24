@@ -78,6 +78,8 @@ def read_data(browser, web_app, id_zadost):
     app = None
     app_address = None
     coapp = None
+    guar = None
+    guar_address = None
     employer = None
     employer_address = None   #??
     contract = None
@@ -123,9 +125,11 @@ def read_data(browser, web_app, id_zadost):
 
 
     data = {
-        "app": app,
-        "app_address": app_address,
-        "coapp": coapp,
+        "applicant": app,
+        "applicant_address": app_address,
+        "coapplicant": coapp,
+        "guarantor": guar,
+        "guarantor_address": guar_address,
         "employer": employer,
         "employer_address": employer_address,
         "contract": contract,

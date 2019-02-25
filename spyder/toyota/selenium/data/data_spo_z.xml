@@ -58,22 +58,75 @@
         <AddressServicesZip>53520</AddressServicesZip>
         <AddressServicesState>DE</AddressServicesState>
     </coapplicant>
+    <coapplicant_address>
+        <AddressSame>0</AddressSame>
+        <AddressServicesStreet>Augsburger Strasse 44</AddressServicesStreet>
+        <AddressServicesCity>Wershofen</AddressServicesCity>
+        <AddressServicesZip>53520</AddressServicesZip>
+        <AddressServicesState>DE</AddressServicesState>
+    </coapplicant_address>
     <guarantor>
-        <TitleBefore>RNDr</TitleBefore>
-        <Name>Radka</Name>
-        <Surname>Rychlá</Surname>
-        <TitleAfter>PhD</TitleAfter>
+        <SubjType>1</SubjType>
+        <TitleBefore>Bc</TitleBefore>
+        <Name>Radomír</Name>
+        <Surname>Ručící</Surname>
+        <TitleAfter>CSc</TitleAfter>
+        <PhoneNumber>+420827620987</PhoneNumber>
+        <Email>radomir.rucici@alpha.beta.cz</Email>
+        <BankAccountNumber1>42</BankAccountNumber1>
+        <BankAccountNumber>9575469879</BankAccountNumber>
+        <BankCode>0300</BankCode>
         <Foreigner>0</Foreigner>
-        <DateOfBirth>26.1.1979</DateOfBirth>
-        <PIN>7951266884</PIN>
-        <AverageMIAT>22656</AverageMIAT>
+        <PIN>6802210019</PIN>
+        <DateOfBirth>21.2.1968</DateOfBirth>
+        <Gender>M</Gender>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>6</DocumentType>
+        <DocumentNumber>RP864915</DocumentNumber>
+        <DocumentValidTo>28.2.2029</DocumentValidTo>
+        <SecondDocumentType>0</SecondDocumentType>
+        <SecondDocumentNumber>OP203060</SecondDocumentNumber>
+        <SecondDocumentValidTo>17.4.2028</SecondDocumentValidTo>
+        <MainIncomeType>0</MainIncomeType>
+        <IncomeType>Výuka jazyků</IncomeType>
+        <AverageMIAT>42000</AverageMIAT>
+        <OtherIncomeType>Právní konzultace</OtherIncomeType>
+        <OtherIncomeAmount>8000</OtherIncomeAmount>
+        <TypeOfHousing>1</TypeOfHousing>
+        <IsLiabilities>1</IsLiabilities>
+        <TrReceivedFromAllEmployers>70000</TrReceivedFromAllEmployers>
+        <TrTaxBaseLineTotals>68000</TrTaxBaseLineTotals>
+        <TrTaxAfterApplyingDiscount>31000</TrTaxAfterApplyingDiscount>
+        <Liabilities>555</Liabilities>
+        <HouseholdNumberPersons>5</HouseholdNumberPersons>
+        <NumberDependentPersons>1</NumberDependentPersons>
+        <NumberDependentPersons1>1</NumberDependentPersons1>
+        <NumberDependentPersons2>1</NumberDependentPersons2>
+        <IsExecutionAgainst>0</IsExecutionAgainst>
+        <IsInsolvencyAgainst>0</IsInsolvencyAgainst>
+        <IsPoliticallyExposedPerson>0</IsPoliticallyExposedPerson>
     </guarantor>
     <guarantor_address>
-        <AddressServicesStreet>Via Appia Nuova 823/4</AddressServicesStreet>
-        <AddressServicesCity>Roma</AddressServicesCity>
-        <AddressServicesZip>00184</AddressServicesZip>
-        <AddressServicesState>IT</AddressServicesState>
+        <HomeAddressStreet>Nábřeží Svazu protifašistických bojovníků 11</HomeAddressStreet>
+        <HomeAddressCity>Ostrava</HomeAddressCity>
+        <HomeAddressZip>55112</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+        <AddressSame>0</AddressSame>
+        <AddressServicesStreet>Heiligengeistbrücke 67</AddressServicesStreet>
+        <AddressServicesCity>Windsbach</AddressServicesCity>
+        <AddressServicesZip>91573</AddressServicesZip>
+        <AddressServicesState>DE</AddressServicesState>
     </guarantor_address>
+    <guarantor_employer>
+        <EmployerType>1</EmployerType>
+        <WorkPhoneNumber>+420256357458</WorkPhoneNumber>
+        <RegistrationNumber>00006963</RegistrationNumber>
+        <Foreigner>0</Foreigner>
+        <ProbationPeriod>0</ProbationPeriod>
+        <NoticePeriod>0</NoticePeriod>
+        <EmploymentIndefinitePeriod>0</EmploymentIndefinitePeriod>
+        <EmploymentIndefinitePeriodUntil>31.12.2021</EmploymentIndefinitePeriodUntil>
+    </guarantor_employer>
     <vehicle>
         <ExpectedDeliveryDate>25.04.2019</ExpectedDeliveryDate>
     </vehicle>

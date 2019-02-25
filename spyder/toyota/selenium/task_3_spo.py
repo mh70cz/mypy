@@ -15,63 +15,54 @@ import data_spo
 import task_3_guar_fo
 # import start
 
-Ekp = namedtuple("Ekp", "key, etype, before, after") # element key + properties
-
+Ekp = namedtuple("Ekp", "key, eid, name, etype, before, after") # element key + properties
 
 def get_data(browser):
     gender_e = browser.find_element_by_id("__Gender")
     gender = gender_e.get_property("value")
-    if (gender == "M"):
-        values = data_spo.spo_m()
-    elif (gender == "Z"):
-        values = data_spo.spo_z()
-    return values
+    data = data_spo.get_data(gender=gender)
+    return data
 
 
-def fill(browser):
-    
-    values = get_data(browser)
-    app_values, app_address_values, emp_values, coapp_values, guar_values, vehicle_values, contract_values = values
-    
-    app_elements = {'TitleBefore': '__TitleBefore', 'Name': '__Name', 'Surname': '__Surname', 'TitleAfter': '__TitleAfter', 'MaritalStatus': '__MaritalStatus', 'Foreigner': '__Foreigner', 'DateOfBirth': '__DateOfBirth', 'PIN': '__PIN', 'Gender': '__Gender', 'Citizenship': '__Citizenship', 'BankAccountNumber1': '__BankAccountNumber1', 'BankAccountNumber': '__BankAccountNumber', 'BankCode': '__BankCode', 'DocumentType': '__DocumentType', 'DocumentNumber': '__DocumentNumber', 'DocumentValidTo': '__DocumentValidTo', 'SecondDocumentType': '__SecondDocumentType', 'SecondDocumentNumber': '__SecondDocumentNumber', 'SecondDocumentValidTo': '__SecondDocumentValidTo', 'PhoneNumber': '__PhoneNumber', 'Email': '__Email', "NRKISign":"__NRKISign", "IsDebtor": "__IsDebtor"}
-    
-    app = [
-    Ekp("TitleBefore", "txt", 0.1, 0.1),
-    Ekp("Name", "txt", 0.1, 0.1),
-    Ekp("Surname", "txt", 0.1, 0.1),
-    Ekp("TitleAfter", "txt", 0.1, 0.1),
-    Ekp("BankAccountNumber1", "txt", 0.1, 0.1),
-    Ekp("BankAccountNumber", "txt", 0.1, 0.1),
-    Ekp("BankCode", "dd", 0.1, 0.2),
-    Ekp("DocumentType", "dd", 0.1, 0.2),
-    Ekp("DocumentNumber", "txt", 0.1, 0.1),
-    Ekp("DocumentValidTo", "txt", 0.1, 0.1),
-    Ekp("SecondDocumentType", "dd", 0.1, 0.2),
-    Ekp("SecondDocumentNumber", "txt", 0.1, 0.1),
-    Ekp("SecondDocumentValidTo", "txt", 0.1, 0.1),
-    Ekp("PhoneNumber", "txt", 0.1, 0.1),
-    Ekp("Email", "txt", 0.1, 0.1),
-    Ekp("MaritalStatus", "dd", 0.1, 0.2),
-    Ekp("Gender", "dd", 0.1, 0.2),
+def fill(browser, data=None):
+    if data is None:
+        data = get_data(browser)
+                
+    app_elements = [
+        Ekp("TitleBefore", "__TitleBefore", "","txt",0.1,0.1),
+        Ekp("Name", "__Name", "","txt",0.1,0.1),
+        Ekp("Surname", "__Surname", "","txt",0.1,0.1),
+        Ekp("TitleAfter", "__TitleAfter", "","txt",0.1,0.1),
+        Ekp("BankAccountNumber1", "__BankAccountNumber1", "","txt",0.1,0.1),
+        Ekp("BankAccountNumber", "__BankAccountNumber", "","txt",0.1,0.1),
+        Ekp("BankCode", "__BankCode", "","dd",0.1,0.1),
+        Ekp("DocumentType", "__DocumentType", "","dd",0.1,0.1),
+        Ekp("DocumentNumber", "__DocumentNumber", "","txt",0.1,0.1),
+        Ekp("DocumentValidTo", "__DocumentValidTo", "","txt",0.1,0.1),
+        Ekp("SecondDocumentType", "__SecondDocumentType", "","dd",0.1,0.1),
+        Ekp("SecondDocumentNumber", "__SecondDocumentNumber", "","txt",0.1,0.1),
+        Ekp("SecondDocumentValidTo", "__SecondDocumentValidTo", "","txt",0.1,0.1),
+        Ekp("PhoneNumber", "__PhoneNumber", "","txt",0.1,0.1),
+        Ekp("Email", "__Email", "","txt",0.1,0.1),
+        Ekp("MaritalStatus", "__MaritalStatus", "","dd",0.1,0.1),
+        Ekp("Gender", "__Gender", "","dd",0.1,0.1),
     ]
              
-    fill_elems(browser, app, app_elements, app_values )
+    fill_elems(browser, app_elements, data["applicant"] )
 
     _section_udaje_zadatele = browser.find_element_by_xpath("//div[contains(text(),'Údaje žadatele')]")
     _section_udaje_zadatele.click()
        
     # Applicant Address    
     sleep(0.3)    
-        
-    app_address_elements =  {'HomeAddressStreet': '__HomeAddressStreet', 'HomeAddressCity': '__HomeAddressCity', 'HomeAddressZip': '__HomeAddressZip', 'HomeAddressState': '__HomeAddressState', 'AddressSame': None, 'AddressServicesStreet': '__AddressServicesStreet', 'AddressServicesCity': '__AddressServicesCity', 'AddressServicesZip': '__AddressServicesZip', 'AddressServicesState': '__AddressServicesState'}  
-      
-    app_address_1 = [
-        Ekp("HomeAddressStreet", "txt", 0.1, 0.1),
-        Ekp("HomeAddressCity", "txt", 0.1, 0.1),
-        Ekp("HomeAddressZip", "txt", 0.1, 0.1),
-        #Ekp("HomeAddressState", "dd", 0.2, 0.1),
+                  
+    app_address_elements_1 = [
+        Ekp("HomeAddressStreet", "__HomeAddressStreet", "","txt",0.1,0.1),
+        Ekp("HomeAddressCity", "__HomeAddressCity", "","txt",0.1,0.1),
+        Ekp("HomeAddressZip", "__HomeAddressZip", "","txt",0.1,0.1),
+        #Ekp("HomeAddressState", "__HomeAddressState", "","dd",0.1,0.1),
         ]
-    fill_elems(browser, app_address_1,  app_address_elements, app_address_values )
+    fill_elems(browser,  app_address_elements_1, data["applicant_address"] )
 
         
     _address_same= browser.find_element_by_name("__AddressSame")
@@ -86,54 +77,50 @@ def fill(browser):
         sleep(0.5)        
         
     if not (_address_same.is_selected()):
-        app_address_2 = [
-            Ekp("AddressServicesStreet", "txt", 0.1, 0.1),
-            Ekp("AddressServicesCity", "txt", 0.1, 0.1),
-            Ekp("AddressServicesZip", "txt", 0.1, 0.1),
-            Ekp("AddressServicesState", "dd", 0.2, 0.1),
+        app_address_elements_2 = [
+            Ekp("AddressServicesStreet", "__AddressServicesStreet", "","txt",0.1,0.1),
+            Ekp("AddressServicesCity", "__AddressServicesCity", "","txt",0.1,0.1),
+            Ekp("AddressServicesZip", "__AddressServicesZip", "","txt",0.1,0.1),
+            Ekp("AddressServicesState", "__AddressServicesState", "","dd",0.1,0.1),
                 ]
-        fill_elems(browser, app_address_2, app_address_elements, app_address_values)    
+        fill_elems(browser, app_address_elements_2, data["applicant_address"])    
     
         
     #Zdroj příjmů žadatele
-    emp_elements = {'RegistrationNumber': '__RegistrationNumber', 'ProbationPeriod': '__ProbationPeriod', 'EmploymentIndefinitePeriod': '__EmploymentIndefinitePeriod', 'NoticePeriod': '__NoticePeriod', 'WorkPhoneNumber': '__WorkPhoneNumber', 'Foreigner': '__Emp_Foreigner', 'EmploymentIndefinitePeriodUntil': '__EmploymentIndefinitePeriodUntil'}
-            
+                
     emp = [
-        Ekp("RegistrationNumber", "txt", 0.1, 0.1),
-        Ekp("ProbationPeriod", "radio", 0.1, 0.1),
-        Ekp("EmploymentIndefinitePeriod", "radio", 0.1, 0.2),
-        Ekp("NoticePeriod", "radio", 0.1, 0.1),
-        Ekp("WorkPhoneNumber", "txt", 0.1, 0.1),
-        #Ekp("Foreigner", "cb", 0.1, 0.1),
-        #Ekp("EmploymentIndefinitePeriodUntil", "txt", 0.1, 0.1),
+        Ekp("RegistrationNumber", "__RegistrationNumber", "","txt",0.1,0.1),
+        Ekp("ProbationPeriod", "", "__ProbationPeriod","radio",0.1,0.1),
+        Ekp("EmploymentIndefinitePeriod", "", "__EmploymentIndefinitePeriod","radio",0.1,0.1),
+        Ekp("NoticePeriod", "", "__NoticePeriod","radio",0.1,0.1),
+        Ekp("WorkPhoneNumber", "__WorkPhoneNumber", "","txt",0.1,0.1),
+        #Ekp("Foreigner", "__Emp_Foreigner", "","cb",0.1,0.1),
+        #Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "","txt",0.1,0.1),                        
             ]
-    if emp_values["EmploymentIndefinitePeriod"] == "0": # pp na dobu určitou
-        emp.append(Ekp("EmploymentIndefinitePeriodUntil", "txt", 0.1, 0.1))
+    if data["employer"]["EmploymentIndefinitePeriod"] == "0": # pp na dobu určitou
+        emp.append(Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "", "txt", 0.1, 0.1))
         
-    fill_elems(browser, emp, emp_elements, emp_values)
+    fill_elems(browser, emp, data["employer"])
     
     _section_zdoj_prijmu = browser.find_element_by_xpath("//div[contains(text(),'Zdroj příjmů žadatele')]")
     _section_zdoj_prijmu.click()
     
     #Manžel/-ka žadatele
     sleep(0.3)
-    
-    
-    coapp_elements = {'TitleBefore': '__CoA_TitleBefore', 'Name': '__CoA_Name', 'Surname': '__CoA_Surname', 'TitleAfter': '__CoA_TitleAfter', 'Foreigner': '__CoA_Foreigner', 'DateOfBirth': '__CoA_DateOfBirth', 'AverageMIAT': '__CoA_AverageMIAT', 'AddressServicesStreet': '__CoA_HomeAddressStreet', 'AddressServicesCity': '__CoA_HomeAddressCity', 'AddressServicesZip': '__CoA_HomeAddressZip', 'AddressServicesState': '__CoA_HomeAddressState'}
-    
+        
     _section_coapp = browser.find_element_by_xpath("//div[contains(text(),'Manžel/-ka žadatele')]")
 
-    coapp = [
-        Ekp("TitleBefore", "txt", 0.1, 0.1),
-        Ekp("Name", "txt", 0.1, 0.1),
-        Ekp("Surname", "txt", 0.1, 0.1),
-        Ekp("TitleAfter", "txt", 0.1, 0.1),
-        #Ekp("Foreigner", "cb", 0.1, 0.1),
-        Ekp("DateOfBirth", "txt", 0.1, 0.1),
-        #Ekp("AverageMIAT", "txt", 0.1, 0.1),          
+    coapp_elements = [
+        Ekp("TitleBefore", "__CoA_TitleBefore", "","txt",0.1,0.1),
+        Ekp("Name", "__CoA_Name", "","txt",0.1,0.1),
+        Ekp("Surname", "__CoA_Surname", "","txt",0.1,0.1),
+        Ekp("TitleAfter", "__CoA_TitleAfter", "","txt",0.1,0.1),
+        #Ekp("Foreigner", "__CoA_Foreigner", "","cb",0.1,0.1),
+        Ekp("DateOfBirth", "__CoA_DateOfBirth", "","txt",0.1,0.1),
+        #Ekp("AverageMIAT", "__CoA_AverageMIAT", "","txt",0.1,0.1),         
             ]
 
-    fill_elems(browser, coapp, coapp_elements, coapp_values)
+    fill_elems(browser, coapp_elements, data["coapplicant"])
     sleep(0.2)
     _section_coapp.click()
     
@@ -151,44 +138,40 @@ def fill(browser):
         sleep(0.5)    
     
     if not (_address_same.is_selected()):
-        coapp = [
-        Ekp("AddressServicesStreet", "txt", 0.1, 0.1),
-        Ekp("AddressServicesCity", "txt", 0.1, 0.1),
-        Ekp("AddressServicesZip", "txt", 0.1, 0.1),
-        Ekp("AddressServicesState", "dd", 0.1, 0.1),            
+        coapp_elements = [
+            Ekp("AddressServicesStreet", "__CoA_HomeAddressStreet", "","txt",0.1,0.1),
+            Ekp("AddressServicesCity", "__CoA_HomeAddressCity", "","txt",0.1,0.1),
+            Ekp("AddressServicesZip", "__CoA_HomeAddressZip", "","txt",0.1,0.1),
+            Ekp("AddressServicesState", "__CoA_HomeAddressState", "","dd",0.1,0.1),        
             ]
             
-        fill_elems(browser, coapp, coapp_elements, coapp_values)
+        fill_elems(browser, coapp_elements, data["coapplicant_address"])
         sleep(0.1)
         _section_coapp.click()
     
 
     # Guarantor 
     # ano / ne - je uloženo v applicant
-    app = [Ekp("IsDebtor", "radio", 0.1, 0.1),]
-    fill_elems(browser, app, app_elements, app_values)
+    app_elements = [Ekp("IsDebtor", "", "__IsDebtor", "radio", 0.1, 0.1),]
+    fill_elems(browser, app_elements, data["applicant"])
     
-    if app_values["IsDebtor"] == "1":
+    if data["applicant"]["IsDebtor"] == "1":
         sleep (0.3)
-        task_3_guar_fo.fill(browser)
+        task_3_guar_fo.fill(browser, data)
         
     
     #Poptávkový list
     sleep(0.4)
-       
-    vehicle_elements = {"ExpectedDeliveryDate":"__ExpectedDeliveryDate"}
-    
-    vehicle = [Ekp("ExpectedDeliveryDate", "txt", 0.1, 0.1),]
-    fill_elems(browser, vehicle, vehicle_elements, vehicle_values)
+           
+    vehicle_elements = [Ekp("ExpectedDeliveryDate", "__ExpectedDeliveryDate", "", "txt", 0.1, 0.1),]
+    fill_elems(browser, vehicle_elements, data["vehicle"])
     
     
-    contract_elements = {"RequestSign":"__RequestSign"}
+    contract_elements = [Ekp("RequestSign", "__RequestSign", "", "dd", 0.1, 0.1),]
+    fill_elems(browser,  contract_elements, data["contract"])
     
-    contract = [Ekp("RequestSign", "dd", 0.1, 0.1),]
-    fill_elems(browser, contract, contract_elements, contract_values)
-    
-    app = [Ekp("NRKISign", "dd", 0.1, 0.1),]
-    fill_elems(browser, app, app_elements, app_values )
+    app_elements = [Ekp("NRKISign", "__NRKISign", "", "dd", 0.1, 0.1),]
+    fill_elems(browser, app_elements, data["applicant"] )
 
     _section_poptavkovy_list = browser.find_element_by_xpath("//div[contains(text(),'Poptávkový list')]")
     _section_poptavkovy_list.click()
@@ -197,10 +180,11 @@ def fill(browser):
         
     
              
-def fill_elems(browser, ekps, elements, values):
-    for ekp in ekps:
+def fill_elems(browser, elements, values):
+    for ekp in elements:
         key = ekp.key
-        elem_id = elements[key]
+        elem_id = ekp.eid
+        elem_name = ekp.name
         if ekp.etype == "txt":
             elem = browser.find_element_by_id(elem_id)  #podle id
             elem.clear()
@@ -215,7 +199,7 @@ def fill_elems(browser, ekps, elements, values):
         elif ekp.etype == "cb":
             pass
         elif ekp.etype == "radio":
-            rbs = browser.find_elements_by_name(elem_id) #podle jména !!!
+            rbs = browser.find_elements_by_name(elem_name) #podle jména !!!
             for rb in rbs:
                 rbval = rb.get_attribute("value")
                 if rbval == values[key]:

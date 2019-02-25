@@ -6,8 +6,11 @@ random sex, PIN, dat nar, IČO
 import random
 
 
-def rc_dat():
-    r_sex = random.choice(["M","Z"])
+def rc_dat(sex=None):
+    if sex not in ["M", "F", "Z"]:        
+        sex = random.choice(["M","Z"])
+    elif sex == "F":
+        sex = "Z"        
     r_day = str(random.randint(1,28))
     r_month = random.randint(1,12)
     r_year = random.randint(1945, 2000)
@@ -16,7 +19,7 @@ def rc_dat():
   
     day = r_day.zfill(2)
     month = r_month
-    if r_sex == "Z":
+    if sex == "Z":
         month = r_month + 50
     month = str(month).zfill(2)    
             
@@ -38,7 +41,7 @@ def rc_dat():
                 break
         else:
             break
-    return (r_sex, pin, dat_nar)
+    return (sex, pin, dat_nar)
 
 def r_ico():
     ico_raw = str(random.randint(1_000, 9_999_999)).zfill(7)

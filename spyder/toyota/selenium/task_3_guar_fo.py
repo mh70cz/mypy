@@ -12,12 +12,10 @@ import random
 from collections import namedtuple
 import datetime
 
-import data_guar_fo
 
 Ekp = namedtuple("Ekp", "key, eid, name, etype, before, after") # element key + properties
 
-def fill(browser):
-    values = data_guar_fo.guar_values
+def fill(browser, data):
     
     guar_fo_elements = [
         Ekp("SubjType", "__Deb_SubjType","", "dd", 0.1, 0.1 ),
@@ -43,13 +41,11 @@ def fill(browser):
         Ekp("SecondDocumentValidTo", "__Deb_SecondDocumentValidTo","", "txt", 0.1, 0.1 ),      
             ]
     
-    fill_elems(browser, guar_fo_elements, values)
+    fill_elems(browser, guar_fo_elements, data["guarantor"])
     
     _section_guar_udaje = browser.find_element_by_xpath("//div[contains(text(),'Údaje o ručiteli')]")
     _section_guar_udaje.click()
     sleep(0.3)
-    
-    guar_address_values = data_guar_fo.guar_address_values
     
     guar_address_elements = [
             Ekp('HomeAddressStreet', '__Deb_HomeAddressStreet', "", "txt", 0.1, 0.1),
@@ -59,7 +55,7 @@ def fill(browser):
             #Ekp('AddressSame', '__Deb_AddressSame', "", "cb", 0.1, 0.1),   
             ]    
         
-    fill_elems(browser, guar_address_elements, guar_address_values)
+    fill_elems(browser, guar_address_elements, data["guarantor_address"])
     
     # otevři koresp. adresu    
     _section_guar_add = browser.find_element_by_xpath("//div[contains(text(),'Adresa ručitele')]")
@@ -76,15 +72,14 @@ def fill(browser):
             Ekp('AddressServicesState', '__Deb_AddressServicesState', "", "dd", 0.1, 0.1),     
             ]            
     
-    fill_elems(browser, guar_address_elements, guar_address_values)
+    fill_elems(browser, guar_address_elements, data["guarantor_address"])
     
     _section_guar_add.click()  
     # Zaměstnání ručitele
     sleep(0.3)
     _section_guar_emp = browser.find_element_by_xpath("//div[contains(text(),'Zaměstnání ručitele')]")
     _section_guar_emp.click()
-    
-    guar_employer_values = data_guar_fo.guar_employer_values
+
     guar_employer_elements = [
             Ekp('EmployerType', '__Deb_SourceOfIncome',"","dd", 0.1, 0.1),
             Ekp('WorkPhoneNumber', '__Deb_WorkPhoneNumber',"","txt", 0.1, 0.1),
@@ -95,7 +90,7 @@ def fill(browser):
             Ekp('EmploymentIndefinitePeriod', '',"__Deb_EmploymentIndefinitePeriod","cb", 0.1, 0.2),
             Ekp('EmploymentIndefinitePeriodUntil', '__Deb_EmploymentIndefinitePeriodUntil', "","txt", 0.1, 0.1), #ToDo podmíněné pole           
             ]
-    fill_elems(browser, guar_employer_elements, guar_employer_values)
+    fill_elems(browser, guar_employer_elements, data["guarantor_employer"])
     
     _section_guar_emp.click()
     
@@ -103,8 +98,6 @@ def fill(browser):
     sleep(0.3)
     _section_guar_bonita = browser.find_element_by_xpath("//div[contains(text(),'Bonita ručitele')]")
     _section_guar_bonita.click()
-    
-    guar_values = data_guar_fo.guar_values
     
     guar_elements = [
             Ekp("MainIncomeType", "__Deb_MainIncomeType", "", "dd", 0.1, 0.2),
@@ -127,7 +120,7 @@ def fill(browser):
             Ekp("IsPoliticallyExposedPerson", "", "__Deb_IsPoliticallyExposedPerson",  "radio", 0.1, 0.1),
             ]
     
-    fill_elems(browser, guar_elements, guar_values)
+    fill_elems(browser, guar_elements, data["guarantor"])
     
     _section_guar_bonita.click()
     

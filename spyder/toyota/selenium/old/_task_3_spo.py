@@ -29,23 +29,23 @@ def fill(browser, data=None):
         data = get_data(browser)
                 
     app_elements = [
-        Ekp("TitleBefore", "__TitleBefore", "","txt","0.1","0.1"),
-        Ekp("Name", "__Name", "","txt","0.1","0.1"),
-        Ekp("Surname", "__Surname", "","txt","0.1","0.1"),
-        Ekp("TitleAfter", "__TitleAfter", "","txt","0.1","0.1"),
-        Ekp("BankAccountNumber1", "__BankAccountNumber1", "","txt","0.1","0.1"),
-        Ekp("BankAccountNumber", "__BankAccountNumber", "","txt","0.1","0.1"),
-        Ekp("BankCode", "__BankCode", "","dd","0.1","0.2"),
-        Ekp("DocumentType", "__DocumentType", "","dd","0.1","0.2"),
-        Ekp("DocumentNumber", "__DocumentNumber", "","txt","0.1","0.1"),
-        Ekp("DocumentValidTo", "__DocumentValidTo", "","txt","0.1","0.1"),
-        Ekp("SecondDocumentType", "__SecondDocumentType", "","dd","0.1","0.2"),
-        Ekp("SecondDocumentNumber", "__SecondDocumentNumber", "","txt","0.1","0.1"),
-        Ekp("SecondDocumentValidTo", "__SecondDocumentValidTo", "","txt","0.1","0.1"),
-        Ekp("PhoneNumber", "__PhoneNumber", "","txt","0.1","0.1"),
-        Ekp("Email", "__Email", "","txt","0.1","0.1"),
-        Ekp("MaritalStatus", "__MaritalStatus", "","dd","0.1","0.2"),
-        Ekp("Gender", "__Gender", "","dd","0.1","0.2"),
+        Ekp("TitleBefore", "__TitleBefore", "","txt",0.1,0.1),
+        Ekp("Name", "__Name", "","txt",0.1,0.1),
+        Ekp("Surname", "__Surname", "","txt",0.1,0.1),
+        Ekp("TitleAfter", "__TitleAfter", "","txt",0.1,0.1),
+        Ekp("BankAccountNumber1", "__BankAccountNumber1", "","txt",0.1,0.1),
+        Ekp("BankAccountNumber", "__BankAccountNumber", "","txt",0.1,0.1),
+        Ekp("BankCode", "__BankCode", "","dd",0.1,0.1),
+        Ekp("DocumentType", "__DocumentType", "","dd",0.1,0.1),
+        Ekp("DocumentNumber", "__DocumentNumber", "","txt",0.1,0.1),
+        Ekp("DocumentValidTo", "__DocumentValidTo", "","txt",0.1,0.1),
+        Ekp("SecondDocumentType", "__SecondDocumentType", "","dd",0.1,0.1),
+        Ekp("SecondDocumentNumber", "__SecondDocumentNumber", "","txt",0.1,0.1),
+        Ekp("SecondDocumentValidTo", "__SecondDocumentValidTo", "","txt",0.1,0.1),
+        Ekp("PhoneNumber", "__PhoneNumber", "","txt",0.1,0.1),
+        Ekp("Email", "__Email", "","txt",0.1,0.1),
+        Ekp("MaritalStatus", "__MaritalStatus", "","dd",0.1,0.1),
+        Ekp("Gender", "__Gender", "","dd",0.1,0.1),
     ]
              
     fill_elems(browser, app_elements, data["applicant"] )
@@ -57,10 +57,10 @@ def fill(browser, data=None):
     sleep(0.3)    
                   
     app_address_elements_1 = [
-        Ekp("HomeAddressStreet", "__HomeAddressStreet", "","txt","0.1","0.1"),
-        Ekp("HomeAddressCity", "__HomeAddressCity", "","txt","0.1","0.1"),
-        Ekp("HomeAddressZip", "__HomeAddressZip", "","txt","0.1","0.1"),
-        #Ekp("HomeAddressState", "__HomeAddressState", "","dd","0.2","0.1"),
+        Ekp("HomeAddressStreet", "__HomeAddressStreet", "","txt",0.1,0.1),
+        Ekp("HomeAddressCity", "__HomeAddressCity", "","txt",0.1,0.1),
+        Ekp("HomeAddressZip", "__HomeAddressZip", "","txt",0.1,0.1),
+        #Ekp("HomeAddressState", "__HomeAddressState", "","dd",0.1,0.1),
         ]
     fill_elems(browser,  app_address_elements_1, data["applicant_address"] )
 
@@ -78,30 +78,30 @@ def fill(browser, data=None):
         
     if not (_address_same.is_selected()):
         app_address_elements_2 = [
-            Ekp("AddressServicesStreet", "__AddressServicesStreet", "","txt","0.1","0.1"),
-            Ekp("AddressServicesCity", "__AddressServicesCity", "","txt","0.1","0.1"),
-            Ekp("AddressServicesZip", "__AddressServicesZip", "","txt","0.1","0.1"),
-            Ekp("AddressServicesState", "__AddressServicesState", "","dd","0.2","0.1"),
+            Ekp("AddressServicesStreet", "__AddressServicesStreet", "","txt",0.1,0.1),
+            Ekp("AddressServicesCity", "__AddressServicesCity", "","txt",0.1,0.1),
+            Ekp("AddressServicesZip", "__AddressServicesZip", "","txt",0.1,0.1),
+            Ekp("AddressServicesState", "__AddressServicesState", "","dd",0.1,0.1),
                 ]
         fill_elems(browser, app_address_elements_2, data["applicant_address"])    
     
         
     #Zdroj příjmů žadatele
-    emp_elements = {'RegistrationNumber': '__RegistrationNumber', 'ProbationPeriod': '__ProbationPeriod', 'EmploymentIndefinitePeriod': '__EmploymentIndefinitePeriod', 'NoticePeriod': '__NoticePeriod', 'WorkPhoneNumber': '__WorkPhoneNumber', 'Foreigner': '__Emp_Foreigner', 'EmploymentIndefinitePeriodUntil': '__EmploymentIndefinitePeriodUntil'}
+    #emp_elements = {'RegistrationNumber': '__RegistrationNumber', 'ProbationPeriod': '__ProbationPeriod', 'EmploymentIndefinitePeriod': '__EmploymentIndefinitePeriod', 'NoticePeriod': '__NoticePeriod', 'WorkPhoneNumber': '__WorkPhoneNumber', 'Foreigner': '__Emp_Foreigner', 'EmploymentIndefinitePeriodUntil': '__EmploymentIndefinitePeriodUntil'}
             
     emp = [
-        Ekp("RegistrationNumber", "__RegistrationNumber", "","txt","0.1","0.1"),
-        Ekp("ProbationPeriod", "", "__ProbationPeriod","radio","0.1","0.1"),
-        Ekp("EmploymentIndefinitePeriod", "", "__EmploymentIndefinitePeriod","radio","0.1","0.2"),
-        Ekp("NoticePeriod", "", "__NoticePeriod","radio","0.1","0.1"),
-        Ekp("WorkPhoneNumber", "__WorkPhoneNumber", "","txt","0.1","0.1"),
-        #Ekp("Foreigner", "__Emp_Foreigner", "","cb","0.1","0.1"),
-        #Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "","txt","0.1","0.1"),                        
+        Ekp("RegistrationNumber", "__RegistrationNumber", "","txt",0.1,0.1),
+        Ekp("ProbationPeriod", "", "__ProbationPeriod","radio",0.1,0.1),
+        Ekp("EmploymentIndefinitePeriod", "", "__EmploymentIndefinitePeriod","radio",0.1,0.1),
+        Ekp("NoticePeriod", "", "__NoticePeriod","radio",0.1,0.1),
+        Ekp("WorkPhoneNumber", "__WorkPhoneNumber", "","txt",0.1,0.1),
+        #Ekp("Foreigner", "__Emp_Foreigner", "","cb",0.1,0.1),
+        #Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "","txt",0.1,0.1),                        
             ]
     if data["employer"]["EmploymentIndefinitePeriod"] == "0": # pp na dobu určitou
         emp.append(Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "", "txt", 0.1, 0.1))
         
-    fill_elems(browser, emp_elements, data["employer"])
+    fill_elems(browser, emp, data["employer"])
     
     _section_zdoj_prijmu = browser.find_element_by_xpath("//div[contains(text(),'Zdroj příjmů žadatele')]")
     _section_zdoj_prijmu.click()
@@ -112,13 +112,13 @@ def fill(browser, data=None):
     _section_coapp = browser.find_element_by_xpath("//div[contains(text(),'Manžel/-ka žadatele')]")
 
     coapp_elements = [
-        Ekp("TitleBefore", "__CoA_TitleBefore", "","txt","0.1","0.1"),
-        Ekp("Name", "__CoA_Name", "","txt","0.1","0.1"),
-        Ekp("Surname", "__CoA_Surname", "","txt","0.1","0.1"),
-        Ekp("TitleAfter", "__CoA_TitleAfter", "","txt","0.1","0.1"),
-        #Ekp("Foreigner", "__CoA_Foreigner", "","cb","0.1","0.1"),
-        Ekp("DateOfBirth", "__CoA_DateOfBirth", "","txt","0.1","0.1"),
-        #Ekp("AverageMIAT", "__CoA_AverageMIAT", "","txt","0.1","0.1"),         
+        Ekp("TitleBefore", "__CoA_TitleBefore", "","txt",0.1,0.1),
+        Ekp("Name", "__CoA_Name", "","txt",0.1,0.1),
+        Ekp("Surname", "__CoA_Surname", "","txt",0.1,0.1),
+        Ekp("TitleAfter", "__CoA_TitleAfter", "","txt",0.1,0.1),
+        #Ekp("Foreigner", "__CoA_Foreigner", "","cb",0.1,0.1),
+        Ekp("DateOfBirth", "__CoA_DateOfBirth", "","txt",0.1,0.1),
+        #Ekp("AverageMIAT", "__CoA_AverageMIAT", "","txt",0.1,0.1),         
             ]
 
     fill_elems(browser, coapp_elements, data["coapplicant"])
@@ -140,10 +140,10 @@ def fill(browser, data=None):
     
     if not (_address_same.is_selected()):
         coapp_elements = [
-            Ekp("AddressServicesStreet", "__CoA_HomeAddressStreet", "","txt","0.1","0.1"),
-            Ekp("AddressServicesCity", "__CoA_HomeAddressCity", "","txt","0.1","0.1"),
-            Ekp("AddressServicesZip", "__CoA_HomeAddressZip", "","txt","0.1","0.1"),
-            Ekp("AddressServicesState", "__CoA_HomeAddressState", "","dd","0.1","0.1"),        
+            Ekp("AddressServicesStreet", "__CoA_HomeAddressStreet", "","txt",0.1,0.1),
+            Ekp("AddressServicesCity", "__CoA_HomeAddressCity", "","txt",0.1,0.1),
+            Ekp("AddressServicesZip", "__CoA_HomeAddressZip", "","txt",0.1,0.1),
+            Ekp("AddressServicesState", "__CoA_HomeAddressState", "","dd",0.1,0.1),        
             ]
             
         fill_elems(browser, coapp_elements, data["applicant_address"])

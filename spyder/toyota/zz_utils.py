@@ -94,6 +94,8 @@ unicodedata.normalize('NFD', pangram_hu).encode('ascii','ignore')
 # unicodedata.normalize('NFD', string_to_normalize).encode('ascii','ignore')
 # Nechť již hříšné saxofony ďáblů rozezvučí síň úděsnými tóny waltzu, tanga a quickstepu. (All 42 letters of the Czech alphabet)
 #%%
+import xml.etree.ElementTree as ET
 
-
+root = ET.fromstring(data["applicant"])
+ET.dump(root)
     

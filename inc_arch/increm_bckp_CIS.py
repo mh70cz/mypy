@@ -19,7 +19,7 @@ import shutil
 # backup_folder = r"C:\Users\Miroslav\OneDrive\ZZ_BackupHome"
 
 # CIS
-  
+
 rootFolders_CIS_NB = [
     r"C:\Users\m.houska\Documents\_CIS",
     r"C:\Users\m.houska\Documents\_mh",
@@ -112,7 +112,7 @@ def do_bck(rootFolders, backup_folder):
                     dst_folder = os.path.dirname(dst_path)
                     if not os.path.exists(dst_folder):
                         os.makedirs(dst_folder)
-                    try:                        
+                    try:
                         shutil.copy2(path, dst_path)
                     except Exception as e:
                         msg = "some problem ({0}) with: {1} ".format(e.args[1], path)

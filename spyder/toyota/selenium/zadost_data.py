@@ -67,6 +67,7 @@ login(browser, env)
 
 id_zadost = "85134"   # SK Live
 id_zadost = "7556"    # CZ test_CI
+id_zadost = "85529"
 
 data = read_data(browser, web_app, id_zadost)
 

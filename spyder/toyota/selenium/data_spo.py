@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb 20 06:25:48 2019
-
-@author: mh70
+ToDo - odstranit randomize_old
 """
 import xml.etree.ElementTree as ET
 import datetime
 import random
 import os
-
+import r_names
 
 def get_data(data_file=None, gender = "M"):
     if data_file is None:
-        if gender == "M":
+        if gender.lower()  in ["m", "male"]:
+            gender = "M"
             data_file = "data_spo_m.xml"
-        elif gender == "Z":
+        elif gender.lower() in ["f", "female", "z"]:
+            gender = "Z" # dle číselníku TFS
             data_file = "data_spo_z.xml"
+        else:
+            raise ValueError("unsupported gender")
         
         data = parse_data(data_file)
         randomize(data, gender)
@@ -56,6 +58,29 @@ def parse_data(data_file):
     return data
 
 def randomize(data, gender="M"):
+    
+   
+    person_keys = ["TitleBefore", "Name", "Surname", "TitleAfter", "Email"]
+    
+    person_pair = r_names.rnd_person_pair(guarantor=False)
+    if gender == "M":
+        for key in person_keys:
+            data["applicant"][key] = person_pair["male"][key]
+            data["coapplicant"][key] = person_pair["female"][key]
+    elif gender == "Z":
+        for key in person_keys:
+            data["applicant"][key] = person_pair["female"][key]
+            data["coapplicant"][key] = person_pair["male"][key]        
+
+    #guarantor
+    guarantor_gender = random.choice(["M", "Z"])
+    person = r_names.rnd_person(gender=guarantor_gender, guarantor=True)
+    for key in person_keys:
+        data["guarantor"][key] = person[key]
+    
+    #ToDo dat nar, (rodné číslo ?)
+
+def randomize_old(data, gender="M"):
     
     person_keys = ["TitleBefore", "Name", "Surname", "TitleAfter"]
     person = rnd_person(gender)

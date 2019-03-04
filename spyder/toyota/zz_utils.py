@@ -16,7 +16,7 @@ input_elems = section.find_elements_by_xpath(".//input")
 
 #%%
 
-_section = browser.find_element_by_xpath("//div[contains(text(),'Bonita ručitele')]")
+_section = browser.find_element_by_xpath("//div[contains(text(),'Bonita žadatele ')]")
 
 section = _section.find_element_by_xpath("..") # typicky zahrnuje celou sekci kde jsou elementy
 
@@ -37,6 +37,17 @@ section = _section.find_element_by_xpath("..") # typicky zahrnuje celou sekci kd
 input_elems = section.find_elements_by_xpath(".//input")
 
 [(e.get_attribute("id") , e.get_attribute("name") , e.get_attribute("data-bind") ) for e in input_elems]
+#%%
+#%%
+_section = browser.find_element_by_xpath("//div[contains(text(),'Firma')]")
+
+section = _section.find_element_by_xpath("..") # typicky zahrnuje celou sekci kde jsou elementy
+
+input_elems = section.find_elements_by_xpath(".//input")
+
+[(e.get_attribute("id") , e.get_attribute("name") , e.get_attribute("data-bind") ) for e in input_elems]
+
+
 
 #%%
 
@@ -98,4 +109,65 @@ import xml.etree.ElementTree as ET
 
 root = ET.fromstring(data["applicant"])
 ET.dump(root)
-    
+#%%
+
+
+process_id_elem = browser.find_element_by_xpath("//td[@data-bind='text: ProcessId']")
+process_id  = process_id_elem .text
+#%%
+import requests
+from bs4 import BeautifulSoup
+
+url = web_app + "Processing/processData.aspx?id=" + process_id
+usr = r"cis\m.houska"
+pwd = "heslo"
+auth_data =  {'txtUsername':usr,'txtPassword':pwd}
+cookies =  {'domain': 'cishd-cls-app01',
+  'expiry': "1551704099.043258",
+  'httpOnly': "true",
+  'name': 'cisLogin',
+  'path': '/',
+  'secure': "false",
+  'value': 'A40D854BC3AA02D9021DD74B08855F228B61F123CD3222AC1EACF25F2BE55BFF1B0B7E499B7B8597D11AF4FF7D86A8125D420CA1B486F6BE32D5F02E5C295878498E0C090975995C8BC5861AAF097FB81D6A179E151FD36A385FA50C0E3829F9D0EF1188C6CE05E0C908656FD02975C613594D0460FFC26D664273946D81598203D47EBB5DF4A824615688C5C648F4A7C58611494E1DDD6C3B6ACC83841A95FEB42E7FF85C2DF0102731EF7D67B433AACE407D7FD3635695DF5AD08FC26FA14977D6ACB19A5A4EA16A6F1E3AE974B7144A71DBBEBABF9B8F42205E7319F0782D'}
+
+headers = {'user-agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36"}
+
+session = requests.Session()
+#r = session.post(url, headers=headers,  data=auth_data)   
+r = session.post(url, headers=headers,  cookies=cookies )   
+
+soup = BeautifulSoup(r.content)
+
+soup
+#%%
+from selenium.webdriver.common.keys import Keys
+_body = browser.find_element_by_css_selector('body')
+_body.send_keys(Keys.PAGE_DOWN)
+
+#%%
+_prilohy_lst = browser.find_elements_by_xpath("//div[contains(text(), 'Přílohy')]")
+if len(_prilohy_lst) > 0:
+    _prilohy_lst[0].click()
+#%%
+#c:\temp\wolf.jpg
+label_ns = browser.find_element_by_xpath("//label[contains(text(), 'Nahrát Soubor')]")
+op_btn = label_ns.find_element_by_xpath("../input")
+op_btn.send_keys(r"c:\temp\wolf.jpg")
+vlozit_btn = label_ns.find_element_by_xpath("../span/input")
+vlozit_btn.click()
+
+#%%
+label_ns_lst = browser.find_elements_by_xpath("//label[contains(text(), 'Nahrát Soubor')]")
+_first_time = True
+for label in label_ns_lst:
+    op_btn = label.find_element_by_xpath("../input")
+    op_btn.send_keys(r"c:\temp\wolf_small.jpg")
+    vlozit_btn = label.find_element_by_xpath("../span/input")
+    vlozit_btn.click()
+    if _first_time:
+        sleep(0.5)
+        _first_time = False
+    sleep(0.5)    
+
+Coapp_AttachmentNote = browser.find_element_by_id("__Coapp_AttachmentNote")
+Coapp_AttachmentNote.send_keys("uživatelská poznámka")

@@ -31,10 +31,10 @@ def rc_dat(sex=None):
             check = (int(pin) % 11) % 10
             pin = pin + str(check)
             
-            suma = 0
-            for n in pin:
-                suma += int(n)
-            if int(suma) % 11 != 0:
+#            suma = 0
+#            for n in pin:
+#                suma += int(n)
+            if int(pin) % 11 != 0:
                 #print(pin)
                 continue # nevracej čísla s výjimkou 
             else:
@@ -80,8 +80,10 @@ for i in range (10):
         
     8025436
 
-"""
 for i in range(1000):
     ico = r_ico()
+
+"""
+
 
         

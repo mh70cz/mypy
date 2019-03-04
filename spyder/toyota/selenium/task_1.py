@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from time import sleep
 import random
+import uuid
 
 def open_browser():
     browser = webdriver.Chrome()
@@ -166,7 +167,9 @@ def fillscreen(browser, web_app, subj_type="SPO", prod_type="FC"):
         prod_type_text = ""
     prod_type_text
     id_zadosti = browser.find_element_by_id("__IdentificationRequest")
-    id_zadosti.send_keys(f"{prod_type_text}; ")
+    
+    guid = str(uuid.uuid1())
+    id_zadosti.send_keys(f"{prod_type_text}; {guid}")
     
 
 #browser, web_app = open_browser()

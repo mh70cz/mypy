@@ -17,18 +17,26 @@ import task_3_guar_fo
 
 Ekp = namedtuple("Ekp", "key, eid, name, etype, before, after") # element key + properties
 
-def get_data(browser):
-    gender_e = browser.find_element_by_id("__Gender")
-    gender = gender_e.get_property("value")
-    data = data_spo.get_data(gender=gender)
-    return data
 
-
-def fill(browser, data=None):
+def fill(browser, data=None, gender="M", pin=None):
     if data is None:
-        data = get_data(browser)
-                
-    app_elements = [
+        data = data_fop.get_data(gender=gender, pin=pin)
+    
+    app_firma_elements = [
+        Ekp("TradeName", "__TradeName", "","txt",0.1,0.1),
+        Ekp("TaxRegistrationNumber", "__TaxRegistrationNumber", "","txt",0.1,0.1),
+        Ekp("RegistrationSectionNoEntrepre", "__RegistrationSectionNoEntrepre", "","txt",0.1,0.1),
+        Ekp("RegistrationOfficeEntrepre", "__RegistrationOfficeEntrepre", "","txt",0.1,0.1),
+    ]
+    fill_elems(browser, app_firma_elements, data["applicant"] )
+    
+    
+    _section_udaje_zadatele = browser.find_element_by_xpath("//div[contains(text(),'Firma')]")
+    _section_udaje_zadatele.click()
+    sleep(0.3)
+    
+    # udaje zadatele
+    app_udaje_elements = [
         Ekp("TitleBefore", "__TitleBefore", "","txt",0.1,0.1),
         Ekp("Name", "__Name", "","txt",0.1,0.1),
         Ekp("Surname", "__Surname", "","txt",0.1,0.1),
@@ -48,11 +56,12 @@ def fill(browser, data=None):
         Ekp("Gender", "__Gender", "","dd",0.1,0.1),
     ]
              
-    fill_elems(browser, app_elements, data["applicant"] )
-
+    fill_elems(browser, app_udaje_elements, data["applicant"] )
+    
     _section_udaje_zadatele = browser.find_element_by_xpath("//div[contains(text(),'Údaje žadatele')]")
     _section_udaje_zadatele.click()
-       
+    sleep(0.3)
+    
     # Applicant Address    
     sleep(0.3)    
                   
@@ -63,18 +72,17 @@ def fill(browser, data=None):
         #Ekp("HomeAddressState", "__HomeAddressState", "","dd",0.1,0.1),
         ]
     fill_elems(browser,  app_address_elements_1, data["applicant_address"] )
-
+    
+    
+    _section_udaje_zadatele = browser.find_element_by_xpath("//div[contains(text(),'Adresa')]")
+    _section_udaje_zadatele.click()
+    sleep(0.1)
         
     _address_same= browser.find_element_by_name("__AddressSame")
     if (_address_same.is_selected()):        
         _address_same.click()
         sleep(0.5)
-    #někdy se prostě na první pokus neotevře i přes sleep(2) proč ???
-    if (_address_same.is_selected()):        
-        sleep(0.4)
-        print("druhý pokus otevřít koresp. adresu")
-        _address_same.click()
-        sleep(0.5)        
+          
         
     if not (_address_same.is_selected()):
         app_address_elements_2 = [
@@ -85,31 +93,17 @@ def fill(browser, data=None):
                 ]
         fill_elems(browser, app_address_elements_2, data["applicant_address"])    
     
-        
-    #Zdroj příjmů žadatele
-                
-    emp = [
-        Ekp("RegistrationNumber", "__RegistrationNumber", "","txt",0.1,0.1),
-        Ekp("ProbationPeriod", "", "__ProbationPeriod","radio",0.1,0.1),
-        Ekp("EmploymentIndefinitePeriod", "", "__EmploymentIndefinitePeriod","radio",0.1,0.1),
-        Ekp("NoticePeriod", "", "__NoticePeriod","radio",0.1,0.1),
-        Ekp("WorkPhoneNumber", "__WorkPhoneNumber", "","txt",0.1,0.1),
-        #Ekp("Foreigner", "__Emp_Foreigner", "","cb",0.1,0.1),
-        #Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "","txt",0.1,0.1),                        
-            ]
-    if data["employer"]["EmploymentIndefinitePeriod"] == "0": # pp na dobu určitou
-        emp.append(Ekp("EmploymentIndefinitePeriodUntil", "__EmploymentIndefinitePeriodUntil", "", "txt", 0.1, 0.1))
-        
-    fill_elems(browser, emp, data["employer"])
+    _section_udaje_zadatele = browser.find_element_by_xpath("//div[contains(text(),'Adresa')]")
+    _section_udaje_zadatele.click()
+    sleep(0.1)
     
-    _section_zdoj_prijmu = browser.find_element_by_xpath("//div[contains(text(),'Zdroj příjmů žadatele')]")
-    _section_zdoj_prijmu.click()
+    #Bonita
     
     #Manžel/-ka žadatele
     sleep(0.3)
         
     _section_coapp = browser.find_element_by_xpath("//div[contains(text(),'Manžel/-ka žadatele')]")
-
+    
     coapp_elements = [
         Ekp("TitleBefore", "__CoA_TitleBefore", "","txt",0.1,0.1),
         Ekp("Name", "__CoA_Name", "","txt",0.1,0.1),
@@ -119,37 +113,11 @@ def fill(browser, data=None):
         Ekp("DateOfBirth", "__CoA_DateOfBirth", "","txt",0.1,0.1),
         #Ekp("AverageMIAT", "__CoA_AverageMIAT", "","txt",0.1,0.1),         
             ]
-
+    
     fill_elems(browser, coapp_elements, data["coapplicant"])
     sleep(0.2)
     _section_coapp.click()
     
-    #adresa spolužadatele
-    sleep(0.5)
-    _stejna_adr_zad = browser.find_element_by_xpath("//span[contains(text(),'Stejná jako u žadatele')]")
-    _par = _stejna_adr_zad.find_element_by_xpath("..")
-    _address_same = _par.find_element_by_name("__AddressSame")
-    if (_address_same.is_selected()):        
-        _address_same.click()
-        sleep(0.5)
-    if (_address_same.is_selected()):
-        print("druhý pokus otevřít adresu t.b. spolužadatele")        
-        _address_same.click()
-        sleep(0.5)    
-    
-    if not (_address_same.is_selected()):
-        coapp_elements = [
-            Ekp("AddressServicesStreet", "__CoA_HomeAddressStreet", "","txt",0.1,0.1),
-            Ekp("AddressServicesCity", "__CoA_HomeAddressCity", "","txt",0.1,0.1),
-            Ekp("AddressServicesZip", "__CoA_HomeAddressZip", "","txt",0.1,0.1),
-            Ekp("AddressServicesState", "__CoA_HomeAddressState", "","dd",0.1,0.1),        
-            ]
-            
-        fill_elems(browser, coapp_elements, data["coapplicant_address"])
-        sleep(0.1)
-        _section_coapp.click()
-    
-
     # Guarantor 
     # ano / ne - je uloženo v applicant
     app_elements = [Ekp("IsDebtor", "", "__IsDebtor", "radio", 0.1, 0.1),]
@@ -158,7 +126,7 @@ def fill(browser, data=None):
     if data["applicant"]["IsDebtor"] == "1":
         sleep (0.3)
         task_3_guar_fo.fill(browser, data)
-        
+    
     
     #Poptávkový list
     sleep(0.4)
@@ -172,13 +140,35 @@ def fill(browser, data=None):
     
     app_elements = [Ekp("NRKISign", "__NRKISign", "", "dd", 0.1, 0.1),]
     fill_elems(browser, app_elements, data["applicant"] )
-
+    
     _section_poptavkovy_list = browser.find_element_by_xpath("//div[contains(text(),'Poptávkový list')]")
     _section_poptavkovy_list.click()
-
-
-        
     
+    #prilohy
+    _prilohy_lst = browser.find_elements_by_xpath("//div[contains(text(), 'Přílohy')]")
+    if len(_prilohy_lst) > 0:
+    
+        label_ns_lst = browser.find_elements_by_xpath(".//label[contains(text(), 'Nahrát Soubor')]")
+        _first_time = True
+        for label in label_ns_lst:
+            op_btn = label.find_element_by_xpath("../input")
+            op_btn.send_keys(r"c:\temp\wolf_small.jpg")
+            vlozit_btn = label.find_element_by_xpath("../span/input")
+            vlozit_btn.click()
+            if _first_time:
+                sleep(0.5)
+                _first_time = False
+            sleep(0.5)    
+        
+        Coapp_AttachmentNote = browser.find_element_by_id("__Coapp_AttachmentNote")
+        Coapp_AttachmentNote.send_keys("uživatelská poznámka")        
+        
+        #_prilohy_lst[0].click()
+
+    _section_poptavkovy_list.click()
+    _body = browser.find_element_by_css_selector('body')
+    _body.send_keys(Keys.PAGE_DOWN)
+
              
 def fill_elems(browser, elements, values):
     for ekp in elements:

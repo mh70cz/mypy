@@ -24,6 +24,10 @@
         <Email>andrej.bures@elposta.cz</Email>
         <NRKISign>1</NRKISign>
         <IsDebtor>1</IsDebtor>
+        <TradeName>Brambory Bureš</TradeName>
+        <TaxRegistrationNumber>CZ12345678</TaxRegistrationNumber>
+        <RegistrationSectionNoEntrepre>Reg314159</RegistrationSectionNoEntrepre>
+        <RegistrationOfficeEntrepre>Úřad pro Registraci</RegistrationOfficeEntrepre>
     </applicant>
     <applicant_address>
         <HomeAddressStreet>Koněvova 242</HomeAddressStreet>

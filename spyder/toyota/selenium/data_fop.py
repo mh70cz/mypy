@@ -9,7 +9,7 @@ import random
 import os
 import r_names
 
-def get_data(data_file=None, gender = "M"):
+def get_data(data_file=None, gender = "M", pin=None):
     if data_file is None:
         if gender.lower()  in ["m", "male"]:
             gender = "M"
@@ -21,7 +21,7 @@ def get_data(data_file=None, gender = "M"):
             raise ValueError("unsupported gender")
         
         data = parse_data(data_file)
-        randomize(data, gender)
+        randomize(data, gender, pin)
     else:
         data = parse_data(data_file)
     post_process(data)
@@ -57,7 +57,7 @@ def parse_data(data_file):
 
     return data
 
-def randomize(data, gender="M"):
+def randomize(data, gender="M", pin=None):
     
    
     person_keys = ["TitleBefore", "Name", "Surname", "TitleAfter", "Email"]
@@ -77,6 +77,11 @@ def randomize(data, gender="M"):
     person = r_names.rnd_person(gender=guarantor_gender, guarantor=True)
     for key in person_keys:
         data["guarantor"][key] = person[key]
+    
+    data["applicant"]["TradeName"] = data["applicant"]["Surname"] + " živnost"
+    
+    if pin is not None:
+        data["applicant"]["TaxRegistrationNumber"] = "CZ" + str(pin)
     
     #ToDo dat nar, (rodné číslo ?)
 

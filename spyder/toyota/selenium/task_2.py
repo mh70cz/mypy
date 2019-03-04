@@ -161,7 +161,7 @@ def fill_fop(browser):
     
     prepocitat(browser)
     
-
+    return sex, pin
     
 
 def fill_po(browser):   

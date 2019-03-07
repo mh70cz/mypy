@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+    <applicant>
+        <TradeName>Pivo Svijany, a.s.</TradeName>
+        <RegistrationNumber>25035207</RegistrationNumber>
+        <TaxRegistrationNumber>CZ25035207</TaxRegistrationNumber>
+        <RegistrationOfficeType>Krajský soud</RegistrationOfficeType>
+        <RegistrationOfficeName>Krajský soud v Ústí nad Labem</RegistrationOfficeName>
+        <RegistrationSectionFileNo>1608 B</RegistrationSectionFileNo>
+        <BankAccountNumber1>31</BankAccountNumber1>
+        <BankAccountNumber>314159</BankAccountNumber>
+        <BankCode>0100</BankCode>
+        <PhoneNumber>+420398827620</PhoneNumber>
+        <Email>pivo@svijany.cz</Email>
+        <RepresentativeMethod>3</RepresentativeMethod>
+        <NRKISign>1</NRKISign>
+        <IsDebtor>1</IsDebtor>
+    </applicant>
+    <applicant_address>
+        <HomeAddressStreet>Svijany 25</HomeAddressStreet>
+        <HomeAddressCity>Svijany</HomeAddressCity>
+        <HomeAddressZip>46346</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+        <AddressSame>0</AddressSame>
+        <AddressServicesStreet>Jana Palacha 113</AddressServicesStreet>
+        <AddressServicesCity>Turnov</AddressServicesCity>
+        <AddressServicesZip>51101</AddressServicesZip>
+        <AddressServicesState>CZ</AddressServicesState>
+    </applicant_address>
+    
+    <representative>
+        <RepresentativeType>1</RepresentativeType>
+        <TitleBefore>ing</TitleBefore>
+        <Name>Miroslav</Name>
+        <Surname>Kučera</Surname>
+        <TitleAfter>PhD</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6703073014</PIN>
+        <DateOfBirth>7.3.1967</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP854951</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP951753</SecondDocumentNumber>
+        <SecondDocumentValidTo>8.8.2023</SecondDocumentValidTo>
+    </representative>
+    
+    <representativeAddress>
+        <HomeAddressCity>London</HomeAddressCity>
+        <HomeAddressStreet>Tommy Robinson Avenue 13</HomeAddressStreet>
+        <HomeAddressZip>56785</HomeAddressZip>
+        <HomeAddressState>GB</HomeAddressState>
+    </representativeAddress>
+    
+    <representative1>
+        <RepresentativeType>2</RepresentativeType>
+        <TitleBefore>Mgr</TitleBefore>
+        <Name>Zdeněk</Name>
+        <Surname>Bubák</Surname>
+        <TitleAfter>MBA</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6503073016</PIN>
+        <DateOfBirth>7.3.1965</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP854933</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP954453</SecondDocumentNumber>
+        <SecondDocumentValidTo>19.9.2023</SecondDocumentValidTo>
+    </representative1>
+    
+    <representative1Address>
+        <HomeAddressCity>Genoa</HomeAddressCity>
+        <HomeAddressStreet>Via Giuseppe Garibaldi 947</HomeAddressStreet>
+        <HomeAddressZip>31445</HomeAddressZip>
+        <HomeAddressState>IT</HomeAddressState>
+    </representative1Address>   
+    
+    <representative2>
+        <RepresentativeType>2</RepresentativeType>
+        <TitleBefore>ing arch</TitleBefore>
+        <Name>Luboš</Name>
+        <Surname>Florian</Surname>
+        <TitleAfter>DrSc</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6403073017</PIN>
+        <DateOfBirth>7.3.1964</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP877951</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP951788</SecondDocumentNumber>
+        <SecondDocumentValidTo>13.8.2023</SecondDocumentValidTo>
+    </representative2>
+    
+    <representative2Address>
+        <HomeAddressCity>Jičín - Valdické Předměstí</HomeAddressCity>
+        <HomeAddressStreet>Tyršova 35</HomeAddressStreet>
+        <HomeAddressZip>50611</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+    </representative2Address>      
+    
+    <guarantor>
+        <SubjType>1</SubjType>
+        <TitleBefore>Bc</TitleBefore>
+        <Name>Radomír</Name>
+        <Surname>Ručící</Surname>
+        <TitleAfter>CSc</TitleAfter>
+        <PhoneNumber>+420827620987</PhoneNumber>
+        <Email>radomir.rucici@alpha.beta.cz</Email>
+        <BankAccountNumber1>42</BankAccountNumber1>
+        <BankAccountNumber>9575469879</BankAccountNumber>
+        <BankCode>0300</BankCode>
+        <Foreigner>0</Foreigner>
+        <PIN>6802210019</PIN>
+        <DateOfBirth>21.2.1968</DateOfBirth>
+        <Gender>M</Gender>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>6</DocumentType>
+        <DocumentNumber>RP864915</DocumentNumber>
+        <DocumentValidTo>28.2.2029</DocumentValidTo>
+        <SecondDocumentType>0</SecondDocumentType>
+        <SecondDocumentNumber>OP203060</SecondDocumentNumber>
+        <SecondDocumentValidTo>17.4.2028</SecondDocumentValidTo>
+        <MainIncomeType>0</MainIncomeType>
+        <IncomeType>Výuka jazyků</IncomeType>
+        <AverageMIAT>42000</AverageMIAT>
+        <OtherIncomeType>Právní konzultace</OtherIncomeType>
+        <OtherIncomeAmount>8000</OtherIncomeAmount>
+        <TypeOfHousing>1</TypeOfHousing>
+        <IsLiabilities>1</IsLiabilities>
+        <TrReceivedFromAllEmployers>70000</TrReceivedFromAllEmployers>
+        <TrTaxBaseLineTotals>68000</TrTaxBaseLineTotals>
+        <TrTaxAfterApplyingDiscount>31000</TrTaxAfterApplyingDiscount>
+        <Liabilities>555</Liabilities>
+        <HouseholdNumberPersons>5</HouseholdNumberPersons>
+        <NumberDependentPersons>1</NumberDependentPersons>
+        <NumberDependentPersons1>1</NumberDependentPersons1>
+        <NumberDependentPersons2>1</NumberDependentPersons2>
+        <IsExecutionAgainst>0</IsExecutionAgainst>
+        <IsInsolvencyAgainst>0</IsInsolvencyAgainst>
+        <IsPoliticallyExposedPerson>0</IsPoliticallyExposedPerson>
+    </guarantor>
+    <guarantor_address>
+        <HomeAddressStreet>Nábřeží Svazu protifašistických bojovníků 11</HomeAddressStreet>
+        <HomeAddressCity>Ostrava</HomeAddressCity>
+        <HomeAddressZip>55112</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+        <AddressSame>0</AddressSame>
+        <AddressServicesStreet>Heiligengeistbrücke 67</AddressServicesStreet>
+        <AddressServicesCity>Windsbach</AddressServicesCity>
+        <AddressServicesZip>91573</AddressServicesZip>
+        <AddressServicesState>DE</AddressServicesState>
+    </guarantor_address>
+    <guarantor_employer>
+        <EmployerType>1</EmployerType>
+        <WorkPhoneNumber>+420256357458</WorkPhoneNumber>
+        <RegistrationNumber>00006963</RegistrationNumber>
+        <Foreigner>0</Foreigner>
+        <ProbationPeriod>0</ProbationPeriod>
+        <NoticePeriod>0</NoticePeriod>
+        <EmploymentIndefinitePeriod>0</EmploymentIndefinitePeriod>
+        <EmploymentIndefinitePeriodUntil>31.12.2021</EmploymentIndefinitePeriodUntil>
+    </guarantor_employer>
+    <vehicle>
+        <ExpectedDeliveryDate>25.05.2019</ExpectedDeliveryDate>
+    </vehicle>
+    <contract>
+        <RequestSign>1</RequestSign>
+    </contract>
+</data>

@@ -8,6 +8,7 @@ import datetime
 import random
 import os
 import r_names
+import r_rc_ico
 
 def get_data(data_file=None, gender = "M", pin=None):
     if data_file is None:
@@ -73,10 +74,13 @@ def randomize(data, gender="M", pin=None):
             data["coapplicant"][key] = person_pair["male"][key]        
 
     #guarantor
-    guarantor_gender = random.choice(["M", "Z"])
-    person = r_names.rnd_person(gender=guarantor_gender, guarantor=True)
+    sex, pin, dat_nar = r_rc_ico.rc_dat()
+    person = r_names.rnd_person(gender=sex, guarantor=True)
     for key in person_keys:
         data["guarantor"][key] = person[key]
+    data["guarantor"]["Gender"] = sex
+    data["guarantor"]["PIN"] = pin
+    data["guarantor"]["DateOfBirth"] = dat_nar
     
     data["applicant"]["TradeName"] = data["applicant"]["Surname"] + " živnost"
     

@@ -107,6 +107,9 @@ def fill_spo(browser):
     sleep(0.1)
     Select(sex_dd).select_by_value(sex)
     
+    _body = browser.find_element_by_css_selector('body')
+    _body.send_keys(Keys.PAGE_DOWN)
+    
     prepocitat(browser)
     
 def fill_fop(browser):
@@ -161,15 +164,16 @@ def fill_fop(browser):
     
     prepocitat(browser)
     
+    _body = browser.find_element_by_css_selector('body')
+    _body.send_keys(Keys.PAGE_DOWN)
+    
     return sex, pin
     
 
-def fill_po(browser):   
+def fill_po(browser, full_statements = True):   
+    # full_statements = True| False  __TrReportsInFull výkazy v plném rozsahu 
     
-    #__TrReportsInFull výkazy v plném rozsahu
     sleep(0.4)
-    vykazy_dd = browser.find_element_by_id("__TrReportsInFull")
-    Select(vykazy_dd).select_by_index(0) # 0 - Ano, 1 - Ne
     
     r_money = random.randint(8_000, 99_000) #v tisících Kč - tisících!
     vykazy_plne_ano = [
@@ -178,26 +182,34 @@ def fill_po(browser):
             ("__EquityCapitalRow", r_money * 0.9),
             ("__TrNetTurnoverForAccountingPeriod3Row", r_money * 5),
             ]
-    sleep(0.2)
-    fill_numeric_fields(browser, vykazy_plne_ano)    
-    
-    sleep(0.2)
-    Select(vykazy_dd).select_by_index(1) # 0 - Ano, 1 - Ne
     vykazy_plne_ne = [
             ("__TotalAssets", r_money * 1.2),
             ("__TrProfitForAccountingPeriod1", r_money * 0.8),
             ("__EquityCapital", r_money * 1.1),
             ("__TrNetTurnoverForAccountingPeriod2", r_money * 6),
             ]
-    sleep(0.2)
-    fill_numeric_fields(browser, vykazy_plne_ne)    
     
-    
+    vykazy_dd = browser.find_element_by_id("__TrReportsInFull")
+    sleep(0.3)
+    if full_statements:
+        Select(vykazy_dd).select_by_index(0) # 0 - Ano, 1 - Ne
+        fill_numeric_fields(browser, vykazy_plne_ano)    
+    else:
+        Select(vykazy_dd).select_by_index(1) # 0 - Ano, 1 - Ne
+        fill_numeric_fields(browser, vykazy_plne_ne)    
+        
+
     ico_f = browser.find_element_by_id("__RegistrationNumber3")
     ico = r_rc_ico.r_ico()
+    ico_f.clear()
+    sleep(0.1)
     ico_f.send_keys(ico)
+    sleep(0.1)
    
     prepocitat(browser)
+    
+    _body = browser.find_element_by_css_selector('body')
+    _body.send_keys(Keys.PAGE_DOWN)
     
     
     

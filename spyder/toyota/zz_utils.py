@@ -171,3 +171,7 @@ for label in label_ns_lst:
 
 Coapp_AttachmentNote = browser.find_element_by_id("__Coapp_AttachmentNote")
 Coapp_AttachmentNote.send_keys("uživatelská poznámka")
+#%%
+browser.execute_script("alert('qwer');")
+sleep(1)
+browser.switch_to.alert.accept()

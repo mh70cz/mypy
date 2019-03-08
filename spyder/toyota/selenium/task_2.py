@@ -40,7 +40,10 @@ def init(browser, web_app, task_id):
         fill_po(browser)
         
 
-def fill_spo(browser):
+def fill_spo(browser, data=None):
+    
+    if data is None:
+        data = get_data()
     
     sleep(0.2)
     employer_dd = browser.find_element_by_id("__EmployerType")
@@ -91,7 +94,13 @@ def fill_spo(browser):
                           ]
     for d in deti:
         browser.find_element_by_id(d).send_keys("1")
+        
+    #  Doplňující údaje o vozidle    
+    sleep(0.3)
+    dopl_udaje_voz(browser, data)
     
+       
+    # Základní data pro identifikaci žadatele    
     sex, pin, dat_nar = r_rc_ico.rc_dat()
     
     dat_nar_f = browser.find_element_by_id("__DateOfBirth")
@@ -112,9 +121,12 @@ def fill_spo(browser):
     
     prepocitat(browser)
     
-def fill_fop(browser):
+def fill_fop(browser, data=None):
     
     sleep(0.4)
+    
+    if data is None:
+        data = get_data()
     
     # Uplatňuji výdaje procentem z příjmu
     # per_of_inc = 1  # 1- ano 2-ne
@@ -140,10 +152,13 @@ def fill_fop(browser):
     prijem_coapp_f = browser.find_element_by_id("__CoAverageMIAT2")
     prijem_coapp_f.send_keys(str(random.randint(10_000, 45_000)))
     
+    #  Doplňující údaje o vozidle    
+    sleep(0.3)
+    dopl_udaje_voz(browser, data)
+    
     sex, pin, dat_nar = r_rc_ico.rc_dat()
     ico = r_rc_ico.r_ico()
     
-    sleep(0.2)
     identif_app = [("__PIN", pin),]
     fill_numeric_fields(browser, identif_app)
         
@@ -170,10 +185,13 @@ def fill_fop(browser):
     return sex, pin
     
 
-def fill_po(browser, full_statements = True):   
+def fill_po(browser, data=None, full_statements = True):   
     # full_statements = True| False  __TrReportsInFull výkazy v plném rozsahu 
     
     sleep(0.4)
+    
+    if data is None:
+        data = get_data()
     
     r_money = random.randint(8_000, 99_000) #v tisících Kč - tisících!
     vykazy_plne_ano = [
@@ -198,6 +216,10 @@ def fill_po(browser, full_statements = True):
         Select(vykazy_dd).select_by_index(1) # 0 - Ano, 1 - Ne
         fill_numeric_fields(browser, vykazy_plne_ne)    
         
+    #  Doplňující údaje o vozidle    
+    sleep(0.3)
+    dopl_udaje_voz(browser, data)
+
 
     ico_f = browser.find_element_by_id("__RegistrationNumber3")
     ico = r_rc_ico.r_ico()
@@ -228,6 +250,60 @@ def prepocitat(browser):
     b_prepocitat = browser.find_element_by_xpath('//button[contains(text(), "' + "PŘEPOČÍTAT" + '")]')
     sleep(1)
     b_prepocitat.click()
+
+def dopl_udaje_voz(browser, data):
+    """ Doplňující údaje o vozidle    """
+
+    _section_doplnujici_udaje_lst = browser.find_elements_by_xpath("//div[contains(text(),'Doplňující údaje o vozidle')]")
+    if (len(_section_doplnujici_udaje_lst) > 0 and 
+        _section_doplnujici_udaje_lst[0].is_displayed()):
+        _section_doplnujici_udaje_lst[0].click()
+        
+        vin_elem = browser.find_element_by_id("__VIN")
+        vin_elem.clear()
+        sleep(0.1) 
+        vin_elem.send_keys(data["vehicle"]["VIN"])
+        sleep(0.1)
+        
+        tpno_elem = browser.find_element_by_id("__RegistrationBookNo")
+        tpno_elem.clear()
+        sleep(0.1) 
+        tpno_elem.send_keys(data["vehicle"]["RegistrationBookNo"])
+        sleep(0.1)
+
+
+        regno_elem = browser.find_element_by_id("__VehicleRegistrationMark")
+        regno_elem.clear()
+        sleep(0.1) 
+        regno_elem.send_keys(data["vehicle"]["VehicleRegistrationMark"])
+        sleep(0.1)
+
+        mnfyear_elem = browser.find_element_by_id("__YearOfManufacture")
+        mnfyear_elem.clear()
+        sleep(0.1) 
+        mnfyear_elem.send_keys(data["vehicle"]["YearOfManufacture"])
+        sleep(0.1)      
+        
+        _section_doplnujici_udaje_lst[0].click()
+        sleep(0.3)
+
+def get_data():
+    
+
+    data = {
+            "applicant":{},
+            "contract":{},
+            "vehicle":{
+                    "VehicleStatus":"1", # nové 1 , ojeté 0
+                    "VIN": "2T2BK1BA5CC150528",
+                    "RegistrationBookNo":"TP27182",
+                    "VehicleRegistrationMark":"6S61234",
+                    "YearOfManufacture":"2018",
+                    },
+            }  
+            
+    return data
+   
 
 """
 for i in range(20):

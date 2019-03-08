@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+    <applicant>
+        <SubjType>3</SubjType>
+        <VATPayer>1</VATPayer>
+        <TradeName>Pivo Svijany, a.s.</TradeName>
+        <RegistrationNumber>25035207</RegistrationNumber>
+        <TaxRegistrationNumber>CZ25035207</TaxRegistrationNumber>
+        <RegistrationOfficeType>Krajský soud</RegistrationOfficeType>
+        <RegistrationOfficeName>Krajský soud v Ústí nad Labem</RegistrationOfficeName>
+        <RegistrationSectionFileNo>1608 B</RegistrationSectionFileNo>
+        <BankAccountNumber1>31</BankAccountNumber1>
+        <BankAccountNumber>314159</BankAccountNumber>
+        <BankCode>0100</BankCode>
+        <PhoneNumber>+420398827620</PhoneNumber>
+        <Email>pivo@svijany.cz</Email>
+        <RepresentativeMethod>3</RepresentativeMethod>
+        <NRKISign>1</NRKISign>
+        <IsDebtor>1</IsDebtor>
+    </applicant>
+    <applicant_address>
+        <HomeAddressStreet>Svijany 25</HomeAddressStreet>
+        <HomeAddressCity>Svijany</HomeAddressCity>
+        <HomeAddressZip>46346</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+        <AddressSame>0</AddressSame>
+        <AddressServicesStreet>Jana Palacha 113</AddressServicesStreet>
+        <AddressServicesCity>Turnov</AddressServicesCity>
+        <AddressServicesZip>51101</AddressServicesZip>
+        <AddressServicesState>CZ</AddressServicesState>
+    </applicant_address>
+    
+    <representative>
+        <RepresentativeType>1</RepresentativeType>
+        <TitleBefore>ing</TitleBefore>
+        <Name>Miroslav</Name>
+        <Surname>Kučera</Surname>
+        <TitleAfter>PhD</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6703073014</PIN>
+        <DateOfBirth>7.3.1967</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP854951</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP951753</SecondDocumentNumber>
+        <SecondDocumentValidTo>8.8.2023</SecondDocumentValidTo>
+    </representative>
+    
+    <representativeAddress>
+        <HomeAddressCity>London</HomeAddressCity>
+        <HomeAddressStreet>Tommy Robinson Avenue 13</HomeAddressStreet>
+        <HomeAddressZip>56785</HomeAddressZip>
+        <HomeAddressState>GB</HomeAddressState>
+    </representativeAddress>
+    
+    <representative1>
+        <RepresentativeType>2</RepresentativeType>
+        <TitleBefore>Mgr</TitleBefore>
+        <Name>Zdeněk</Name>
+        <Surname>Bubák</Surname>
+        <TitleAfter>MBA</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6503073016</PIN>
+        <DateOfBirth>7.3.1965</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP854933</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP954453</SecondDocumentNumber>
+        <SecondDocumentValidTo>19.9.2023</SecondDocumentValidTo>
+    </representative1>
+    
+    <representative1Address>
+        <HomeAddressCity>Genoa</HomeAddressCity>
+        <HomeAddressStreet>Via Giuseppe Garibaldi 947</HomeAddressStreet>
+        <HomeAddressZip>31445</HomeAddressZip>
+        <HomeAddressState>IT</HomeAddressState>
+    </representative1Address>   
+    
+    <representative2>
+        <RepresentativeType>2</RepresentativeType>
+        <TitleBefore>ing arch</TitleBefore>
+        <Name>Luboš</Name>
+        <Surname>Florian</Surname>
+        <TitleAfter>DrSc</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6403073017</PIN>
+        <DateOfBirth>7.3.1964</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP877951</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP951788</SecondDocumentNumber>
+        <SecondDocumentValidTo>13.8.2023</SecondDocumentValidTo>
+    </representative2>
+    
+    <representative2Address>
+        <HomeAddressCity>Jičín - Valdické Předměstí</HomeAddressCity>
+        <HomeAddressStreet>Tyršova 35</HomeAddressStreet>
+        <HomeAddressZip>50611</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+    </representative2Address>      
+    
+    <guarantor>
+        <SubjType>3</SubjType>
+        <TradeName>Ručitelská, a.s.</TradeName>
+        <RegistrationNumber>45317054</RegistrationNumber>
+        <TaxRegistrationNumber>CZ45317054</TaxRegistrationNumber>
+        <RegistrationOfficeType>Krajský soud</RegistrationOfficeType>
+        <RegistrationOfficeName>Krajský soud v Pardubicích</RegistrationOfficeName>
+        <RegistrationSectionFileNo>1608 G</RegistrationSectionFileNo>
+        <BankAccountNumber1>69</BankAccountNumber1>
+        <BankAccountNumber>271828</BankAccountNumber>
+        <BankCode>0100</BankCode>
+        <PhoneNumber>+420590455904</PhoneNumber>
+        <Email>zaruky@rucitelska.cz</Email>
+        <TrReportsInFull>0</TrReportsInFull>
+        <RepresentativeMethod>3</RepresentativeMethod>
+        <EquityCapital>9853</EquityCapital>
+        <TotalAssets>7658</TotalAssets>
+        <TrProfitForAccountingPeriod>2365</TrProfitForAccountingPeriod>
+        <TrNetTurnoverForAccountingPeriod>11856</TrNetTurnoverForAccountingPeriod>
+
+    </guarantor>
+    <guarantor_address>
+        <HomeAddressStreet>Nábřeží Svazu protifašistických bojovníků 11</HomeAddressStreet>
+        <HomeAddressCity>Ostrava</HomeAddressCity>
+        <HomeAddressZip>55112</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+        <AddressSame>0</AddressSame>
+        <AddressServicesStreet>Heiligengeistbrücke 67</AddressServicesStreet>
+        <AddressServicesCity>Windsbach</AddressServicesCity>
+        <AddressServicesZip>91573</AddressServicesZip>
+        <AddressServicesState>DE</AddressServicesState>
+    </guarantor_address>
+    <guarantor_employer>
+        <EmployerType>1</EmployerType>
+        <WorkPhoneNumber>+420256357458</WorkPhoneNumber>
+        <RegistrationNumber>00006963</RegistrationNumber>
+        <Foreigner>0</Foreigner>
+        <ProbationPeriod>0</ProbationPeriod>
+        <NoticePeriod>0</NoticePeriod>
+        <EmploymentIndefinitePeriod>0</EmploymentIndefinitePeriod>
+        <EmploymentIndefinitePeriodUntil>31.12.2021</EmploymentIndefinitePeriodUntil>
+    </guarantor_employer>
+    
+    <guarantorRepresentative>
+        <RepresentativeType>1</RepresentativeType>
+        <TitleBefore>ing</TitleBefore>
+        <Name>Miroslav</Name>
+        <Surname>Kučera</Surname>
+        <TitleAfter>PhD</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6703073014</PIN>
+        <DateOfBirth>7.3.1967</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP854951</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP951753</SecondDocumentNumber>
+        <SecondDocumentValidTo>8.8.2023</SecondDocumentValidTo>
+    </guarantorRepresentative>
+    
+    <guarantorRepresentativeAddress>
+        <HomeAddressCity>London</HomeAddressCity>
+        <HomeAddressStreet>Tommy Robinson Avenue 13</HomeAddressStreet>
+        <HomeAddressZip>56785</HomeAddressZip>
+        <HomeAddressState>GB</HomeAddressState>
+    </guarantorRepresentativeAddress>
+    
+    <guarantorRepresentative1>
+        <RepresentativeType>2</RepresentativeType>
+        <TitleBefore>Mgr</TitleBefore>
+        <Name>Zdeněk</Name>
+        <Surname>Bubák</Surname>
+        <TitleAfter>MBA</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6503073016</PIN>
+        <DateOfBirth>7.3.1965</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP854933</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP954453</SecondDocumentNumber>
+        <SecondDocumentValidTo>19.9.2023</SecondDocumentValidTo>
+    </guarantorRepresentative1>
+    
+    <guarantorRepresentative1Address>
+        <HomeAddressCity>Genoa</HomeAddressCity>
+        <HomeAddressStreet>Via Giuseppe Garibaldi 947</HomeAddressStreet>
+        <HomeAddressZip>31445</HomeAddressZip>
+        <HomeAddressState>IT</HomeAddressState>
+    </guarantorRepresentative1Address>   
+    
+    <guarantorRepresentative2>
+        <RepresentativeType>2</RepresentativeType>
+        <TitleBefore>ing arch</TitleBefore>
+        <Name>Luboš</Name>
+        <Surname>Florian</Surname>
+        <TitleAfter>DrSc</TitleAfter>
+        <Foreigner>0</Foreigner>
+        <PIN>6403073017</PIN>
+        <DateOfBirth>7.3.1964</DateOfBirth>
+        <Citizenship>CZ</Citizenship>
+        <DocumentType>0</DocumentType>
+        <DocumentNumber>OP877951</DocumentNumber>
+        <DocumentValidTo>21.8.2023</DocumentValidTo>
+        <SecondDocumentType>6</SecondDocumentType>
+        <SecondDocumentNumber>RP951788</SecondDocumentNumber>
+        <SecondDocumentValidTo>13.8.2023</SecondDocumentValidTo>
+    </guarantorRepresentative2>
+    
+    <guarantorRepresentative2Address>
+        <HomeAddressCity>Jičín - Valdické Předměstí</HomeAddressCity>
+        <HomeAddressStreet>Tyršova 35</HomeAddressStreet>
+        <HomeAddressZip>50611</HomeAddressZip>
+        <HomeAddressState>CZ</HomeAddressState>
+    </guarantorRepresentative2Address>   
+    <vehicle>
+        <AccessoriesPriceVAT>12769</AccessoriesPriceVAT>
+        <CoveredKilometres>0</CoveredKilometres>
+        <CylinderVolume>1794</CylinderVolume>
+        <EquipmentLevel>CT__AUHTSMC15_T0006363L__</EquipmentLevel>
+        <EquipmentLevelLabel>Active CZ/SK</EquipmentLevelLabel>
+        <UsageStartDate>2019-03-08T00:00:00Z</UsageStartDate>
+        <VehicleMaker>T</VehicleMaker>
+        <VehicleMakerLabel>Toyota</VehicleMakerLabel>
+        <VehicleMode>1</VehicleMode>
+        <VehicleModel>000636</VehicleModel>
+        <VehicleModelLabel>Auris Hybrid TS MC15 WG 1.8 VVT-i 1E-CVT</VehicleModelLabel>
+        <VehicleModelType>AUHTS</VehicleModelType>
+        <VehicleStatus>0</VehicleStatus>
+        <VehicleUsage>1</VehicleUsage>
+        <EditInsurancePrice>0</EditInsurancePrice>
+        <ActualOfferOnly>1</ActualOfferOnly>
+        <IsVatZero>0</IsVatZero>
+        <VehicleModelTypeLabel>Auris Hybrid TS</VehicleModelTypeLabel>
+        <ListPrice>450330.58</ListPrice>
+        <AccessoriesPrice>10552.89</AccessoriesPrice>
+        <DiscountPrice>-14363.64</DiscountPrice>
+        <PurchasePrice>446519.83</PurchasePrice>
+        <PriceForInsurance>446519.83</PriceForInsurance>
+        <DiscountPriceVat>-17380</DiscountPriceVat>
+        <PurchasePriceVat>540289</PurchasePriceVat>
+        <ListPriceVat>544900</ListPriceVat>
+        <PriceForInsuranceDcM>540289</PriceForInsuranceDcM>
+        <PriceForInsuranceVat>540289</PriceForInsuranceVat>
+        <VehicleOperation>1</VehicleOperation>
+        
+        
+        <ExpectedDeliveryDate>25.05.2019</ExpectedDeliveryDate>
+    </vehicle>
+    <contract>
+        <BranchID>007</BranchID>
+        <CampaignCode>KAMPAN_PRO_FC_GENIO_V_15_018</CampaignCode>
+        <InsuranceCoName>KAMPAN_POJ_ZP_ZP_FCX_X_ALL_1404_14_2_PLUS_00000</InsuranceCoName>
+        <InsuranceCoNameLabel>Toyota Pojištění PLUS</InsuranceCoNameLabel>
+        <InsuranceCoNameMotor>KAMPAN_POJ_HP_HP_FCX_V_ALL_1404_14_2_PLUSG4-6_24870</InsuranceCoNameMotor>
+        <InsuranceCoNameMotorLabel>Toyota Pojištění PLUS</InsuranceCoNameMotorLabel>
+        <Modality>1</Modality>
+        <MotorAPIMultiple>1</MotorAPIMultiple>
+        <MotorAPISeatAmount>4</MotorAPISeatAmount>
+        <MotorInsuranceParticipation>01%</MotorInsuranceParticipation>
+        <MotorSILuggageLimit>15000</MotorSILuggageLimit>
+        <MotorSIVehicleRentDays>010</MotorSIVehicleRentDays>
+        <MotorSIWindscreenLimit>005000</MotorSIWindscreenLimit>
+        <MotorSIWindscreenInCampaign>0</MotorSIWindscreenInCampaign>
+        <MTPLInsuranceLimits>P</MTPLInsuranceLimits>
+        <NoOfInstalmentsMax>72</NoOfInstalmentsMax>
+        <OpNumber>L190308CSE3644A</OpNumber>
+        <OpType>FC</OpType>
+        <ProductName>FC_GENIO_V</ProductName>
+        <RequestDate>2019-03-08T12:18:57.9716467Z</RequestDate>
+        <SubscriberID>306740ac-3301-483f-9213-a21dd37c9095</SubscriberID>
+        <MotorSIWindscreenInsurance>1</MotorSIWindscreenInsurance>
+        <MotorSILuggageInsurance>1</MotorSILuggageInsurance>
+        <MotorSIVehicleRentInsurance>1</MotorSIVehicleRentInsurance>
+        <MotorAPISeatInsurance>1</MotorAPISeatInsurance>
+        <NoOfInstalmentsMaxLabel>72 měsíců</NoOfInstalmentsMaxLabel>
+        <MTPLInsuranceLimitsLabel>100 a 100 miliónů Kč</MTPLInsuranceLimitsLabel>
+        <MotorInsuranceParticipationLabel>1% (min. 1.000,-Kč)</MotorInsuranceParticipationLabel>
+        <TFSCDealer>1373</TFSCDealer>
+        <PolWebCode>0</PolWebCode>
+        <MotorSIPlusInsurance>1</MotorSIPlusInsurance>
+        <MotorSIPlusType>STANDARD</MotorSIPlusType>
+        <CampaignDiscountCode>N/A</CampaignDiscountCode>
+        <MotorSIWindscreenLimitLabel>5 tisíc</MotorSIWindscreenLimitLabel>
+        <MotorSILuggageLimitLabel>15 tisíc</MotorSILuggageLimitLabel>
+        <MotorSIVehicleRentDaysLabel>10 dnů</MotorSIVehicleRentDaysLabel>
+        <MotorAPISeatAmountLabel>4</MotorAPISeatAmountLabel>
+        <MotorAPIMultipleLabel>1-násobek</MotorAPIMultipleLabel>
+        <MotorSIPlusTypeLabel>Standard</MotorSIPlusTypeLabel>
+        <CampaignCodeLabel>Genio (nové vozidlo)</CampaignCodeLabel>
+        <StepAkontaceUser>HIGHER</StepAkontaceUser>
+        <StepLimitPojisteni>0</StepLimitPojisteni>
+        <MRTIncludedInInstallments>0</MRTIncludedInInstallments>
+        
+        
+        <RequestSign>1</RequestSign>
+    </contract>
+</data>

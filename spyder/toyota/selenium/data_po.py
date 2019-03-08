@@ -10,9 +10,12 @@ import os
 import r_names
 import r_rc_ico
 
-def get_data(data_file=None, ico=None):
+def get_data(data_file=None, ico=None, guarantor="po"):
     if data_file is None:
-        data_file = "data_po.xml"        
+        if guarantor == "po":
+            data_file = "data_po_g_po.xml"
+        else:         
+            data_file = "data_po.xml"        
         data = parse_data(data_file)
         randomize(data, ico)
     else:
@@ -35,6 +38,12 @@ def parse_data(data_file):
         "guarantor": None,
         "guarantor_address": None,
         "guarantor_employer": None,
+        "guarantorRepresentative": None,
+        "guarantorRepresentativeAddress": None,
+        "guarantorRepresentative1": None,
+        "guarantorRepresentative1Address": None,
+        "guarantorRepresentative2": None,
+        "guarantorRepresentative2Address": None,          
         "vehicle": None,
         "contract": None,
             }

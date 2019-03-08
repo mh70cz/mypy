@@ -38,7 +38,7 @@ task_3_spo.fill(browser)
 task_1.fillscreen(browser, web_app, subj_type = "FOP", prod_type = "FO")
 task_1.fillscreen(browser, web_app, subj_type = "FOP", prod_type = "FC")
 
-gender, pin = task_2.fill_fop(browser)
+gender, pin = task_2.fill_fop(browser)  
 
 task_3_fop.fill(browser, data=None, gender=gender, pin=pin)
 
@@ -46,7 +46,7 @@ task_3_fop.fill(browser, data=None, gender=gender, pin=pin)
 task_1.fillscreen(browser, web_app, subj_type = "PO", prod_type = "FO")
 task_1.fillscreen(browser, web_app, subj_type = "PO", prod_type = "FC")
 
-task_2.fill_po(browser)
+task_2.fill_po(browser)      # fill_po(browser, full_statements = False)
 
 task_3_po.fill(browser)
 
@@ -60,7 +60,7 @@ task_3_guar_fo.fill(browser)
 
 
 web_task_edit = "Processing/TaskEdit.aspx?id="
-task_id = "47150"     #  47018 46889  46891  46889
+task_id = "47166"     #  47018 46889  46891  46889
 browser.get(web_app + web_task_edit + task_id)
 
 

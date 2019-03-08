@@ -13,16 +13,17 @@ import datetime
 
 import data_po
 import task_3_guar_fo
+import task_3_guar_po
 # import start
 
 Ekp = namedtuple("Ekp", "key, eid, name, etype, before, after") # element key + properties
 
 #Firma
-def fill(browser, data=None):
+def fill(browser, data=None, guarantor="po"):
     if data is None:
         _ico_e = browser.find_element_by_id("__RegistrationNumber")
         ico = _ico_e.get_property("value")
-        data = data_po.get_data(data_file=None, ico=ico)
+        data = data_po.get_data(data_file=None, ico=ico, guarantor=guarantor)
                 
     app_elements = [
         Ekp("TradeName", "__TradeName", "","txt",0.1,0.1),
@@ -108,7 +109,7 @@ def fill(browser, data=None):
     
     _section_rep1_lab.click()    
     
-    # Oprávněná osoba 2  
+    # Oprávněná osoba 3  
     sleep(0.3)    
     _section_rep2_lab = browser.find_element_by_xpath("//div[contains(text(),'Oprávněná osoba 3')]")
     
@@ -130,7 +131,11 @@ def fill(browser, data=None):
     
     if data["applicant"]["IsDebtor"] == "1":
         sleep (0.3)
-        task_3_guar_fo.fill(browser, data)
+        guarantor_subj_type = data["guarantor"]["SubjType"]
+        if guarantor_subj_type == "1":
+            task_3_guar_fo.fill(browser, data)
+        elif guarantor_subj_type == "3":
+            task_3_guar_po.fill(browser, data)          
         
     
     #Poptávkový list

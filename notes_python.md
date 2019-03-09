@@ -29,3 +29,5 @@ Python 3.6.1+
 ***
 pylint nainstalovat pro konkrétní verzi (3.6)
 python3.6 -m pip install pylint
+
+***

@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 18 17:39:27 2019
 
-@author: mh70
 """
-
+import start
 import task_1
 import task_2
 import task_3_spo
@@ -13,16 +11,16 @@ import task_3_po
 import task_3_guar_fo
 
 
-
-# task_1.fillscreen(browser, web_app)
-
-
-
-
-
 """"
 browser, web_app = task_1.open_browser()
 task_1.login(browser)
+
+
+browser, web_app = start.init("cz_test_CI ", kr=False)
+
+# browser, web_app = start.init("cz_test", kr=True) 
+# browser, web_app = start.init("cz_test_CI ", kr=False)
+# 
 
 
 #SPO   #####

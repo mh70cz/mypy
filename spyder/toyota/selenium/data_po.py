@@ -64,42 +64,70 @@ def parse_data(data_file):
 
 def randomize(data,  ico=None):
     
-    person_keys = ["TitleBefore", "Name", "Surname", "TitleAfter", "Email"]    
-       
-    #representatives
-    representative_gender = random.choice(["M", "Z"])
-    person = r_names.rnd_person(gender=representative_gender, guarantor=True)
-    for key in person_keys:
-        data["representative"][key] = person[key]
-        
-    #representatives1
-    representative1_gender = random.choice(["M", "Z"])
-    person = r_names.rnd_person(gender=representative1_gender, guarantor=True)
-    for key in person_keys:
-        data["representative1"][key] = person[key]
+    person_keys = ["TitleBefore", "Name", "Surname", "TitleAfter", "Email"]
 
-    #representatives2
-    representative2_gender = random.choice(["M", "Z"])
-    person = r_names.rnd_person(gender=representative2_gender, guarantor=True)
-    for key in person_keys:
-        data["representative2"][key] = person[key]
+    # subject (element: string, guarantor: boolean, representative: boolean)
+    subjects = [
+     ('representative', False, True),
+     ('representative1', False, True),
+     ('representative2', False, True),
+     #("guarantor", True, False),
+     ('guarantorRepresentative', True, True),
+     ('guarantorRepresentative1', True, True),
+     ('guarantorRepresentative2', True, True),
+     ]
     
-    
-    #guarantor
-    sex, pin, dat_nar = r_rc_ico.rc_dat()
-    person = r_names.rnd_person(gender=sex, guarantor=True)
-    for key in person_keys:
-        data["guarantor"][key] = person[key]
-    data["guarantor"]["Gender"] = sex
-    data["guarantor"]["PIN"] = pin
-    data["guarantor"]["DateOfBirth"] = dat_nar
-    
-    
-    
+    for s in subjects:
+        sex, pin, dat_nar = r_rc_ico.rc_dat()
+        person = r_names.rnd_person(gender=sex, guarantor=s[1], representative=s[2])
+        for key in person_keys:
+            data[s[0]][key] = person[key]
+        data[s[0]]["PIN"] = pin
+        data[s[0]]["DateOfBirth"] = dat_nar    
+       
+#    #representatives
+#    person = r_names.rnd_person(gender=random.choice(["M", "Z"]), representative=True)
+#    for key in person_keys:
+#        data["representative"][key] = person[key]
+#        
+#    #representatives1
+#    person = r_names.rnd_person(gender=random.choice(["M", "Z"]), representative=True)
+#    for key in person_keys:
+#        data["representative1"][key] = person[key]
+#
+#    #representatives2
+#    person = r_names.rnd_person(gender=random.choice(["M", "Z"]), representative=True)
+#    for key in person_keys:
+#        data["representative2"][key] = person[key]
+#    
+#    
+#    #guarantor
+#    sex, pin, dat_nar = r_rc_ico.rc_dat()
+#    person = r_names.rnd_person(gender=sex, guarantor=True)
+#    for key in person_keys:
+#        data["guarantor"][key] = person[key]
+#    data["guarantor"]["Gender"] = sex
+#    data["guarantor"]["PIN"] = pin
+#    data["guarantor"]["DateOfBirth"] = dat_nar
+#    
+#    #guarantor representative
+#    person = r_names.rnd_person(gender=random.choice(["M", "Z"]), guarantor=True, representative=True)
+#    for key in person_keys:
+#        data["guarantorRepresentative"][key] = person[key]
+#        
+#    #guarantor representative 1
+#    person = r_names.rnd_person(gender=random.choice(["M", "Z"]), guarantor=True, representative=True)
+#    for key in person_keys:
+#        data["guarantorRepresentative1"][key] = person[key]
+#
+#    #guarantor representative 2
+#    person = r_names.rnd_person(gender=random.choice(["M", "Z"]), guarantor=True, representative=True)
+#    for key in person_keys:
+#        data["guarantorRepresentative2"][key] = person[key]    
+#    
     if ico is not None:
         data["applicant"]["TaxRegistrationNumber"] = "CZ" + str(ico)
     
-    #ToDo dat nar, (rodné číslo ?)
 
 def post_process(data):
     za60 = (datetime.datetime.now() + datetime.timedelta(days=60)).strftime("%d.%m.%Y")

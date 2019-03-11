@@ -10,7 +10,7 @@ import zz_task_2
 browser, web_app = start.init("cz_test", kr=True) 
 
 # browser, web_app = start.init("cz_test", kr=True) 
-# browser, web_app = start.init("cz_test_CI ", kr=False)
+# browser, web_app = start.init("cz_test_CI", kr=False)
 # 
 
 

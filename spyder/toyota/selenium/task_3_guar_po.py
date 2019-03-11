@@ -20,8 +20,8 @@ def fill(browser, data):
 
     guar_fo_elements = [
         Ekp("SubjType", "__Deb_SubjType","", "dd", 0.1, 0.3 ),
-        Ekp("RegistrationNumber", "__Deb_RegistrationNumber", "","txt",0.1,0.1),
-        Ekp("TradeName", "__Deb3_TradeName", "","txt",0.1,0.1),
+        Ekp("RegistrationNumber", "__Deb_RegistrationNumber", "","txt",0.1, 0.1),
+        Ekp("TradeName", "__Deb3_TradeName", "","txt",0.2, 0.1),
         Ekp("TaxRegistrationNumber", "__Deb3_TaxRegistrationNumber", "","txt",0.1,0.1),
         Ekp("RegistrationOfficeType", "__Deb3_RegistrationOfficeType", "","txt",0.1,0.1),
         Ekp("RegistrationOfficeName", "__Deb3_RegistrationOfficeName", "","txt",0.1,0.1),
@@ -84,10 +84,10 @@ def fill(browser, data):
     _section_rep_lab = _section_rep_lab_lst[1]
     
     section = _section_rep_lab.find_element_by_xpath("..")
-    rep_data = data["representative"]
+    rep_data = data["guarantorRepresentative"]
     fill_representative(section, rep_data)
     
-    rep_data = data["representativeAddress"]
+    rep_data = data["guarantorRepresentativeAddress"]
     fill_repAddress(section, rep_data)
     
     _section_rep_lab.click()
@@ -98,10 +98,10 @@ def fill(browser, data):
     _section_rep1_lab = _section_rep1_lab_lst[1]
     
     section = _section_rep1_lab.find_element_by_xpath("..")
-    rep_data = data["representative1"]
+    rep_data = data["guarantorRepresentative1"]
     fill_representative(section, rep_data)
     
-    rep_data = data["representative1Address"]
+    rep_data = data["guarantorRepresentative1Address"]
     fill_repAddress(section, rep_data)
     
     _section_rep1_lab.click()    
@@ -112,10 +112,10 @@ def fill(browser, data):
     _section_rep2_lab = _section_rep2_lab_lst[1]
     
     section = _section_rep2_lab.find_element_by_xpath("..")
-    rep_data = data["representative2"]
+    rep_data = data["guarantorRepresentative2"]
     fill_representative(section, rep_data)
     
-    rep_data = data["representative2Address"]
+    rep_data = data["guarantorRepresentative2Address"]
     fill_repAddress(section, rep_data)
     
     _section_rep2_lab.click()   
@@ -301,8 +301,9 @@ def fill_elems(browser, elements, values):
         elem_name = ekp.name
         if ekp.etype == "txt":
             elem = browser.find_element_by_id(elem_id)  #podle id
-            elem.clear()
+            elem.click()
             sleep(ekp.before)
+            elem.clear()
             elem.send_keys(values[key])
             sleep(ekp.after)            
         elif ekp.etype == "dd":

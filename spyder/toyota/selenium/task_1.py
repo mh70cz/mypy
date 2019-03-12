@@ -127,7 +127,7 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
     Select(dealer).select_by_value(data["contract"]["TFSCDealer"])
 
     try:        
-        campaign_elem = WebDriverWait(browser, 4).until(
+        campaign_elem = WebDriverWait(browser, 5).until(
             EC.presence_of_element_located((By.ID, "__CampaignCode"))
         )        
         #print("DropDown Campaign  loaded")
@@ -153,10 +153,13 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
 
     if prod_type == "FO":
         sleep(0.4)
-        rocni_najezd = browser.find_element_by_id("__StepMileAgePerYear")
-        Select(rocni_najezd).select_by_index(1)
-
-    sleep(0.2)
+        rocni_najezd_elem = browser.find_element_by_id("__StepMileAgePerYear")        
+        WebDriverWait(rocni_najezd_elem, 3).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "option:nth-child(2)"))
+        )
+        Select(rocni_najezd_elem).select_by_index(1)
+        
+    sleep(0.7)
     pojisteni = [
         "__InsuranceCoName",
         "__MTPLInsuranceLimits",
@@ -185,6 +188,20 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
         sleep(0.2)
         Select(browser.find_element_by_id(p[1])).select_by_index(1)
     Select(browser.find_element_by_id("__MotorAPIMultiple")).select_by_index(1)
+    
+    #Doplňkové služby
+    if prod_type == "FO":
+        sleep(0.3)
+        #_section_doplnkove_sluzby = browser.find_element_by_xpath("//div[contains(text(),'Doplňkové služby')]")
+        #_section_doplnkove_sluzby = browser.find_element_by_id("1-1-4")
+        rb_lst = browser.find_elements_by_name("__MRTIncludedInInstallments")
+        if len(rb_lst) > 0:
+            rb_ano = rb_lst[0]
+            #rb_ne = rb_lst[1]
+            rb_ano.click()
+            sleep(0.1)        
+            type_of_service_elem = browser.find_element_by_id("__MRTTypeOfService")
+            Select(type_of_service_elem).select_by_index(2)
 
     sleep(0.2)
     if prod_type == "FC":

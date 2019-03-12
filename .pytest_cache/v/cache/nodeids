@@ -237,5 +237,10 @@
   "utils/validate_RC_test.py::TestRC::test_wrong_check_digit_str",
   "utils/validate_RC_test.py::TestRC::test_wrong_data_type",
   "utils/validate_RC_test.py::TestRC::test_wrong_date",
-  "utils/validate_RC_test.py::TestRC::test_wrong_format"
+  "utils/validate_RC_test.py::TestRC::test_wrong_format",
+  "wrk/resistor_test.py::TestCalculateTotalResistance::test_p",
+  "wrk/resistor_test.py::TestCalculateTotalResistance::test_p_zero",
+  "wrk/resistor_test.py::TestCalculateTotalResistance::test_s_float",
+  "wrk/resistor_test.py::TestCalculateTotalResistance::test_s_int",
+  "wrk/resistor_test.py::TestChyba::test_s_int"
 ]

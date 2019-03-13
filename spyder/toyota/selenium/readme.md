@@ -9,10 +9,13 @@
 [] xml top level elements applicant_address, guarantor_address, guarantor_employer
 
 
+PO
+Zapsaný v       RegistrationOfficeType  
+Vedenému u      RegistrationOfficeName
+Oddíl vložka    RegistrationSectionFileNo
 
-Zapsaný v     ???
-Vedenému u
-Oddíl vložka
+FOP
+Vydáno (kým)    RegistrationSectionNoEntrepre 
 
 ---
 

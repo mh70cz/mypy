@@ -103,13 +103,13 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
     elif subj_type == "FOP":
         Select(subj_type_dd).select_by_value("2")
         sleep(0.2)
-        Select(vehicle_operation).select_by_value("1")
+        Select(vehicle_operation).select_by_value("BASE")
         vat_r_buttons[0].click()  # platce DPH ano
 
     elif subj_type == "PO":
         Select(subj_type_dd).select_by_value("3")
         sleep(0.2)
-        Select(vehicle_operation).select_by_value("1")
+        Select(vehicle_operation).select_by_value("BASE")
         vat_r_buttons[0].click()  # platce DPH ano
 
     # cena doplňků

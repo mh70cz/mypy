@@ -117,7 +117,7 @@ def fill(browser, data=None, gender="M", pin=None):
     fill_elems(browser, coapp_elements, data["coapplicant"])
     sleep(0.2)
     _section_coapp.click()
-    
+    sleep(0.3)
     # Guarantor 
     # ano / ne - je uloženo v applicant
     app_elements = [Ekp("IsDebtor", "", "__IsDebtor", "radio", 0.1, 0.1),]

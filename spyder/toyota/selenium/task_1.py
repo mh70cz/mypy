@@ -24,23 +24,34 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
 
     if data is None:
         data = get_data(subj_type, prod_type)
+        
+    sleep(1)
+    vehicle_operation = browser.find_element_by_id("__VehicleOperation")
+    Select(vehicle_operation).select_by_value("BASE")
 
     xp_fc = '//span[contains(text(), "' + "úvěr" + '")]'
     xp_fo = '//span[contains(text(), "' + "operativní leasing" + '")]'
-    try:
-        label_fc = WebDriverWait(browser, 4).until(
-            EC.presence_of_element_located((By.XPATH, xp_fc))
-        )
-        # print("element  loaded")
-    except TimeoutException:
-        print("Time exceeded!")
-    label_fo = browser.find_element_by_xpath(xp_fo)
-
     if prod_type == "FC":
-        label_fc.click()
-    elif prod_type == "FO":
-        label_fo.click()
+        xp = xp_fc
+    elif prod_type == "FO":        
+        xp = xp_fo
+    
+    #WTF behavior ???
+    sleep(0.2)
+    for i in range(5):
+        try:
+            label = WebDriverWait(browser, 4).until(
+                EC.presence_of_element_located((By.XPATH, xp))
+            )
+            #sleep(0.3) #nevypadá, že má  vliv na exception
+            label.click()
+            sleep(0.3)
+            break
+        except:
+            print("exception label")
+            sleep(0.2)
 
+    
     label_nove = browser.find_element_by_xpath(
         '//span[contains(text(), "' + "nové" + '")]'
     )
@@ -96,14 +107,12 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
 
     sleep(0.2)
     subj_type_dd = browser.find_element_by_id("__SubjType")
-    vehicle_operation = browser.find_element_by_id("__VehicleOperation")
     vat_r_buttons = browser.find_elements_by_name("__VATPayer")
     if subj_type == "SPO":
         Select(subj_type_dd).select_by_value("1")
     elif subj_type == "FOP":
         Select(subj_type_dd).select_by_value("2")
         sleep(0.2)
-        Select(vehicle_operation).select_by_value("BASE")
         vat_r_buttons[0].click()  # platce DPH ano
 
     elif subj_type == "PO":
@@ -151,13 +160,23 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
     )
     Select(pocet_mesicu_elem).select_by_index(1)
 
+    # roční nájezd
     if prod_type == "FO":
         sleep(0.4)
         rocni_najezd_elem = browser.find_element_by_id("__StepMileAgePerYear")        
         WebDriverWait(rocni_najezd_elem, 3).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "option:nth-child(2)"))
         )
-        Select(rocni_najezd_elem).select_by_index(1)
+        Select(rocni_najezd_elem).select_by_index(1)        
+    if prod_type == "FC":
+        sleep(0.4)
+        rocni_najezd_elems = browser.find_elements_by_id("__StepMileAgePerYear")
+        if len(rocni_najezd_elems) > 0:
+            rocni_najezd_elem = rocni_najezd_elems[0]
+            WebDriverWait(rocni_najezd_elem, 3).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "option:nth-child(2)"))
+            )
+            Select(rocni_najezd_elem).select_by_index(1)        
         
     sleep(0.7)
     pojisteni = [
@@ -246,12 +265,16 @@ def get_data(subj_type, prod_type):
     if prod_type == "FC":
         data["contract"]["OpType"] = "FC"
         data["contract"]["TFSCDealer"] = "1373"
-        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FC_GENIO_V_15_018"
+#        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FC_GENIO_V_15_018"
+        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FC_VARIO_V_15_004"
         data["contract"]["NoOfInstalmentsMax"] = "72"
 
-        data["vehicle"]["VehicleModelType"] = "AUHTS"
-        data["vehicle"]["VehicleModel"] = "000636"
-        data["vehicle"]["EquipmentLevel"] = "CT__AUHTSMC15_T0006363L__"
+#        data["vehicle"]["VehicleModelType"] = "AUHTS"
+#        data["vehicle"]["VehicleModel"] = "000636"
+#        data["vehicle"]["EquipmentLevel"] = "CT__AUHTSMC15_T0006363L__"
+        data["vehicle"]["VehicleModelType"] = "VER"
+        data["vehicle"]["VehicleModel"] = "000618"
+        data["vehicle"]["EquipmentLevel"] = "CT__VER__MY15_T000618RS__"        
         data["vehicle"]["VehicleOperation"] = "1"
         data["vehicle"]["AccessoriesPriceVAT"] = "7500"
         data["vehicle"]["DiscountPrice"] = "1586"

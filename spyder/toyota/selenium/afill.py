@@ -15,7 +15,7 @@ import task_3_guar_fo
 
 browser, web_app = start.init("cz_test_CI", kr=False)
 
-# browser, web_app = start.init("cz_test", kr=True) 
+browser, web_app = start.init("cz_test", kr=True) 
 # browser, web_app = start.init("cz_test_CI ", kr=False)
 
 

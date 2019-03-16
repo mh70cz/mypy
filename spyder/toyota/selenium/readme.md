@@ -7,7 +7,7 @@
 [] data globally for all tasks  
 [] random data companies  
 [] xml top level elements applicant_address, guarantor_address, guarantor_employer  
-[] VehicleOperation - top 
+[x] VehicleOperation - top 
 
 
 PO  
@@ -17,12 +17,15 @@ Oddíl vložka    RegistrationSectionFileNo
 
 FOP
 Vydáno (kým)    RegistrationSectionNoEntrepre 
+
 ---
 vehicle_operation = browser.find_element_by_id("__VehicleOperation")
 Select(vehicle_operation).select_by_value("BASE")
+
 ---
 
 Test scenarios
 
 ---
+
 

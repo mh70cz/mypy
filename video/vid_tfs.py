@@ -40,18 +40,18 @@ clip7 = clip.subclip(95,)
 
 
 #%%
-clip_ins_intro_1 = ImageClip("../../img_ins_intro_1.png", duration=2)
+clip_ins_intro_1 = ImageClip("../../img_ins_intro_1.png", duration=3)
 clip_ins_1 = ImageClip("../../img_ins_1.png", duration=2)
 clip_ins_new = ImageClip("../../img_ins_new.png", duration=2)
-clip_ins_1st_screen = ImageClip("../../img_ins_1st_screen.png", duration=4)
+clip_ins_1st_screen = ImageClip("../../img_ins_1st_screen.png", duration=5)
 
 clip_ins_2 = ImageClip("../../img_ins_2.png", duration=2)
 clip_ins_3 = ImageClip("../../img_ins_3.png", duration=3)
 clip_ins_4 = ImageClip("../../img_ins_4.png", duration=2)
 
-clip_ins_5 = ImageClip("../../img_ins_5.png", duration=2)
+clip_ins_5 = ImageClip("../../img_ins_5.png", duration=3)
 
-clip_ins_3rd_screen = ImageClip("../../img_ins_3rd_screen.png", duration=3)
+clip_ins_3rd_screen = ImageClip("../../img_ins_3rd_screen.png", duration=4)
 
 clip_ins_under_con = ImageClip("../../img_ins_under_con.png", duration=4)
 clip_ins_wait = ImageClip("../../img_ins_wait.png", duration=1)
@@ -73,7 +73,7 @@ clip_ins_conn_7 = ImageClip("../../img_ins_conn_7.png", duration=1)
 clip_ins_conn_8 = ImageClip("../../img_ins_conn_8.png", duration=1)
 clip_ins_conn_9 = ImageClip("../../img_ins_conn_9.png", duration=1)
 
-img_ins_conn_bee_bonita = ImageClip("../../img_ins_conn_bee_bonita.png", duration=5)
+img_ins_conn_bee_bonita = ImageClip("../../img_ins_conn_bee_bonita.png", duration=6)
 
 #%%
 wrk_out = concatenate_videoclips([

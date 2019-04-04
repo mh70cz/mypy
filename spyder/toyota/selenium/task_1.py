@@ -136,7 +136,7 @@ def fillscreen(browser, web_app, data=None, subj_type="SPO", prod_type="FC"):
     Select(dealer).select_by_value(data["contract"]["TFSCDealer"])
 
     try:        
-        campaign_elem = WebDriverWait(browser, 5).until(
+        campaign_elem = WebDriverWait(browser, 8).until(
             EC.presence_of_element_located((By.ID, "__CampaignCode"))
         )        
         #print("DropDown Campaign  loaded")
@@ -266,15 +266,15 @@ def get_data(subj_type, prod_type):
         data["contract"]["OpType"] = "FC"
         data["contract"]["TFSCDealer"] = "1373"
 #        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FC_GENIO_V_15_018"
-        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FC_VARIO_V_15_004"
+        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FC_KREDIT_V_18_118"
         data["contract"]["NoOfInstalmentsMax"] = "72"
 
-#        data["vehicle"]["VehicleModelType"] = "AUHTS"
-#        data["vehicle"]["VehicleModel"] = "000636"
-#        data["vehicle"]["EquipmentLevel"] = "CT__AUHTSMC15_T0006363L__"
-        data["vehicle"]["VehicleModelType"] = "VER"
-        data["vehicle"]["VehicleModel"] = "000618"
-        data["vehicle"]["EquipmentLevel"] = "CT__VER__MY15_T000618RS__"        
+        data["vehicle"]["VehicleModelType"] = "AUHTS"
+        data["vehicle"]["VehicleModel"] = "000636"
+        data["vehicle"]["EquipmentLevel"] = "CT__AUHTSMC15_T00063604__"
+#        data["vehicle"]["VehicleModelType"] = "VER"
+#        data["vehicle"]["VehicleModel"] = "000618"
+#        data["vehicle"]["EquipmentLevel"] = "CT__VER__MY15_T000618RS__"        
         data["vehicle"]["VehicleOperation"] = "1"
         data["vehicle"]["AccessoriesPriceVAT"] = "7500"
         data["vehicle"]["DiscountPrice"] = "1586"
@@ -282,12 +282,12 @@ def get_data(subj_type, prod_type):
     elif prod_type == "FO":
         data["contract"]["OpType"] = "FO"
         data["contract"]["TFSCDealer"] = "1373"
-        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FO_RENT_V_15_064"
+        data["contract"]["CampaignCode"] = "KAMPAN_PRO_FO_RENT_V_18_131"
         data["contract"]["NoOfInstalmentsMax"] = "72"
 
         data["vehicle"]["VehicleModelType"] = "AUR"
         data["vehicle"]["VehicleModel"] = "000621"
-        data["vehicle"]["EquipmentLevel"] = "CT__AUR__MC15_T000621JH__"
+        data["vehicle"]["EquipmentLevel"] = "CT__AUR__MC15_T0006218B__"
         data["vehicle"]["VehicleOperation"] = "1"
         data["vehicle"]["AccessoriesPriceVAT"] = "7500"
         data["vehicle"]["DiscountPrice"] = "1586"

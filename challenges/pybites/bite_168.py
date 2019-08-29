@@ -75,18 +75,18 @@ class Rankings:
 
         
     def dump(self):
-        del self._ninjas[-1]
+        return self._ninjas.pop()
     
     def highest(self, n=1):
         return self._ninjas[:n]
     
     def lowest(self, n=1):
-        return self._ninjas[-n:]
+        return self._ninjas[-n:][::-1]
     
     def __len__(self):
         return len(self._ninjas)
     
-    def pair_up(self, n=1):
+    def pair_up(self, n=3):
         possible_pairs = len(self._ninjas) // 2
         print(f"num of possible pairs: {possible_pairs}")
         if possible_pairs < 1:

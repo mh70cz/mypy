@@ -6,27 +6,31 @@ import time
 import asyncio
 from typing import Union
 
-#ONE_MIN = 60
-#FIVE_MIN = ONE_MIN * 5
-#TWENTY_FIVE_MIN = ONE_MIN * 25
-#THIRTY_MIN = ONE_MIN * 30
-#HOUR = ONE_MIN * 60
-#CURRENT_SESSION = 1
+# ONE_MIN = 60
+# FIVE_MIN = ONE_MIN * 5
+# TWENTY_FIVE_MIN = ONE_MIN * 25
+# THIRTY_MIN = ONE_MIN * 30
+# HOUR = ONE_MIN * 60
+# CURRENT_SESSION = 1
 
-#ONE_MIN = .02
-#FIVE_MIN = ONE_MIN * 5
-#TWENTY_FIVE_MIN = ONE_MIN * 25
-#THIRTY_MIN = ONE_MIN * 30
-#HOUR = ONE_MIN * 60
-#CURRENT_SESSION = 1
-
-ONE_MIN = .006
-FIVE_MIN = ONE_MIN * .0005
-TWENTY_FIVE_MIN = ONE_MIN * .0025
-THIRTY_MIN = ONE_MIN * .003
-HOUR = ONE_MIN * .06
+ONE_MIN = .02
+FIVE_MIN = ONE_MIN * 5
+TWENTY_FIVE_MIN = ONE_MIN * 25
+THIRTY_MIN = ONE_MIN * 30
+HOUR = ONE_MIN * 60
 CURRENT_SESSION = 1
 
+# ONE_MIN = .006
+# FIVE_MIN = ONE_MIN * .0005
+# TWENTY_FIVE_MIN = ONE_MIN * .0025
+# THIRTY_MIN = ONE_MIN * .003
+# HOUR = ONE_MIN * .06
+# CURRENT_SESSION = 1
+
+END_COLOR ="\033[0m"   
+CYAN = "\033[36m" 
+RED = "\033[31m"
+MAGENTA = "\033[35m"
 
 async def break_time(delay: Union[int, float], loop: int) -> None:
     """Break time
@@ -39,17 +43,18 @@ async def break_time(delay: Union[int, float], loop: int) -> None:
     print(f"[{loop}] {time.strftime('%X')} Time for a {_delay} min break!")
     await asyncio.sleep(delay)
 
+
 async def lunch_time(delay: Union[int, float]) -> None:
     """Lunch time
 
     :param delay: float of delay in seconds
     :return: None
     """
-    print(f"\n** {time.strftime('%X')} Time for lunch! **")
+    print(RED + f"\n** {time.strftime('%X')} Time for lunch! **" + END_COLOR)
     await asyncio.sleep(delay)
 
 
-async def work_time(delay: Union[int, float], loop: int ) -> None:
+async def work_time(delay: Union[int, float], loop: int) -> None:
     """Work time
 
     :param delay: float of delay in seconds
@@ -59,10 +64,11 @@ async def work_time(delay: Union[int, float], loop: int ) -> None:
     print(f"[{loop}] {time.strftime('%X')} Time to work!")
     await asyncio.sleep(delay)
 
+
 async def session(
-    work_length: Union[int, float]=TWENTY_FIVE_MIN,
-    short_break_length: Union[int, float]=FIVE_MIN,
-    long_break_length: Union[int, float]=THIRTY_MIN,
+        work_length: Union[int, float] = TWENTY_FIVE_MIN,
+        short_break_length: Union[int, float] = FIVE_MIN,
+        long_break_length: Union[int, float] = THIRTY_MIN,
 ) -> None:
     """Session
 
@@ -76,7 +82,7 @@ async def session(
     while loop < 4:
         await work_time(work_length, loop)
         await break_time(short_break_length, loop)
-        
+
         loop += 1
 
     await work_time(work_length, loop)
@@ -86,10 +92,10 @@ async def session(
 
 
 async def main(
-    work_length: Union[int, float]=TWENTY_FIVE_MIN,
-    short_break_length: Union[int, float]=FIVE_MIN,
-    long_break_length: Union[int, float]=THIRTY_MIN,
-    lunch_length: Union[int, float]=HOUR,
+        work_length: Union[int, float] = TWENTY_FIVE_MIN,
+        short_break_length: Union[int, float] = FIVE_MIN,
+        long_break_length: Union[int, float] = THIRTY_MIN,
+        lunch_length: Union[int, float] = HOUR,
 ) -> None:
     """Main entry point
 
@@ -99,25 +105,27 @@ async def main(
     :param lunch_length: float of lunch length in seconds
     :return: None
     """
-    global CURRENT_SESSION
     print(f"Pomodor timer started at: {time.strftime('%X')}")
 
-#    await asyncio.gather(s for i in range(3))
-    tasks = []
-    while CURRENT_SESSION <= 4:
-        s = session(work_length, short_break_length, long_break_length)
-        print(f"\nSession: {CURRENT_SESSION}")
-        t = asyncio.create_task(s)
-        tasks.append(t)
-        #( session(work_length, short_break_length, long_break_length) )
-        if CURRENT_SESSION == 2:
-            t =  asyncio.create_task(lunch_time(lunch_length))
-            tasks.append(t)
-        CURRENT_SESSION += 1
-    for t in tasks:
-        print (t)
-        await t
-    
+    async def pomod():
+        global CURRENT_SESSION
+        while CURRENT_SESSION <= 4:
+            print(f"\nSession: {CURRENT_SESSION}")
+            await session(work_length, short_break_length, long_break_length)
+            if CURRENT_SESSION == 2:
+                await lunch_time(lunch_length)
+            CURRENT_SESSION += 1
+
+    async def do_some_concurrent_work():
+        for i in range(8):
+            print(MAGENTA + f"do some other concurrent work {i}" + END_COLOR)
+            await asyncio.sleep(HOUR)
+
+    task_pomod = asyncio.create_task(pomod())
+    task_do_some_concurrent_work = asyncio.create_task(do_some_concurrent_work())
+    await task_pomod
+    await task_do_some_concurrent_work
+
     print(f"\n{time.strftime('%X')} Time to go home!")
 
     print(f"\nWork day completed at: {time.strftime('%X')}")

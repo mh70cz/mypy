@@ -53,7 +53,7 @@ rootFolders_M = [
 backup_folder_M = r"C:\Users\m.houska\OneDrive\ZZ-Archive\MDrive_increm"
 
 ignored_filenames = ["Thumbs.db"]
-ignored_extension = ["tmp", "wrk"]
+ignored_extension = ["tmp", "wrk", "bak"]
 delta_days = 100
 now = dt.datetime.now()
 before = now - dt.timedelta(days=delta_days)

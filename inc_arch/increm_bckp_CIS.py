@@ -52,7 +52,7 @@ rootFolders_M = [
     ]
 backup_folder_M = r"C:\Users\m.houska\OneDrive\ZZ-Archive\MDrive_increm"
 
-ignored_filenames = ["Thumbs.db"]
+ignored_filenames = ["Thumbs.db", "mh_tmp.txt", "mh_wrk.txt"]
 ignored_extension = ["tmp", "wrk", "bak"]
 delta_days = 100
 now = dt.datetime.now()

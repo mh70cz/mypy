@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-path = Path("C:/tmp/rqu_BEE_Live_spo")
+path = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
 path = path / "179756_IN__636991254658007845.xml"
 
 # 178068_IN__636968843102397373

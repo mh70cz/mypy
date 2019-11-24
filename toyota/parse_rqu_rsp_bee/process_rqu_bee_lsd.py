@@ -8,8 +8,8 @@ import os
 import pandas as pd
 import parse_rqu_bee
 
-fpath_spo = Path("C:/tmp/rqu_BEE_Live_spo")
-fpath_fop = Path("C:/tmp/rqu_BEE_Live_fop")
+fpath_spo = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
+fpath_fop = Path("C:/BEE_rqu/rqu_BEE_Live_fop")
 
 #fpath = fpath_spo
 

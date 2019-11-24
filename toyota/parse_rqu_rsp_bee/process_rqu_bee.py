@@ -8,7 +8,7 @@ import os
 import pandas as pd
 import parse_rqu_bee
 
-fpath = Path("C:/tmp/rqu_BEE_Live_po")
+fpath = Path("C:/BEE_rqu/rqu_BEE_Live_po")
 
 
 files = []

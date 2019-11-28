@@ -7,9 +7,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-path = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
-path = path / "179756_IN__636991254658007845.xml"
+path = Path("C:/BEE_rqu/rqu_BEE_Live_po")
+path = path / "189231_IN__637098581329698681.xml"
 
+# 189231_IN__637098581329698681.xml - po
 # 178068_IN__636968843102397373
 # 178248_IN__636975927369383673 -nrki delikvence
 
@@ -24,6 +25,25 @@ def get_root(path):
     root = tree.getroot()
     return root
 
+def get_contract(root):
+    
+    op_type = ""
+    op_type_elem = root.find(".//cls:Contract/cls:OpType", ns)
+    if op_type_elem is not None:
+        op_type = op_type_elem.text    
+
+    credit_amount_vat = ""
+    credit_amount_vat_elem = root.find(".//cls:Contract/cls:CreditAmountVAT", ns)
+    if credit_amount_vat_elem is not None:
+        credit_amount_vat = credit_amount_vat_elem.text
+        
+    out = {"op_type": op_type,
+           "credit_amount_vat": credit_amount_vat,
+           }    
+    return out    
+        
+        
+
 def get_applicant(root):
     applicant_elem = root.find(".//cls:Applicant", ns)
     if applicant_elem is None:
@@ -32,18 +52,32 @@ def get_applicant(root):
     return applicant_elem
 
 def get_applicant_info(subj_elem):
-    sub_type = ""
-    sub_type_elem = subj_elem.find(".//cls:SubjType", ns)
-    if sub_type_elem is not None:
-        sub_type = sub_type_elem.text
+    subj_type = ""
+    subj_type_elem = subj_elem.find(".//cls:SubjType", ns)
+    if subj_type_elem is not None:
+        subj_type = subj_type_elem.text
         #print (subj_type_elem)
     ico = "" # zatim 2019-11-23 neni ve vstupu do BEE
     ico_elem = subj_elem.find(".//cls:Ico", ns)
     if ico_elem is not None:
-        ico = ico_elem.text    
+        ico = ico_elem.text   
+        
+    subjectCreditExposure = ""
+    subjectCreditExposure_elem = subj_elem.find("cls:subjectCreditExposure", ns)
+    if  subjectCreditExposure_elem is not None:
+        subjectCreditExposure = subjectCreditExposure_elem.text
+        
+        
+    GroupCreditExposure = ""
+    GroupCreditExposure_elem = subj_elem.find("cls:GroupCreditExposure", ns)
+    if  GroupCreditExposure_elem is not None:
+        GroupCreditExposure = GroupCreditExposure_elem.text 
+        
     
-    out = {"sub_type": sub_type,
-           "ico": ico,}
+    out = {"subj_type": subj_type,
+           "ico": ico,
+           "subjectCreditExposure": subjectCreditExposure,
+           "GroupCreditExposure": GroupCreditExposure,}
     
     return out
 
@@ -63,6 +97,8 @@ gr = get_global_report(applicant_elem)["gr"]
 gr_info = get_global_report_info(gr)
 
 """
+
+
 
 
 def get_nrki(subj_elem):

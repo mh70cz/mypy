@@ -63,7 +63,6 @@ def get_representative(root):
 path = srcpath / file
 
 
-print(path)
 root = get_root(path)
 representative = get_representative(root)
 applicant = get_applicant(root)
@@ -73,17 +72,20 @@ representative_type_elem.text="1"
 representative_type_elem.tail = "\n"+6*" "
 representative.insert(1, representative_type_elem)
 
-
-new_osf = "bflmpsvz"
-
 other_statutory_facts_elem = applicant.find(".//gr:OtherStatutoryFacts", ns)
-other_statutory_facts_elem.text = new_osf
 
-path_out = dstpath / file
-out_tree = ET.ElementTree(root) # vytvor novy tree 
-out_tree.write(path_out, encoding="utf-8")                
+for idx, row in df2.head(n=6).iterrows():
+    if row["num_statutories"] != 1:
+        #print(idx, row["other_stat_facts"])
+        new_osf = row["other_stat_facts"]
+        file = row["src_file"]
 
-
+        other_statutory_facts_elem.text = new_osf
+        
+        path_out = dstpath / file
+        print(path_out)
+        out_tree = ET.ElementTree(root) # vytvor novy tree 
+        out_tree.write(path_out, encoding="utf-8")                
 
 """
 

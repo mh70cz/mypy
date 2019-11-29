@@ -17,14 +17,14 @@ from pathlib import Path
 import os
 
 
-#srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
-#dstpath = Path("C:/BEE_batch/in_spo")
+srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
+dstpath = Path("C:/BEE_batch/in_spo")
 
 #srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_fop")
 #dstpath = Path("C:/BEE_batch/in_fop")
 
-srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_po")
-dstpath = Path("C:/BEE_batch/in_po")
+#srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_po")
+#dstpath = Path("C:/BEE_batch/in_po")
 
 ns = {"cls":"uri:creditinfosolutions/cls",
       "nrki":"nrki_ToDo",

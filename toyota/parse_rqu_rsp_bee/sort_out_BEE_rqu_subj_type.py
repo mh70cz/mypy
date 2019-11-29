@@ -8,10 +8,10 @@ import os
 from shutil import copyfile
 import parse_rqu_bee
 
-srcfld = Path("C:/tmp/rqu_BEE_Live")
-dstfld_spo = Path("C:/tmp/rqu_BEE_Live_spo")
-dstfld_fop = Path("C:/tmp/rqu_BEE_Live_fop")
-dstfld_po = Path("C:/tmp/rqu_BEE_Live_po")
+srcfld = Path("C:/BEE_rqu/rqu_BEE_Live__new")
+dstfld_spo = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
+dstfld_fop = Path("C:/BEE_rqu/rqu_BEE_Live_fop")
+dstfld_po = Path("C:/BEE_rqu/rqu_BEE_Live_po")
 
 
 max_files  = 2000
@@ -32,7 +32,9 @@ for file in os.listdir(srcfld):
         print ("chyba v SubjType - None " + file)
         cnt_err += 1
         continue
-    applicant_subj_type = parse_rqu_bee.get_applicant_subj_type(applicant_elem)
+    
+    applicant_subj_type = parse_rqu_bee.get_applicant_info(applicant_elem)["subj_type"]
+
     print(applicant_subj_type)
         
     if applicant_subj_type == "1":

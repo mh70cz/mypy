@@ -7,8 +7,8 @@ from pathlib import Path
 import os
 from shutil import copyfile
 
-srcfld = Path("C:/tmp/rqu_rsp_BEE_Live")
-dstfld = Path("C:/tmp/rqu_BEE_Live")
+srcfld = Path("C:/BEE_rqu/rqu_rsp_BEE_Live__new")
+dstfld = Path("C:/BEE_rqu/rqu_BEE_Live__new")
 
 for file in os.listdir(srcfld):
     if file.endswith(".xml"):

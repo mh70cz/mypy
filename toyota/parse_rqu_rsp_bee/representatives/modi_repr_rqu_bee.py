@@ -8,17 +8,20 @@ from pathlib import Path
 import os
 
 
-#srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
-#dstpath = Path("C:/BEE_batch/in_spo")
-
-#srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_fop")
-#dstpath = Path("C:/BEE_batch/in_fop")
-
 srcpath = Path("C:/BEE_batch/ma_stat")
-dstpath = Path("C:/BEE_batch/in_stat")
 
-file = "189231_IN__637098581329698681.xml"
-
+process_sro = False
+if process_sro:
+    dstpath = Path("C:/BEE_batch/in_stat_sro")
+    file = "189231_master_sro.xml"
+    comp_cond = 'row["legal_form_cd"] == "112"'
+    
+else:
+    dstpath = Path("C:/BEE_batch/in_stat_nonsro")
+    file = "178557_master_as.xml"
+    comp_cond = 'row["legal_form_cd"] != "112"'    
+    
+    
 ns = {"cls":"uri:creditinfosolutions/cls",
       "nrki":"nrki_ToDo",
       'urp': 'https://ws.urplus.sk',
@@ -74,8 +77,9 @@ representative.insert(1, representative_type_elem)
 
 other_statutory_facts_elem = applicant.find(".//gr:OtherStatutoryFacts", ns)
 
-for idx, row in df2.head(n=6).iterrows():
-    if row["num_statutories"] != 1:
+for idx, row in df2.head(n=600).iterrows():
+    
+    if row["num_statutories"] != 1 and eval(comp_cond) :
         #print(idx, row["other_stat_facts"])
         new_osf = row["other_stat_facts"]
         file = row["src_file"]
@@ -89,60 +93,6 @@ for idx, row in df2.head(n=6).iterrows():
 
 """
 
-OtherStatutoryFacts
 
-files = []
-for file in os.listdir(srcpath):
-    if file.endswith(".xml"):
-        files.append(file)
-
-data = []
-for file in files[-10:]:
-    
-    path = srcpath / file
-    print(path)
-    root = get_root(path)
-    
-    in_elem = root.find(".//cls:In", ns)
-    
-    # ET.register_namespace('',"uri:creditinfosolutions/cls") zajisti pridani 
-    # xmlns="uri:creditinfosolutions/cls" attributu do elementu, nasleduji radek
-    # by zpusobil duplicitni vyskyt tohoto attributu
-    #in_elem.attrib["xmlns"] = "uri:creditinfosolutions/cls"
-    
-    
-    # oprava 2 chybnych ns -- poresit s Petrem J.
-    if in_elem is not None:
-        cr_rep_elem = in_elem.find(".//CR_REP", ns)
-        if cr_rep_elem is not None:
-            cr_rep_elem.attrib["xmlns"] = "nrki_ToDo" 
-            
-        conn_isir_elem = in_elem.find(".//cls:ConnectorIsir", ns)
-        if conn_isir_elem is not None:
-            isir_stav_elem = conn_isir_elem.find(".//stav", ns)
-            if isir_stav_elem is not None:
-                isir_stav_elem.attrib["xmlns"] = "http://isirws.cca.cz/types/"        
-            
-        
-
-    
-    out_tree = ET.ElementTree(in_elem) # vytvor novy tree 
-    path_out = dstpath / file
-    #out_tree.write(path_out, encoding="utf-16le")  # BEE neakceptuje(?)
-    out_tree.write(path_out, encoding="utf-8")                
-    
-            
-"""    
-"""
-in_elem.attrib["xmlns"] = "uri:creditinfosolutions/cls"
-out_tree.getroot().tag
-in_elem.tag = "{uri:aaa}In"
-
-
-out_tree = ET.ElementTree(in_elem)
-ET.register_namespace('',"uri:creditinfosolutions/cls")
-ET.register_namespace('nrki',"nrki_ToDo")
-ET.register_namespace("types", "http://isirws.cca.cz/types/")
-out_tree.write("C:/BEE_batch/in_spo/bflm.xml", encoding="utf-16le")
 
 """    

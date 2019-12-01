@@ -19,6 +19,24 @@ ns = {"cls":"uri:creditinfosolutions/cls",
       'urp': 'https://ws.urplus.sk',
       'gr': 'urn:crif-cribiscz-GetGlobalReport:2013-05-03'}
 
+
+"""
+root =  get_root(path)
+applicant_elem = get_applicant(root)
+
+
+contract_data =  get_nrki(applicant_elem)["contract_data"]
+cbs = get_nrki_cbscore(contract_data)
+
+lsd = get_lsd(applicant_elem, order="first")
+
+
+gr = get_global_report(applicant_elem)["gr"]
+gr_info = get_global_report_info(gr)
+
+"""
+
+
 def get_root(path):
     with open(path, encoding="utf-16le") as fp:  #utf-16le  utf-8
         tree = ET.parse(fp)
@@ -51,6 +69,26 @@ def get_applicant(root):
         return None
     return applicant_elem
 
+def get_representatives(root, num_only=False):
+    """ vrati 1. list nepraznych elementu representative    num_only=False
+              2. pocet neprazdnych elementu representative  num_only=True
+    """
+    repr_num = 0
+    representatives = []
+    repr_elem_names = ["Representative", "Representative1", "Representative2"]
+    
+    for r in repr_elem_names:
+        repr_elem = root.find(".//cls:" + r, ns)
+        if repr_elem is not None:
+            if len(repr_elem) > 0:
+                representatives.append(repr_elem)
+                repr_num += 1
+    if num_only:
+        return (repr_num)
+    return (representatives)
+    
+    
+
 def get_applicant_info(subj_elem):
     subj_type = ""
     subj_type_elem = subj_elem.find(".//cls:SubjType", ns)
@@ -82,21 +120,7 @@ def get_applicant_info(subj_elem):
     return out
 
 
-"""
-root =  get_root(path)
-applicant_elem = get_applicant(root)
 
-
-contract_data =  get_nrki(applicant_elem)["contract_data"]
-cbs = get_nrki_cbscore(contract_data)
-
-lsd = get_lsd(applicant_elem, order="first")
-
-
-gr = get_global_report(applicant_elem)["gr"]
-gr_info = get_global_report_info(gr)
-
-"""
 
 
 
@@ -286,7 +310,7 @@ def get_vat_other_stat_facts(subj):
 
     out = {"ico": ico,
            "vatid": vatid,
-           "num_statutories": num_statutories,
+           "num_stat": num_statutories,
            "other_stat_facts": other_stat_facts,
            }
     return (out)

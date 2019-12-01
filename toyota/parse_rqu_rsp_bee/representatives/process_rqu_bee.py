@@ -23,9 +23,13 @@ for file in files[:]:
     print(path)
 
     
-    row = {}
     root = parse_rqu_bee.get_root(path)
         
+    row = {"num_repr": parse_rqu_bee.get_representatives(root, num_only=True),
+            #"ico": app["ico"],  
+            
+            }
+    
     applicant_elem = parse_rqu_bee.get_applicant(root)
 
     app = parse_rqu_bee.get_applicant_info(applicant_elem)
@@ -37,17 +41,13 @@ for file in files[:]:
         gr_info = parse_rqu_bee.get_global_report_info(gr)
         gr_info_out = {"ico_gr": gr_info["ico"],
                        "vatid_gr": gr_info["vatid"],
-                       "num_statutories": gr_info["num_statutories"],
+                       "num_stat": gr_info["num_statutories"],
                        "other_stat_facts": gr_info["other_stat_facts"],
                        "stries_positions": gr_info["stries_positions"],                       
                        "legal_form_cd": gr_info["legal_form_cd"],
                        "legal_form": gr_info["legal_form"],                       
                        }
-    
-    row = {
-            #"ico": app["ico"],            
-           }
-    
+        
     row.update(gr_info_out)
 
     row["rqu_id_f"] = file[:6]

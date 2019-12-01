@@ -6,16 +6,27 @@ process df
 import re
 import pandas as pd
 
+SRO = "112"
 
 
-
-def neg_match(string):
-    neg_re = ["společně",
+def neg_match(string, legal_form_sro=True):
+    neg_re_sro = ["společně",
               "(dvou|obou|všech).+jednatelů",
               "(výjimkou|pouze)",
               "(půjčka|půjčce|úvěr|úvěru|závazek|závazku)",
               "předseda[ ].{0,35}jednatelů",
               ]
+    
+    neg_re_nonsro = ["společně",
+                     "(výjimkou|pouze)",
+                     "(půjčka|půjčce|úvěr|úvěru|závazek|závazku)",
+              ]
+    
+    if legal_form_sro:
+        neg_re = neg_re_sro
+    else:
+        neg_re = neg_re_nonsro
+        
     for regex in neg_re:
         match_obj = re.search(regex, string)
         if match_obj is not None:
@@ -37,11 +48,12 @@ def pos_match(string):
 
 out = []        
 for idx, row in df2.head(n=600).iterrows():
-    if row["num_statutories"] != 1:
+    if row["num_stat"] != 1:
         #print(idx, row["other_stat_facts"])
+           
         other_stat_facts = row["other_stat_facts"].lower()
-        status, regex = neg_match(other_stat_facts)
-        if status != "NEG":
+        status, regex = neg_match(other_stat_facts, (row["legal_form_cd"] == SRO))
+        if (status != "NEG") and (row["legal_form_cd"] == SRO):
             status, regex = pos_match(other_stat_facts)
         #print (status + ": " + regex + "\n" + other_stat_facts)
         
@@ -49,7 +61,10 @@ for idx, row in df2.head(n=600).iterrows():
                    "status": status,
                    "regex": regex,
                    "other_stat_facts":row["other_stat_facts"],
+                   "num_repr": row["num_repr"],
+                   "num_stat": row["num_stat"],
                    "ico_gr": row["ico_gr"],
+                   "legal_form_cd": row["legal_form_cd"],
                    "rqu_id_f": row["rqu_id_f"],
                 }
         out.append(out_row)

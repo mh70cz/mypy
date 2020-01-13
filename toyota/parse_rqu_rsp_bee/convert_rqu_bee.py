@@ -4,7 +4,9 @@
 provede konverzi z logu requestu do BEE do formatu, ktery lze pouzit v primo v BEE
 napr. Batch testing , nebo nakopirovat do Testing Data v projektu
 Konverze zahrnuje:
-vyber pouze elementu In ; 2x oprava ns ; konverze z utf-16le do  utf-8
+    vyber pouze elementu In ; 
+    2x oprava ns (NRKI a ISIR); 
+    konverze z utf-16le do  utf-8
 
 
 https://stackoverflow.com/questions/13412496/python-elementtree-module-how-to-ignore-the-namespace-of-xml-files-to-locate-ma
@@ -17,14 +19,14 @@ from pathlib import Path
 import os
 
 
-srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
-dstpath = Path("C:/BEE_batch/in_spo")
+# srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_spo")
+# dstpath = Path("C:/BEE_batch/in_spo")
 
-#srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_fop")
-#dstpath = Path("C:/BEE_batch/in_fop")
+# srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_fop")
+# dstpath = Path("C:/BEE_batch/in_fop")
 
-#srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_po")
-#dstpath = Path("C:/BEE_batch/in_po")
+srcpath = Path("C:/BEE_rqu/rqu_BEE_Live_po")
+dstpath = Path("C:/BEE_batch/in_po")
 
 ns = {"cls":"uri:creditinfosolutions/cls",
       "nrki":"nrki_ToDo",
@@ -66,7 +68,7 @@ for file in os.listdir(srcpath):
         files.append(file)
 
 data = []
-for file in files[-10:]:
+for file in files[-254:]:
     
     path = srcpath / file
     print(path)
@@ -88,6 +90,9 @@ for file in files[-10:]:
             
         conn_isir_elem = in_elem.find(".//cls:ConnectorIsir", ns)
         if conn_isir_elem is not None:
+            isir_data_elem = conn_isir_elem.find(".//data", ns)
+            if isir_data_elem is not None:
+                isir_data_elem.attrib["xmlns"] = "http://isirws.cca.cz/types/"    
             isir_stav_elem = conn_isir_elem.find(".//stav", ns)
             if isir_stav_elem is not None:
                 isir_stav_elem.attrib["xmlns"] = "http://isirws.cca.cz/types/"        

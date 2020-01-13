@@ -35,7 +35,7 @@ class Book:
     
     def __str__(self):
         line1 = (f"[{self.rank:03}] {self.title} ({self.year})") 
-        line2 = (f"{6*' '}{self.author} {self.rating}")
+        line2 = (f"{6*' '}{self.author} {float(self.rating)}")
         return line1 + "\n" + line2
     
 
@@ -53,7 +53,11 @@ def display_books(books, limit=10, year=None):
     :param year: integer indicating the oldest year to include
     :return: None
     """
-    pass
+    cnt = 0
+    for book in books:
+        if cnt < limit and (year is None or book.year >= year):
+            print(book)
+            cnt +=1
 
 
 def load_data():
@@ -68,6 +72,8 @@ def load_data():
     should be updated to indicate this new sorting order.The Book object
     with the highest rating should be first and go down from there.
     """
+    books = []
+    
     soup = _get_soup(html_file)
     book_headers = soup.find_all("div", class_="book-header-title" )
     for bh in book_headers:
@@ -79,28 +85,50 @@ def load_data():
         
         authors = bh.find("h3", class_="authors")
         if authors:
-            authors = authors.text
+            authors = authors.text.replace(" (You?)", "")
+            auth_split = authors.split(" ")
+            try:
+                first_name = " ".join(auth_split[:-1])
+                last_name = auth_split[-1]
+                last_first_name = last_name + ", " + first_name
+            except:
+                continue
         else:
             continue
         
         date = bh.find("span", class_="date")
         if date:
-            date = date.text
+            date = date.text.strip("| ")
+            if date.isnumeric():
+                date = int(date)
+            else: 
+                continue
         else:
             continue
         
         rating = bh.find("span", class_="our-rating")
         if rating:
             rating = rating.text
+            try:
+                rating = float(rating)
+            except ValueError:
+                continue
         else:
             continue
         
         if not "python" in title.lower():
             continue
+                
+        book = Book(title, last_first_name, date, None, rating)
         
-        print(title, authors, date, rating)
+        books.append(book)
         
-
+    books.sort(key=lambda x: ( -x.rating, x.year, x.title.lower(), x.author.lower() ))
+    
+    for idx, book in enumerate(books, start=1):
+        book.rank = idx
+    
+    return books
 
 def main():
     books = load_data()
@@ -108,6 +136,7 @@ def main():
     """If done correctly, the previous function call should display the
     output below.
     """
+
 
 
 if __name__ == "__main__":

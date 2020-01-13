@@ -7,7 +7,7 @@ Created on Sun Nov 10 12:32:20 2019
 
 import pytest
 
-from best_programming_books import Book, display_books, load_data
+from bite_229 import Book, display_books, load_data
 
 
 @pytest.fixture(scope="session")
